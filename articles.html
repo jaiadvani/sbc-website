@@ -337,16 +337,21 @@
     });
 
     let currentCategory = 'All';
+    let allArticles = [];
 
-    function init() {
-      const articles = getArticles().filter(a => a.status === 'published');
+    async function init() {
+      document.getElementById('articles-grid').innerHTML = `
+        <div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-muted);font-family:var(--font-elegant);font-style:italic;font-size:1.1rem">
+          Loading articles...
+        </div>`;
+      allArticles = await getArticles();
       // Build category tabs
-      const cats = ['All', ...new Set(articles.map(a => a.category))];
+      const cats = ['All', ...new Set(allArticles.map(a => a.category))];
       const tabs = document.getElementById('filter-tabs');
       tabs.innerHTML = cats.map(c =>
         `<button class="filter-tab ${c === 'All' ? 'active' : ''}" data-cat="${c}" onclick="setCategory(this,'${c}')">${c}</button>`
       ).join('');
-      renderArticles(articles);
+      renderArticles(allArticles);
     }
 
     function setCategory(el, cat) {
@@ -358,8 +363,7 @@
 
     function filterArticles() {
       const q = document.getElementById('search-input').value.toLowerCase();
-      const articles = getArticles().filter(a => a.status === 'published');
-      const filtered = articles.filter(a => {
+      const filtered = allArticles.filter(a => {
         const matchCat = currentCategory === 'All' || a.category === currentCategory;
         const matchQ = !q || a.title.toLowerCase().includes(q) || a.excerpt.toLowerCase().includes(q) || (a.tags || []).some(t => t.toLowerCase().includes(q));
         return matchCat && matchQ;
@@ -375,19 +379,20 @@
         grid.innerHTML = `<div class="no-results"><div class="icon">🔍</div><p>No articles found. Try a different search or category.</p></div>`;
         return;
       }
+      const formatDate = d => d ? new Date(d).toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'}) : '';
       grid.innerHTML = articles.map(a => `
         <a href="article.html?id=${a.id}" class="article-card-full">
-          <div class="article-thumb-full" style="background:linear-gradient(135deg,rgba(200,146,42,0.08),rgba(10,14,26,0.95))">${a.icon}</div>
+          <div class="article-thumb-full" style="background:linear-gradient(135deg,rgba(200,146,42,0.08),rgba(10,14,26,0.95))">${a.icon || categoryIcon(a.category)}</div>
           <div class="article-body">
             <div class="article-cat">${a.category}</div>
             <h2>${a.title}</h2>
             <p>${a.excerpt}</p>
-            <div class="article-tags">${(a.tags||[]).slice(0,3).map(t => `<span class="article-tag">${t}</span>`).join('')}</div>
+            <div class="article-tags">${(Array.isArray(a.tags) ? a.tags : (a.tags||'').split(',')).slice(0,3).map(t => `<span class="article-tag">${t.trim()}</span>`).join('')}</div>
             <div class="article-footer">
               <div class="article-meta-info">
-                <span>${a.date}</span>
+                <span>${formatDate(a.created_at) || a.date || ''}</span>
                 <span>•</span>
-                <span>${a.readTime || '8 min read'}</span>
+                <span>${a.readTime || a.read_time || '8 min read'}</span>
               </div>
               <span class="article-read-btn">Read →</span>
             </div>

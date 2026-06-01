@@ -404,15 +404,20 @@
     });
 
     let currentCategory = 'All';
+    let allVideos = [];
 
-    function init() {
-      const videos = getVideos().filter(v => v.status === 'published');
-      const cats = ['All', ...new Set(videos.map(v => v.category || 'General'))];
+    async function init() {
+      document.getElementById('videos-grid').innerHTML = `
+        <div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-muted);font-family:var(--font-elegant);font-style:italic;font-size:1.1rem">
+          Loading videos...
+        </div>`;
+      allVideos = await getVideos();
+      const cats = ['All', ...new Set(allVideos.map(v => v.category || 'General'))];
       const tabs = document.getElementById('filter-tabs');
       tabs.innerHTML = cats.map(c =>
         `<button class="filter-tab ${c === 'All' ? 'active' : ''}" onclick="setCategory(this,'${c}')">${c}</button>`
       ).join('');
-      renderVideos(videos);
+      renderVideos(allVideos);
     }
 
     function setCategory(el, cat) {
@@ -424,8 +429,7 @@
 
     function filterVideos() {
       const q = document.getElementById('search-input').value.toLowerCase();
-      const videos = getVideos().filter(v => v.status === 'published');
-      const filtered = videos.filter(v => {
+      const filtered = allVideos.filter(v => {
         const matchCat = currentCategory === 'All' || (v.category || 'General') === currentCategory;
         const matchQ = !q || v.title.toLowerCase().includes(q) || (v.description || '').toLowerCase().includes(q);
         return matchCat && matchQ;
@@ -441,26 +445,29 @@
         grid.innerHTML = `<div class="no-results"><div class="icon">🎬</div><p>No videos found. Try a different search or category.</p></div>`;
         return;
       }
-      grid.innerHTML = videos.map(v => `
+      grid.innerHTML = videos.map(v => {
+        const ytId = v.youtube_id || v.youtubeId || '';
+        const safeTitle = v.title.replace(/'/g,"\\'").replace(/"/g,'&quot;');
+        return `
         <div class="video-card-full">
-          <div class="video-thumb-wrap" onclick="openVideo('${v.youtubeId}','${v.title.replace(/'/g,"\\'")}')">
-            <img src="https://img.youtube.com/vi/${v.youtubeId}/mqdefault.jpg" alt="${v.title}" onerror="this.style.background='#111';this.style.display='none'">
+          <div class="video-thumb-wrap" onclick="openVideo('${ytId}','${safeTitle}')">
+            <img src="https://img.youtube.com/vi/${ytId}/mqdefault.jpg" alt="${v.title}" onerror="this.style.background='#111827';this.style.display='none'">
             <div class="play-btn-wrap">
               <div class="play-circle">▶</div>
             </div>
-            <span class="video-duration">${v.duration}</span>
+            <span class="video-duration">${v.duration || ''}</span>
           </div>
           <div class="video-info">
             <div class="video-cat">${v.category || 'General'}</div>
             <h3>${v.title}</h3>
             <p>${v.description || ''}</p>
             <div class="video-meta">
-              <span>${v.views} views • ${v.duration}</span>
-              <button class="watch-btn" onclick="openVideo('${v.youtubeId}','${v.title.replace(/'/g,"\\'")}')">Watch →</button>
+              <span>${v.views || '0'} views • ${v.duration || ''}</span>
+              <button class="watch-btn" onclick="openVideo('${ytId}','${safeTitle}')">Watch →</button>
             </div>
           </div>
-        </div>
-      `).join('');
+        </div>`;
+      }).join('');
     }
 
     function openVideo(youtubeId, title) {

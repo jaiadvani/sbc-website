@@ -323,56 +323,87 @@
     const params = new URLSearchParams(window.location.search);
     const articleId = parseInt(params.get('id'));
 
-    function init() {
-      const articles = getArticles();
-      const article = articles.find(a => a.id === articleId);
+    async function init() {
+      try {
+        const article = await getArticleById(articleId);
+        if (!article || article.status !== 'published') { showNotFound(); return; }
 
-      if (!article || article.status !== 'published') {
+        // Update SEO meta tags
+        document.getElementById('page-title').textContent = `${article.title} | Sarvatobhadra Chakra`;
+        document.getElementById('page-desc').setAttribute('content', article.excerpt || '');
+        document.getElementById('og-title').setAttribute('content', article.title);
+        document.getElementById('og-desc').setAttribute('content', article.excerpt || '');
+        document.getElementById('breadcrumb-title').textContent = article.title.length > 40 ? article.title.slice(0, 40) + '...' : article.title;
+
+        renderArticle(article);
+
+        // Related articles
+        const allArticles = await getArticles();
+        const related = allArticles.filter(a => a.id !== article.id).slice(0, 4);
+        renderSidebar(related);
+      } catch(e) {
         showNotFound();
-        return;
       }
+    }
 
-      // Update SEO meta tags
-      document.getElementById('page-title').textContent = `${article.title} | Sarvatobhadra Chakra`;
-      document.getElementById('page-desc').setAttribute('content', article.excerpt);
-      document.getElementById('og-title').setAttribute('content', article.title);
-      document.getElementById('og-desc').setAttribute('content', article.excerpt);
-      document.getElementById('breadcrumb-title').textContent = article.title.length > 40 ? article.title.slice(0, 40) + '...' : article.title;
+    // Markdown-like renderer: ##, ###, **, *
+    function renderContent(content) {
+      const lines = content.split('\n');
+      let html = '';
+      let inPara = false;
 
-      // Render article
-      renderArticle(article);
+      for (let line of lines) {
+        line = line
+          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+          .replace(/\*(.+?)\*/g, '<em>$1</em>');
 
-      // Render sidebar
-      const related = articles.filter(a => a.id !== article.id && a.status === 'published').slice(0, 4);
-      renderSidebar(related);
+        if (line.startsWith('#### ')) {
+          if (inPara) { html += '</p>'; inPara = false; }
+          html += `<h4>${line.slice(5)}</h4>`;
+        } else if (line.startsWith('### ')) {
+          if (inPara) { html += '</p>'; inPara = false; }
+          html += `<h3>${line.slice(4)}</h3>`;
+        } else if (line.startsWith('## ')) {
+          if (inPara) { html += '</p>'; inPara = false; }
+          html += `<h2>${line.slice(3)}</h2>`;
+        } else if (line.startsWith('# ')) {
+          if (inPara) { html += '</p>'; inPara = false; }
+          html += `<h2>${line.slice(2)}</h2>`; // treat # as h2 (h1 is title)
+        } else if (line.trim() === '') {
+          if (inPara) { html += '</p>'; inPara = false; }
+        } else {
+          if (!inPara) { html += '<p>'; inPara = true; }
+          else html += ' ';
+          html += line;
+        }
+      }
+      if (inPara) html += '</p>';
+      return html;
     }
 
     function renderArticle(article) {
       const content = document.getElementById('article-content');
-      const paragraphs = Array.isArray(article.content) ? article.content : article.content.split('\n\n');
+      const formatDate = d => d ? new Date(d).toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'}) : '';
+      const tags = Array.isArray(article.tags) ? article.tags : (article.tags || '').split(',').map(t => t.trim()).filter(Boolean);
 
       content.innerHTML = `
         <div class="article-header">
           <span class="cat-badge">${article.category}</span>
           <h1>${article.title}</h1>
           <div class="meta-row">
-            <span>${article.date}</span>
+            <span>${formatDate(article.created_at) || article.date || ''}</span>
             <span class="dot">•</span>
-            <span>${article.readTime || '8 min read'}</span>
+            <span>${article.readTime || article.read_time || '8 min read'}</span>
             <span class="dot">•</span>
             <span>By Guruji</span>
           </div>
         </div>
-        <div class="article-icon-large">${article.icon}</div>
         <div class="article-body-text">
-          ${paragraphs.map(p => {
-            const text = p.startsWith('**') ? `<strong>${p.replace(/\*\*/g, '')}</strong>` : p;
-            return `<p>${text}</p>`;
-          }).join('')}
+          ${renderContent(article.content)}
         </div>
         <div class="article-tags-section">
           <span class="label">Topics</span>
-          <div class="tags-row">${(article.tags || []).map(t => `<span class="tag-pill">${t}</span>`).join('')}</div>
+          <div class="tags-row">${tags.map(t => `<span class="tag-pill">${t}</span>`).join('')}</div>
         </div>
         <div class="share-section">
           <span class="share-label">Share this article</span>

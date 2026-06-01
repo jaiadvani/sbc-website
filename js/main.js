@@ -316,110 +316,117 @@ function switchAdminSection(section) {
   State.adminSection = section;
 }
 
-function renderAdminDashboard() {
-  const published  = State.articles.filter(a => a.status === 'published').length;
-  const totalVids  = State.videos.filter(v => v.status === 'published').length;
-  const allBookings = State.bookings;
-  const pending    = allBookings.filter(b => b.status === 'pending').length;
-  document.getElementById('stat-articles').textContent = published;
-  document.getElementById('stat-videos').textContent   = totalVids;
-  document.getElementById('stat-bookings').textContent = allBookings.length;
-  document.getElementById('stat-pending').textContent  = pending;
+async function renderAdminDashboard() {
+  try {
+    const [articles, videos] = await Promise.all([getAdminArticles(), getAdminVideos()]);
+    const published = articles.filter(a => a.status === 'published').length;
+    const pubVideos = videos.filter(v => v.status === 'published').length;
+    const bookings = State.bookings;
+    document.getElementById('stat-articles').textContent = published;
+    document.getElementById('stat-videos').textContent   = pubVideos;
+    document.getElementById('stat-bookings').textContent = bookings.length;
+    document.getElementById('stat-pending').textContent  = bookings.filter(b => b.status === 'pending').length;
+  } catch(e) { console.warn('Dashboard stats error:', e.message); }
 }
 
-function renderAdminArticles() {
+async function renderAdminArticles() {
   const tbody = document.getElementById('articles-tbody');
   if (!tbody) return;
-  const articles = State.articles;
-  if (articles.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:24px">No articles yet. Use "Add Article" to create your first one.</td></tr>`;
-    return;
+  tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:24px">Loading...</td></tr>`;
+  try {
+    const articles = await getAdminArticles();
+    if (!articles.length) {
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:24px">No articles yet. Use "Add Article" to create your first one.</td></tr>`;
+      return;
+    }
+    const fmt = d => d ? new Date(d).toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'}) : '';
+    tbody.innerHTML = articles.map(a => `
+      <tr>
+        <td>${a.title}</td>
+        <td>${a.category}</td>
+        <td>${fmt(a.created_at)}</td>
+        <td><span class="badge badge-${a.status}">${a.status}</span></td>
+        <td>
+          <button class="btn-sm btn-edit" onclick="toggleStatus(${a.id},'article')">${a.status === 'published' ? 'Unpublish' : 'Publish'}</button>
+          <button class="btn-sm btn-delete" onclick="deleteArticle(${a.id})">Delete</button>
+        </td>
+      </tr>`).join('');
+  } catch(e) {
+    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:#f87171;padding:24px">Could not load from API. Check connection.</td></tr>`;
   }
-  tbody.innerHTML = articles.map(a => `
-    <tr>
-      <td>${a.title}</td>
-      <td>${a.category}</td>
-      <td>${a.date}</td>
-      <td><span class="badge badge-${a.status}">${a.status}</span></td>
-      <td>
-        <button class="btn-sm btn-edit" onclick="toggleStatus(${a.id},'article')">${a.status === 'published' ? 'Unpublish' : 'Publish'}</button>
-        <button class="btn-sm btn-delete" onclick="deleteArticle(${a.id})">Delete</button>
-      </td>
-    </tr>
-  `).join('');
 }
 
-function renderAdminVideos() {
+async function renderAdminVideos() {
   const tbody = document.getElementById('videos-tbody');
   if (!tbody) return;
-  const videos = State.videos;
-  if (videos.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:24px">No videos yet. Use "Add Video" to add your first YouTube video.</td></tr>`;
-    return;
+  tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:24px">Loading...</td></tr>`;
+  try {
+    const videos = await getAdminVideos();
+    if (!videos.length) {
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:24px">No videos yet. Use "Add Video" to add your first YouTube video.</td></tr>`;
+      return;
+    }
+    tbody.innerHTML = videos.map(v => `
+      <tr>
+        <td>${v.title}</td>
+        <td><a href="https://youtube.com/watch?v=${v.youtube_id}" target="_blank" style="color:var(--gold-primary)">${v.youtube_id}</a></td>
+        <td>${v.duration || '—'}</td>
+        <td>${v.views || '0'}</td>
+        <td><span class="badge badge-${v.status}">${v.status}</span></td>
+        <td>
+          <button class="btn-sm btn-edit" onclick="toggleStatus(${v.id},'video')">${v.status === 'published' ? 'Unpublish' : 'Publish'}</button>
+          <button class="btn-sm btn-delete" onclick="deleteVideo(${v.id})">Delete</button>
+        </td>
+      </tr>`).join('');
+  } catch(e) {
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:#f87171;padding:24px">Could not load from API. Check connection.</td></tr>`;
   }
-  tbody.innerHTML = videos.map(v => `
-    <tr>
-      <td>${v.title}</td>
-      <td><a href="https://youtube.com/watch?v=${v.youtubeId}" target="_blank" style="color:var(--gold-primary)">${v.youtubeId}</a></td>
-      <td>${v.duration}</td>
-      <td>${v.views}</td>
-      <td><span class="badge badge-${v.status}">${v.status}</span></td>
-      <td>
-        <button class="btn-sm btn-edit" onclick="toggleStatus(${v.id},'video')">${v.status === 'published' ? 'Unpublish' : 'Publish'}</button>
-        <button class="btn-sm btn-delete" onclick="deleteVideo(${v.id})">Delete</button>
-      </td>
-    </tr>
-  `).join('');
 }
 
 function renderAdminBookings() {
   const tbody = document.getElementById('bookings-tbody');
   if (!tbody) return;
   const bookings = State.bookings;
-  if (bookings.length === 0) {
+  if (!bookings.length) {
     tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:24px">No bookings yet.</td></tr>`;
     return;
   }
   tbody.innerHTML = bookings.map(b => `
     <tr>
-      <td>${b.name}</td>
-      <td>${b.type}</td>
-      <td>${b.date}</td>
-      <td>${b.time}</td>
+      <td>${b.name}</td><td>${b.type}</td><td>${b.date}</td><td>${b.time}</td>
       <td><span class="badge badge-${b.status === 'confirmed' ? 'published' : 'draft'}">${b.status}</span></td>
       <td>
         <button class="btn-sm btn-edit" onclick="confirmBooking(${b.id})">Confirm</button>
         <button class="btn-sm btn-delete" onclick="deleteBooking(${b.id})">Delete</button>
       </td>
-    </tr>
-  `).join('');
+    </tr>`).join('');
 }
 
-function toggleStatus(id, type) {
-  if (type === 'article') {
-    const articles = State.articles;
-    const a = articles.find(x => x.id === id);
-    if (a) { a.status = a.status === 'published' ? 'draft' : 'published'; State.articles = articles; renderAdminArticles(); renderArticles(); }
-  } else {
-    const videos = State.videos;
-    const v = videos.find(x => x.id === id);
-    if (v) { v.status = v.status === 'published' ? 'draft' : 'published'; State.videos = videos; renderAdminVideos(); renderVideos(); }
-  }
-  renderAdminDashboard();
+async function toggleStatus(id, type) {
+  try {
+    if (type === 'article') { await toggleArticleStatus(id); renderAdminArticles(); }
+    else { await toggleVideoStatus(id); renderAdminVideos(); }
+    renderAdminDashboard();
+    showToast('✅ Status updated!');
+  } catch(e) { showToast('❌ Error: ' + e.message); }
 }
 
-function deleteArticle(id) {
-  if (confirm('Delete this article? This cannot be undone.')) {
-    State.articles = State.articles.filter(a => a.id !== id);
-    renderAdminArticles(); renderArticles(); renderAdminDashboard();
-  }
+async function deleteArticle(id) {
+  if (!confirm('Delete this article? This cannot be undone.')) return;
+  try {
+    await deleteArticleFromAPI(id);
+    renderAdminArticles(); renderAdminDashboard();
+    showToast('🗑️ Article deleted.');
+  } catch(e) { showToast('❌ Error deleting: ' + e.message); }
 }
 
-function deleteVideo(id) {
-  if (confirm('Delete this video? This cannot be undone.')) {
-    State.videos = State.videos.filter(v => v.id !== id);
-    renderAdminVideos(); renderVideos(); renderAdminDashboard();
-  }
+async function deleteVideo(id) {
+  if (!confirm('Delete this video? This cannot be undone.')) return;
+  try {
+    await deleteVideoFromAPI(id);
+    renderAdminVideos(); renderAdminDashboard();
+    showToast('🗑️ Video deleted.');
+  } catch(e) { showToast('❌ Error deleting: ' + e.message); }
 }
 
 function deleteBooking(id) {
@@ -435,64 +442,51 @@ function confirmBooking(id) {
   if (b) { b.status = 'confirmed'; State.bookings = bookings; renderAdminBookings(); renderAdminDashboard(); }
 }
 
-function addArticle() {
+async function addArticle() {
   const title    = document.getElementById('new-article-title').value.trim();
   const category = document.getElementById('new-article-category').value;
   const content  = document.getElementById('new-article-content').value.trim();
-  const icon     = document.getElementById('new-article-icon')?.value || '🔯';
   const tagsRaw  = document.getElementById('new-article-tags')?.value || '';
   if (!title || !content) { alert('Please fill in the title and content before saving.'); return; }
 
-  const tags = tagsRaw.split(',').map(t => t.trim()).filter(Boolean);
-  const wordCount = content.split(/\s+/).length;
-  const article = {
-    id: Date.now(), title, category, icon, tags,
-    date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }),
-    readTime: Math.max(3, Math.ceil(wordCount / 200)) + ' min read',
-    excerpt: content.replace(/\n/g,' ').slice(0, 140) + '...',
-    content, status: 'draft'
-  };
-
-  const articles = State.articles;
-  articles.unshift(article);
-  State.articles = articles;
-
-  document.getElementById('new-article-title').value = '';
-  document.getElementById('new-article-content').value = '';
-  if (document.getElementById('new-article-tags')) document.getElementById('new-article-tags').value = '';
-
-  renderAdminArticles();
-  renderArticles();
-  renderAdminDashboard();
-  switchAdminSection('articles');
-  showToast('✅ Article saved as draft! Click Publish to make it live.');
+  const btn = document.querySelector('#panel-add-article .btn-primary');
+  if (btn) { btn.disabled = true; btn.querySelector('span').textContent = '⏳ Saving...'; }
+  try {
+    await saveArticleToAPI({ title, category, content, tags: tagsRaw, status: 'draft' });
+    document.getElementById('new-article-title').value = '';
+    document.getElementById('new-article-content').value = '';
+    if (document.getElementById('new-article-tags')) document.getElementById('new-article-tags').value = '';
+    renderAdminArticles(); renderAdminDashboard();
+    switchAdminSection('articles');
+    showToast('✅ Article saved as draft! Click Publish to make it live.');
+  } catch(e) {
+    showToast('❌ Error saving article: ' + e.message);
+  } finally {
+    if (btn) { btn.disabled = false; btn.querySelector('span').textContent = '💾 Save as Draft'; }
+  }
 }
 
-function addVideo() {
+async function addVideo() {
   const title     = document.getElementById('new-video-title').value.trim();
-  const youtubeId = document.getElementById('new-video-id').value.trim().replace(/.*v=/, '').replace(/&.*/, '').trim();
+  const youtubeId = document.getElementById('new-video-id').value.trim();
   const duration  = document.getElementById('new-video-duration').value.trim();
-  if (!title || !youtubeId) { alert('Please fill in the title and YouTube ID (or full URL).'); return; }
+  if (!title || !youtubeId) { alert('Please fill in the title and YouTube ID.'); return; }
 
-  const video = {
-    id: Date.now(), title, youtubeId,
-    duration: duration || '—', views: '0', status: 'draft'
-  };
-
-  const videos = State.videos;
-  videos.unshift(video);
-  State.videos = videos;
-
-  document.getElementById('new-video-title').value    = '';
-  document.getElementById('new-video-id').value       = '';
-  document.getElementById('new-video-duration').value = '';
-
-  renderAdminVideos();
-  renderVideos();
-  renderAdminDashboard();
-
-  switchAdminSection('videos');
-  showToast('✅ Video saved as draft! Use the Publish button to make it live.');
+  const btn = document.querySelector('#panel-add-video .btn-primary');
+  if (btn) { btn.disabled = true; btn.querySelector('span').textContent = '⏳ Saving...'; }
+  try {
+    await saveVideoToAPI({ title, youtube_id: youtubeId, duration, category: 'Learn SBC', status: 'draft' });
+    document.getElementById('new-video-title').value = '';
+    document.getElementById('new-video-id').value = '';
+    document.getElementById('new-video-duration').value = '';
+    renderAdminVideos(); renderAdminDashboard();
+    switchAdminSection('videos');
+    showToast('✅ Video saved as draft! Click Publish to make it live.');
+  } catch(e) {
+    showToast('❌ Error saving video: ' + e.message);
+  } finally {
+    if (btn) { btn.disabled = false; btn.querySelector('span').textContent = '🎬 Save Video'; }
+  }
 }
 
 /* ── Reset to defaults (emergency) ── */
