@@ -1,76 +1,10 @@
 // ============================================================
 //  SARVATOBHADRA CHAKRA — Main JavaScript
 //  v3 — Connected to PostgreSQL API
+//  Note: API_URL, getArticles, getVideos etc. are in js/data.js
 // ============================================================
 
-const API_URL = 'http://y2hewqyikxpxfrml3rsk5i28.72.62.228.4.sslip.io';
-
-/* ── Default seed data (used only on first ever load) ── */
-const DEFAULT_ARTICLES = [
-  {
-    id: 1, title: "Understanding the Sarvatobhadra Chakra: An Introduction",
-    category: "Fundamentals", date: "15 May 2025",
-    excerpt: "The Sarvatobhadra Chakra is one of the most profound and versatile tools in Vedic astrology, offering insights across multiple dimensions of life.",
-    content: `The Sarvatobhadra Chakra (SBC) is one of the most revered and intricate tools in the tradition of Vedic astrology. Its name itself reveals its profound purpose — "Sarvatobhadra" means "auspicious in all directions," reflecting its multidimensional capacity to assess influences coming from all cardinal and intercardinal directions.\n\nUnlike conventional astrological charts that focus primarily on planetary positions, the SBC is a unique 9x9 matrix that integrates nakshatras (lunar mansions), vowels and consonants of the Sanskrit alphabet, days of the week, and zodiac signs into a unified cosmological grid.\n\nThis ancient instrument has been used for centuries by Vedic scholars to predict the outcomes of journeys, diagnose diseases, assess the strength of political entities, and determine the auspiciousness of events. Its genius lies in the concept of "vedha" — the piercing or affliction of sensitive points — which reveals both supportive and challenging influences with remarkable precision.\n\nStudying the SBC opens a window into the deeper mechanics of cosmic influence, where the microcosm of an individual birth chart intersects with the macrocosm of universal time cycles. It is a living tradition, passed down through generations of dedicated practitioners.`,
-    status: 'published', icon: '🔯'
-  },
-  {
-    id: 2, title: "Nakshatras and the Chakra: The 27 Lunar Mansions",
-    category: "Nakshatras", date: "22 May 2025",
-    excerpt: "How the 27 (or 28) nakshatras form the foundational structure of the Sarvatobhadra Chakra and their significance in reading vedhas.",
-    content: `The 27 nakshatras, or lunar mansions, form the very backbone of the Sarvatobhadra Chakra. In Vedic astrology, the nakshatras divide the ecliptic into 27 equal segments of 13°20' each, with the Moon traversing one nakshatra approximately every day.\n\nIn the SBC matrix, nakshatras occupy specific cells and rows, creating a spatial map of the sky's energetic qualities. The placement of transiting planets over or in vedha with natal nakshatras reveals whether planetary energies are supportive or challenging for the native.\n\nEach nakshatra carries its own deity, symbol, ruling planet, and inherent quality (guna). Understanding these characteristics is essential for interpreting how planetary vedhas will manifest in practical life. For example, when a malefic planet forms a vedha with the janma nakshatra (birth star), it often signals a period requiring extra care and awareness.\n\nThe deeper study of nakshatras within the SBC framework reveals elegant patterns — such as how trine nakshatras often harmonize, while certain specific vedha relationships can indicate sudden changes, health concerns, or unexpected opportunities.`,
-    status: 'published', icon: '⭐'
-  },
-  {
-    id: 3, title: "Vedha: The Art of Piercing — Understanding Afflictions",
-    category: "Techniques", date: "1 June 2025",
-    excerpt: "Vedha is the central mechanism of the Sarvatobhadra Chakra. Learn how to identify, interpret and apply vedha analysis in chart reading.",
-    content: `Vedha, derived from the Sanskrit root meaning "to pierce" or "to afflict," is the core operational principle of the Sarvatobhadra Chakra. When a planet transiting through the chakra's matrix aligns with certain sensitive points — called "vedha bindus" — it creates an energetic piercing that influences the matters signified by those points.\n\nThere are several categories of vedha recognized in classical texts:\n\n**Direct Vedha (Sakshat Vedha):** When a planet directly transits over a sensitive nakshatra, day, or zodiac sign within the chakra.\n\n**Indirect Vedha (Paroksha Vedha):** When a planet creates vedha through specific geometric relationships defined within the chakra structure.\n\n**Multiple Vedha:** When several planets simultaneously create vedha on the same sensitive point, amplifying the effect proportionally.\n\nThe benefic or malefic nature of the vedha-creating planet determines whether the influence is supportive or challenging. Jupiter and Venus creating vedha with auspicious points generally indicates blessings and opportunities, while Saturn and Mars can indicate delays, obstacles, or health concerns.\n\nMastering vedha analysis requires both technical precision and intuitive understanding — it is where the science and art of SBC astrology beautifully converge.`,
-    status: 'published', icon: '🌟'
-  },
-  {
-    id: 4, title: "Muhurta and SBC: Choosing Auspicious Timings",
-    category: "Muhurta", date: "10 June 2025",
-    excerpt: "How the Sarvatobhadra Chakra is used in Muhurta (electional astrology) to identify the most auspicious moments for important endeavors.",
-    content: `Muhurta — the science of electional astrology — finds one of its most powerful expressions through the Sarvatobhadra Chakra. While conventional muhurta analysis considers the tithi, vara, nakshatra, yoga, and karana, the SBC adds an additional layer of precision by mapping the entire celestial environment at the chosen moment.\n\nFor important life events such as marriage, business inauguration, travel, surgery, or property purchase, consulting the SBC can reveal whether the cosmic environment is genuinely supportive or whether hidden afflictions might undermine the endeavor.\n\nThe classical texts recommend that for an auspicious muhurta, the SBC should show no significant vedha on the janma nakshatra, janma rashi, and the relevant house significators. Additionally, benefic planets should ideally be creating positive vedha on these sensitive points.\n\nIn practice, finding a perfect muhurta requires balancing multiple factors, and the SBC often helps distinguish between two seemingly similar "good" muhurtas by revealing which one has fewer subtle afflictions and greater underlying support.`,
-    status: 'draft', icon: '🕐'
-  },
-  {
-    id: 5, title: "Health Analysis Through the Sarvatobhadra Chakra",
-    category: "Health", date: "18 June 2025",
-    excerpt: "Traditional applications of SBC in health prediction — understanding body vulnerabilities, disease timing, and recovery periods.",
-    content: `One of the most remarkable traditional applications of the Sarvatobhadra Chakra is in the analysis of health. Ancient Vedic physicians (vaidyas) who were also trained in astrology used the SBC as a diagnostic complement to understand the timing of diseases, identify vulnerable body parts, and predict periods of recovery.\n\nEach nakshatra in the SBC corresponds to specific body parts, and when malefic planets create vedha on these nakshatras — particularly when they align with the 6th, 8th, or 12th house significators — it can indicate periods of health vulnerability.\n\nThe classical Ashtavarga system, used in conjunction with SBC, helps assess the overall vitality and resilience of the native at any given time. High-strength benefic influences during vedha periods tend to mitigate health challenges, while combinations of multiple malefic vedhas can signal the need for extra preventive care.\n\nIt is important to note that SBC health analysis is meant to be a complementary tool that enhances awareness and preparedness, never replacing modern medical advice. The goal is to use this ancient wisdom to live more consciously and proactively.`,
-    status: 'draft', icon: '🏥'
-  },
-  {
-    id: 6, title: "SBC in Prashna: Answering Pressing Questions",
-    category: "Prashna", date: "25 June 2025",
-    excerpt: "How to use the Sarvatobhadra Chakra in Prashna (horary astrology) to answer specific questions with remarkable accuracy.",
-    content: `Prashna Jyotisha — the astrology of questions — is an entire branch dedicated to answering specific queries based on the moment the question is asked. The Sarvatobhadra Chakra offers a uniquely powerful framework for prashna analysis.\n\nWhen a native approaches with a pressing question, the astrologer casts the SBC for that precise moment. The position of the Moon, the planets creating vedha, and the condition of relevant nakshatras and rashis all contribute to a nuanced answer.\n\nClassical prashna using SBC considers: the condition of the query-relevant house and its lord, whether benefics or malefics create vedha on the janma nakshatra of the questioner, the Moon's velocity and dignity, and special yogas visible in the moment's chakra.\n\nPractitioners report remarkable accuracy in prashna answers — from "will this business deal succeed?" to "will my health improve?" — when the SBC analysis is carefully applied. This branch of application makes the SBC not just a birth chart tool but a living, moment-by-moment oracle of the cosmic state.`,
-    status: 'published', icon: '❓'
-  }
-];
-
-const DEFAULT_VIDEOS = [
-  { id: 1, title: "Introduction to Sarvatobhadra Chakra", youtubeId: "dQw4w9WgXcQ", duration: "32:15", views: "12.4K", status: 'published' },
-  { id: 2, title: "Reading Vedhas in Your Birth Chart", youtubeId: "dQw4w9WgXcQ", duration: "45:08", views: "8.7K", status: 'published' },
-  { id: 3, title: "Nakshatra Analysis — Part 1", youtubeId: "dQw4w9WgXcQ", duration: "28:42", views: "15.2K", status: 'published' },
-  { id: 4, title: "Muhurta Selection Using SBC", youtubeId: "dQw4w9WgXcQ", duration: "38:55", views: "6.1K", status: 'published' },
-  { id: 5, title: "Advanced Vedha Combinations", youtubeId: "dQw4w9WgXcQ", duration: "51:20", views: "9.3K", status: 'draft' },
-  { id: 6, title: "Prashna Using Sarvatobhadra", youtubeId: "dQw4w9WgXcQ", duration: "44:10", views: "7.8K", status: 'published' }
-];
-
-const DEFAULT_BOOKINGS = [
-  { id: 1, name: "Ramesh Sharma", type: "Birth Chart Analysis", date: "2025-06-18", time: "10:00 AM", status: "confirmed" },
-  { id: 2, name: "Priya Nair", type: "Muhurta Consultation", date: "2025-06-19", time: "2:00 PM", status: "pending" },
-  { id: 3, name: "Anil Kumar", type: "Prashna Session", date: "2025-06-20", time: "11:30 AM", status: "confirmed" },
-  { id: 4, name: "Sunita Patel", type: "Annual Forecast", date: "2025-06-22", time: "4:00 PM", status: "pending" }
-];
-
-/* ══════════════════════════════════════════
-   STORAGE HELPERS — saves to localStorage
-   so content persists across refreshes
-══════════════════════════════════════════ */
+/* ── Bookings State — stored in localStorage ── */
 const Store = {
   get(key, fallback) {
     try {
@@ -80,23 +14,18 @@ const Store = {
   },
   set(key, val) {
     try { localStorage.setItem('sbc_' + key, JSON.stringify(val)); } catch(e) {}
-  },
-  clear() {
-    ['articles','videos','bookings'].forEach(k => localStorage.removeItem('sbc_' + k));
   }
 };
 
-/* ── State — loaded from localStorage, falls back to defaults ── */
+const DEFAULT_BOOKINGS = [];
+
 const State = {
-  currentPage: 'main',
   adminSection: 'dashboard',
-  get articles() { return Store.get('articles', DEFAULT_ARTICLES); },
-  set articles(v) { Store.set('articles', v); },
-  get videos() { return Store.get('videos', DEFAULT_VIDEOS); },
-  set videos(v) { Store.set('videos', v); },
   get bookings() { return Store.get('bookings', DEFAULT_BOOKINGS); },
   set bookings(v) { Store.set('bookings', v); }
 };
+
+
 
 /* ── DOM Ready ── */
 document.addEventListener('DOMContentLoaded', () => {
@@ -155,81 +84,74 @@ function initScrollToSection() {
   });
 }
 
-/* ── Articles ── */
-function initArticles() { renderArticles(); }
-
-function renderArticles() {
+/* ── Articles preview on home page ── */
+function initArticles() {
   const grid = document.getElementById('articles-grid');
   if (!grid) return;
-  const published = State.articles.filter(a => a.status === 'published');
-  if (published.length === 0) {
-    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-muted);font-family:var(--font-elegant);font-style:italic;font-size:1.2rem">Articles will appear here once published via the Admin panel.</div>`;
-    return;
-  }
-  grid.innerHTML = published.map(article => `
-    <div class="article-card reveal" onclick="openArticle(${article.id})">
-      <div class="article-thumb">${article.icon}</div>
-      <div class="article-category">${article.category}</div>
-      <h3>${article.title}</h3>
-      <p>${article.excerpt}</p>
-      <div class="article-meta">
-        <span>${article.date}</span>
-        <span class="read-more">Read Article →</span>
-      </div>
-    </div>
-  `).join('');
-  initScrollReveal();
+  getArticles().then(articles => {
+    const published = articles.filter(a => a.status === 'published').slice(0, 3);
+    if (!published.length) {
+      grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-muted);font-family:var(--font-elegant);font-style:italic">Articles coming soon.</div>`;
+      return;
+    }
+    const barColor = cat => cat === 'Learn SBC' ? '#C8922A' : cat === 'Life Applications' ? '#4A9B6F' : '#7B68CC';
+    grid.innerHTML = published.map(a => `
+      <a href="articles.html" class="article-card reveal" style="text-decoration:none">
+        <div style="height:4px;background:${barColor(a.category)}"></div>
+        <div class="article-category" style="display:flex;align-items:center;gap:6px;padding:16px 20px 0">
+          <span style="width:3px;height:14px;background:${barColor(a.category)};border-radius:2px;display:inline-block"></span>
+          ${a.category}
+        </div>
+        <h3 style="padding:8px 20px 10px;color:var(--gold-light);font-size:1.05rem;line-height:1.4">${a.title}</h3>
+        <p style="padding:0 20px 16px;font-size:0.88rem;color:var(--text-muted);line-height:1.6;margin:0">${a.excerpt}</p>
+        <div class="article-meta">
+          <span>${a.date || ''}</span>
+          <span class="read-more">Read Article →</span>
+        </div>
+      </a>
+    `).join('');
+    initScrollReveal();
+  }).catch(() => {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-muted)">
+      <a href="articles.html" style="color:var(--gold-primary)">View all articles →</a></div>`;
+  });
 }
 
-function openArticle(id) {
-  const article = State.articles.find(a => a.id === id);
-  if (!article) return;
-  const modal = document.getElementById('article-modal');
-  document.getElementById('modal-title').textContent = article.title;
-  document.getElementById('modal-meta').textContent = `${article.category}  •  ${article.date}`;
-  document.getElementById('modal-body').innerHTML = article.content.split('\n\n').map(p =>
-    p.startsWith('**') ? `<h4 style="color:var(--gold-light);margin:20px 0 8px;font-family:var(--font-heading)">${p.replace(/\*\*/g,'')}</h4>` : `<p>${p}</p>`
-  ).join('');
-  modal.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeArticle() {
-  document.getElementById('article-modal').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-/* ── Videos ── */
-function initVideos() { renderVideos(); }
-
-function renderVideos() {
+/* ── Videos preview on home page ── */
+function initVideos() {
   const grid = document.getElementById('videos-grid');
   if (!grid) return;
-  const published = State.videos.filter(v => v.status === 'published');
-  if (published.length === 0) {
-    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-muted);font-family:var(--font-elegant);font-style:italic;font-size:1.2rem">Videos will appear here once published via the Admin panel.</div>`;
-    return;
-  }
-  grid.innerHTML = published.map(video => `
-    <div class="video-card reveal" onclick="openVideo('${video.youtubeId}')">
-      <div class="video-thumb">
-        <img src="https://img.youtube.com/vi/${video.youtubeId}/mqdefault.jpg" alt="${video.title}" onerror="this.style.display='none'">
-        <div class="play-overlay">
-          <div class="play-btn-circle">▶</div>
+  getVideos().then(videos => {
+    const published = videos.filter(v => v.status === 'published').slice(0, 3);
+    if (!published.length) {
+      grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-muted);font-family:var(--font-elegant);font-style:italic">Videos coming soon.</div>`;
+      return;
+    }
+    grid.innerHTML = published.map(video => {
+      const ytId = video.youtube_id || video.youtubeId || '';
+      return `
+      <div class="video-card reveal" onclick="openVideo('${ytId}')">
+        <div class="video-thumb">
+          <img src="https://img.youtube.com/vi/${ytId}/mqdefault.jpg" alt="${video.title}" onerror="this.style.display='none'">
+          <div class="play-overlay"><div class="play-btn-circle">▶</div></div>
         </div>
-      </div>
-      <div class="video-info">
-        <h4>${video.title}</h4>
-        <span>${video.duration} • ${video.views} views</span>
-      </div>
-    </div>
-  `).join('');
-  initScrollReveal();
+        <div class="video-info">
+          <h4>${video.title}</h4>
+          <span>${video.duration || ''} • ${video.views || '0'} views</span>
+        </div>
+      </div>`;
+    }).join('');
+    initScrollReveal();
+  }).catch(() => {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-muted)">
+      <a href="videos.html" style="color:var(--gold-primary)">View all videos →</a></div>`;
+  });
 }
 
 function openVideo(youtubeId) {
   const modal = document.getElementById('video-modal');
   const iframe = document.getElementById('video-iframe');
+  if (!modal || !iframe) return;
   iframe.src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1`;
   modal.classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -238,10 +160,13 @@ function openVideo(youtubeId) {
 function closeVideo() {
   const modal = document.getElementById('video-modal');
   const iframe = document.getElementById('video-iframe');
+  if (!modal || !iframe) return;
   iframe.src = '';
   modal.classList.remove('open');
   document.body.style.overflow = '';
 }
+
+
 
 /* ── Booking Form ── */
 function initBookingForm() {
@@ -544,14 +469,13 @@ async function saveEditArticle(status) {
   }
 }
 
-/* ── Reset to defaults (emergency) ── */
+/* ── Reset bookings (emergency) ── */
 function resetToDefaults() {
-  if (confirm('This will delete ALL your custom articles, videos, and bookings and restore the original demo content. Are you sure?')) {
-    Store.clear();
-    renderAdminArticles(); renderAdminVideos(); renderAdminBookings();
-    renderArticles(); renderVideos();
+  if (confirm('This will clear all local bookings data. Are you sure?')) {
+    Store.set('bookings', []);
+    renderAdminBookings();
     renderAdminDashboard();
-    showToast('↩️ Reset to default content.');
+    showToast('↩️ Bookings cleared.');
   }
 }
 
