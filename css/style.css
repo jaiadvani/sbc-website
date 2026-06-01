@@ -1423,7 +1423,7 @@ footer {
   gap: 48px;
   align-items: start;
 }
-.chakra-grid-wrap { position: relative; }
+.chakra-grid-wrap { position: relative; max-width: 90%; }
 .chakra-outer-border {
   border: 2px solid var(--gold-primary);
   padding: 3px;
@@ -1485,60 +1485,52 @@ footer {
    + CYAN-INNER → o and au (same family as #1 but inner position)
 */
 
-/* 1. CYAN — Nakshatras + corner vowels */
-.sbc-cell.type-nakshatra  { background: #003A3A; }
-.sbc-cell.type-nakshatra:hover, .sbc-cell.type-nakshatra.active { background: #005050; }
-.sbc-cell.type-vowel-corner { background: #003A3A; }
-.sbc-cell.type-vowel-corner:hover, .sbc-cell.type-vowel-corner.active { background: #005050; }
+/* ══════════════════════════════════════
+   5 CLEAN LAYERS — Final version
+   LAYER 1: Nakshatras (outer ring)          → TEAL bg
+   LAYER 2: Aksharas (consonants, 2nd ring)  → AMBER bg
+   LAYER 3: Rashis (signs, 3rd ring)         → PURPLE bg
+   LAYER 4: Vowels (all 4 diagonals)         → ROSE/PINK bg
+   LAYER 5: Tithis (all 5, ONE color)        → GREEN bg
+   ══════════════════════════════════════ */
 
-/* 2. ORANGE — Aksharas */
-.sbc-cell.type-akshara    { background: #3A1E00; }
-.sbc-cell.type-akshara:hover, .sbc-cell.type-akshara.active { background: #502A00; }
+/* LAYER 1 — Nakshatras */
+.sbc-cell.type-nakshatra   { background: #003838; }
+.sbc-cell.type-nakshatra:hover, .sbc-cell.type-nakshatra.active { background: #004E4E; }
 
-/* 3. PURPLE — Rashis + rashi-ring vowels */
-.sbc-cell.type-rashi      { background: #250A40; }
-.sbc-cell.type-rashi:hover, .sbc-cell.type-rashi.active { background: #341258; }
+/* LAYER 2 — Aksharas */
+.sbc-cell.type-akshara     { background: #3A1A00; }
+.sbc-cell.type-akshara:hover, .sbc-cell.type-akshara.active { background: #4E2400; }
 
-/* 4. MAGENTA — Rikta tithi only */
-.sbc-cell.type-tithi-rikta { background: #400028; }
-.sbc-cell.type-tithi-rikta:hover, .sbc-cell.type-tithi-rikta.active { background: #580036; }
+/* LAYER 3 — Rashis */
+.sbc-cell.type-rashi       { background: #1A0838; }
+.sbc-cell.type-rashi:hover, .sbc-cell.type-rashi.active { background: #26104E; }
 
-/* 5. CREAM — Poorna + Nanda tithis */
-.sbc-cell.type-tithi-light { background: #2A2408; }
-.sbc-cell.type-tithi-light:hover, .sbc-cell.type-tithi-light.active { background: #383210; }
+/* LAYER 4 — Vowels (all 4 diagonal lines) */
+.sbc-cell.type-vowel       { background: #300A28; }
+.sbc-cell.type-vowel:hover, .sbc-cell.type-vowel.active { background: #421038; }
+.sbc-cell.type-vowel.center-vowel { border: 1.5px solid var(--gold-primary); }
 
-/* 6. GREEN — Jaya + am + Bhadra */
-.sbc-cell.type-tithi-green { background: #0A2A00; }
-.sbc-cell.type-tithi-green:hover, .sbc-cell.type-tithi-green.active { background: #123A00; }
+/* LAYER 5 — ALL Tithis (Jaya, Bhadra, Rikta, Nanda, Poorna — one color) */
+.sbc-cell.type-tithi       { background: #0A2800; }
+.sbc-cell.type-tithi:hover, .sbc-cell.type-tithi.active { background: #103600; }
 
-/* CYAN-INNER — o and au (same hue as nakshatra but distinct border) */
-.sbc-cell.type-center     { background: #003A3A; border: 1.5px solid var(--gold-primary); }
-.sbc-cell.type-center:hover, .sbc-cell.type-center.active { background: #005050; }
-
-/* ── Cell Text ── */
+/* ── Cell Text — using EB Garamond to avoid Cinzel small-caps uppercase rendering ── */
 .sbc-cell .cell-main {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(7px, 1.1vw, 11px);
-  font-weight: 400;
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(8.5px, 1.2vw, 13px);
+  font-weight: 600;
   line-height: 1.25;
   letter-spacing: 0.01em;
+  text-transform: none;
+  font-variant: normal;
+  font-style: normal;
 }
-/* Nakshatra — bold, cyan text */
-.sbc-cell.type-nakshatra .cell-main    { color: #00E5CC; font-weight: 700; }
-/* Corner vowels — bold, same cyan */
-.sbc-cell.type-vowel-corner .cell-main { color: #00E5CC; font-weight: 700; }
-/* Aksharas — regular, warm amber */
-.sbc-cell.type-akshara .cell-main     { color: #FFB84D; font-weight: 400; }
-/* Rashis — regular, lavender */
-.sbc-cell.type-rashi .cell-main       { color: #C8AAFF; font-weight: 400; }
-/* Rikta — magenta/pink */
-.sbc-cell.type-tithi-rikta .cell-main { color: #FF77CC; font-weight: 400; font-size: clamp(6px, 0.9vw, 9px); }
-/* Poorna/Nanda — pale cream/gold */
-.sbc-cell.type-tithi-light .cell-main { color: #EEE0A0; font-weight: 400; font-size: clamp(6px, 0.9vw, 9px); }
-/* Jaya/Bhadra/am — lime green */
-.sbc-cell.type-tithi-green .cell-main { color: #88DD44; font-weight: 400; font-size: clamp(6px, 0.9vw, 9px); }
-/* Center o,au — same cyan as nakshatra */
-.sbc-cell.type-center .cell-main      { color: #00E5CC; font-weight: 700; }
+.sbc-cell.type-nakshatra .cell-main { color: #00DDCC; font-weight: 700; }
+.sbc-cell.type-akshara .cell-main   { color: #FFB84D; font-weight: 500; }
+.sbc-cell.type-rashi .cell-main     { color: #C0AAFF; font-weight: 500; }
+.sbc-cell.type-vowel .cell-main     { color: #FF99CC; font-weight: 600; }
+.sbc-cell.type-tithi .cell-main     { color: #88EE44; font-weight: 500; font-size: clamp(7px, 1vw, 11px); }
 
 .sbc-cell .cell-sub {
   font-family: 'EB Garamond', serif;

@@ -463,12 +463,11 @@
           </div>
           <!-- Legend -->
           <div class="chakra-legend">
-            <div class="legend-item"><div class="legend-dot" style="background:#0A3A2A;border:1.5px solid #00E5CC"></div>Nakshatra / Vowel</div>
-            <div class="legend-item"><div class="legend-dot" style="background:#3A2000;border:1.5px solid #D4913A"></div>Akshara</div>
-            <div class="legend-item"><div class="legend-dot" style="background:#260A3A;border:1.5px solid #B48EE8"></div>Rashi / Sign</div>
-            <div class="legend-item"><div class="legend-dot" style="background:#3A0030;border:1.5px solid #FF55CC"></div>Rikta Tithi</div>
-            <div class="legend-item"><div class="legend-dot" style="background:#2A2A14;border:1.5px solid #E8D878"></div>Poorna / Nanda</div>
-            <div class="legend-item"><div class="legend-dot" style="background:#0A2A00;border:1.5px solid #66CC22"></div>Jaya / Bhadra / am</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#003838;border:1.5px solid #00DDCC"></div>Nakshatras</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#3A1A00;border:1.5px solid #FFB84D"></div>Aksharas</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#1A0838;border:1.5px solid #C0AAFF"></div>Rashis / Signs</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#300A28;border:1.5px solid #FF99CC"></div>Vowels (Diagonals)</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#0A2800;border:1.5px solid #88EE44"></div>Tithis / Weekdays</div>
           </div>
         </div>
         <!-- Detail Panel -->
@@ -847,124 +846,120 @@ const TITHI_DATA = {
   'Poorna': { meaning:'Complete/Full — 5th, 10th, 15th lunar day (Purnima/Amavasya). Auspicious for completion, spiritual practice, worship.', days:'Sunday & Tuesday' },
 };
 
-// ── 7 colour types matching the original image exactly ──
-// CYAN (type-nakshatra / type-vowel-corner) = outer ring, all nakshatras + 4 corner vowels
-// ORANGE (type-akshara) = second ring aksharas — consonants & vowels between nakshatra and rashi rings
-// PURPLE (type-rashi) = third ring — rashis + vowels ai, lu, luu
-// PINK (type-tithi-rikta) = Rikta/Fri cell only
-// LIGHT (type-tithi-light) = Poorna/Sat + Nanda/Sun/Tue — lighter/white-toned
-// GREEN (type-tithi-green) = Jaya/Thu + am + Bhadra/Mon/Wed
-// TEAL-INNER (type-center) = o and au only — distinct inner teal, different from cyan outer
-
-// ROW 1: ALL 9 = CYAN (nakshatras + corner vowels)
-// ROW 2: col1 CYAN, cols2-8 ORANGE, col9 CYAN
-// ROW 3: col1 CYAN, col2 ORANGE, cols3-7 PURPLE, col8 ORANGE, col9 CYAN
-// ROW 4: col1 CYAN, col2 ORANGE, col3 PURPLE, col4 PURPLE, col5 PINK, col6 TEAL-INNER, col7 PURPLE, col8 ORANGE, col9 CYAN
-// ROW 5: col1 CYAN, col2 ORANGE, col3 PURPLE, col4 GREEN, col5 LIGHT, col6 LIGHT, col7 PURPLE, col8 ORANGE, col9 CYAN
-// ROW 6: col1 CYAN, col2 ORANGE, col3 PURPLE, col4 GREEN, col5 GREEN, col6 TEAL-INNER, col7 PURPLE, col8 ORANGE, col9 CYAN
-// ROW 7: col1 CYAN, col2 ORANGE, col3 ORANGE, cols4-7 PURPLE, col8 ORANGE, col9 CYAN
-// ROW 8: col1 CYAN, cols2-8 ORANGE, col9 CYAN
-// ROW 9: ALL 9 = CYAN (nakshatras + corner vowels)
+// ══════════════════════════════════════
+// 5 CLEAN LAYERS:
+// type-nakshatra = outer ring (28 nakshatras)
+// type-akshara   = 2nd ring consonants only (g,s,d,ch,l,kh,j,v,bh,k,y,h,n,d)
+// type-rashi     = 3rd ring 12 signs (Aq,Pi,Ar,Ta,Ge,Cn,Le,Vi,Li,Sc,Sg,Cp)
+// type-vowel     = ALL 4 diagonal lines: ii,rii,ai,ah / a,u,lu,o / i,ri,e,am / aa,uu,luu,au
+// type-tithi     = ALL 5 tithis ONE color: Jaya+Thu, Bhadra+Mon+Wed, Rikta+Fri, Nanda+Sun+Tue, Poorna+Sat
+//
+// DIAGONAL VOWEL MAP:
+// TL diagonal: R1C1=ii, R2C2=rii, R3C3=ai, R4C4=ah
+// TR diagonal: R1C9=a,  R2C8=u,   R3C7=lu, R4C6=o   (o = center, gold border)
+// BL diagonal: R9C1=i,  R8C2=ri,  R7C3=e,  R6C4=am
+// BR diagonal: R9C9=aa, R8C8=uu,  R7C7=luu,R6C6=au  (au = center, gold border)
+// ══════════════════════════════════════
 
 const GRID_CELLS = [
-  // ── ROW 1 ── all CYAN
-  {label:'ii',   type:'vowel-corner', detail:{name:'Vowel ii (ई)', desc:'The long vowel ī — carries the quality of Vishnu, associated with nourishment and sustenance in the aksharas of the chakra.'}},
-  {label:'Dhan', type:'nakshatra',    nakshatra:'Dhanishtha',    sub:'Dhanishtha'},
-  {label:'Sata', type:'nakshatra',    nakshatra:'Shatabhisha',   sub:'Shatabhisha'},
-  {label:'PBha', type:'nakshatra',    nakshatra:'Purva Bhadra',  sub:'Purva Bhadra'},
-  {label:'UBha', type:'nakshatra',    nakshatra:'Uttara Bhadra', sub:'Uttara Bhadra'},
-  {label:'Reva', type:'nakshatra',    nakshatra:'Revati',        sub:'Revati'},
-  {label:'Aswi', type:'nakshatra',    nakshatra:'Ashwini',       sub:'Ashwini'},
-  {label:'Bhar', type:'nakshatra',    nakshatra:'Bharani',       sub:'Bharani'},
-  {label:'a',    type:'vowel-corner', detail:{name:'Vowel a (अ)', desc:'The first vowel — the primordial sound from which all creation emerges. The short \'a\' represents Brahma and the beginning of the alphabet.'}},
+  // ── ROW 1 ── all nakshatras + corner vowels
+  {label:'ii',   type:'vowel',     detail:{name:'Vowel ii (ई)', desc:'The long vowel ī — corner vowel anchoring the North-East. Carries the energy of Vishnu, preservation and sustenance. Begins the top-left diagonal of vowels in the chakra.'}},
+  {label:'Dhan', type:'nakshatra', nakshatra:'Dhanishtha',    sub:'Dhanishtha'},
+  {label:'Sata', type:'nakshatra', nakshatra:'Shatabhisha',   sub:'Shatabhisha'},
+  {label:'PBha', type:'nakshatra', nakshatra:'Purva Bhadra',  sub:'Purva Bhadra'},
+  {label:'UBha', type:'nakshatra', nakshatra:'Uttara Bhadra', sub:'Uttara Bhadra'},
+  {label:'Reva', type:'nakshatra', nakshatra:'Revati',        sub:'Revati'},
+  {label:'Aswi', type:'nakshatra', nakshatra:'Ashwini',       sub:'Ashwini'},
+  {label:'Bhar', type:'nakshatra', nakshatra:'Bharani',       sub:'Bharani'},
+  {label:'a',    type:'vowel',     detail:{name:'Vowel a (अ)', desc:'The first and primordial vowel — North-West corner. The short \'a\' is the seed of all creation, representing Brahma. Begins the top-right diagonal of vowels in the chakra.'}},
 
-  // ── ROW 2 ── CYAN | ORANGE×7 | CYAN
-  {label:'Srav', type:'nakshatra',    nakshatra:'Shravana',      sub:'Shravana'},
-  {label:'rii',  type:'akshara',      detail:{name:'Vowel ṛi (ृ)', desc:'The vocalic ṛ — associated with the sage-seers (Rishis). Appears in the second ring, holding aksharas that influence intellect and wisdom.'}},
-  {label:'g',    type:'akshara',      detail:{name:'Consonant g (ग)', desc:'The voiced velar stop (ga) — associated with Jupiter (Guru). Consonants in this ring connect to planetary influences in vedha analysis.'}},
-  {label:'s',    type:'akshara',      detail:{name:'Consonant s (स)', desc:'The sibilant (sa) — associated with Saturn and the air element. One of the key consonants in name-based vedha analysis.'}},
-  {label:'d',    type:'akshara',      detail:{name:'Consonant d (द)', desc:'The voiced dental stop (da) — associated with Mars. Used in name-based vedha analysis within the SBC system.'}},
-  {label:'ch',   type:'akshara',      detail:{name:'Consonant ch (च)', desc:'The palatal affricate (cha) — associated with the Moon. Carries lunar influence in vedha readings of this ring.'}},
-  {label:'l',    type:'akshara',      detail:{name:'Consonant l (ल)', desc:'The lateral approximant (la) — associated with Venus. Soft sounds like \'l\' carry Venusian qualities of beauty and harmony.'}},
-  {label:'u',    type:'akshara',      detail:{name:'Vowel u (उ)', desc:'The short \'u\' vowel — associated with Shiva and transformation. Holds an important position in the aksharas of the second ring.'}},
-  {label:'Krit', type:'nakshatra',    nakshatra:'Krittika',      sub:'Krittika'},
+  // ── ROW 2 ── nakshatra | vowel | aksharas×5 | vowel | nakshatra
+  {label:'Srav', type:'nakshatra', nakshatra:'Shravana',      sub:'Shravana'},
+  {label:'rii',  type:'vowel',     detail:{name:'Vowel ṛi (ृ) — TL diagonal', desc:'Vocalic r̥ — the seed sound of the Rishis. Part of the top-left diagonal vowel line (ii→rii→ai→ah). Aksharas in this position are used for name-based vedha analysis.'}},
+  {label:'g',    type:'akshara',   detail:{name:'Akshara: g (ग)', desc:'Consonant ga — associated with Jupiter (Guru). Used in name-based vedha: persons with names beginning with \'g\' sounds are influenced through this ring position.'}},
+  {label:'s',    type:'akshara',   detail:{name:'Akshara: s (स)', desc:'Consonant sa — associated with Saturn and air. One of the key consonants for name-based vedha analysis in the SBC.'}},
+  {label:'d',    type:'akshara',   detail:{name:'Akshara: d (द)', desc:'Consonant da — associated with Mars. Dynamic and cutting energy in the second ring of the chakra.'}},
+  {label:'ch',   type:'akshara',   detail:{name:'Akshara: ch (च)', desc:'Consonant cha — associated with the Moon. Carries lunar, emotional and fluid qualities in vedha readings.'}},
+  {label:'l',    type:'akshara',   detail:{name:'Akshara: l (ल)', desc:'Consonant la — associated with Venus. Soft, harmonious Venusian qualities of beauty and artistic expression.'}},
+  {label:'u',    type:'vowel',     detail:{name:'Vowel u (उ) — TR diagonal', desc:'Vowel u — part of the top-right diagonal (a→u→lu→o). Associated with Shiva and transformation. Position connects the corner vowel \'a\' to the center vowel \'o\'.'}},
+  {label:'Krit', type:'nakshatra', nakshatra:'Krittika',      sub:'Krittika'},
 
-  // ── ROW 3 ── CYAN | ORANGE | PURPLE×5 | ORANGE | CYAN
-  {label:'Abhi', type:'nakshatra',    nakshatra:'Abhijit',       sub:'Abhijit'},
-  {label:'kh',   type:'akshara',      detail:{name:'Consonant kh (ख)', desc:'The aspirated velar (kha) — the syllable of open sky and space. Kha means \'sky\' in Sanskrit, giving this consonant cosmic spatial significance.'}},
-  {label:'ai',   type:'rashi',        rashi:'',    detail:{name:'Vowel ai (ऐ)', desc:'The diphthong ai — occupies a position in the rashi ring. Connects to Saraswati energy of eloquence and learning in the chakra.'}},
-  {label:'Aq',   type:'rashi',        rashi:'Aquarius',  sub:'Kumbha'},
-  {label:'Pi',   type:'rashi',        rashi:'Pisces',    sub:'Meena'},
-  {label:'Ar',   type:'rashi',        rashi:'Aries',     sub:'Mesha'},
-  {label:'lu',   type:'rashi',        rashi:'',    detail:{name:'Vowel lu (ॢ)', desc:'The vocalic ḷ — a rare Sanskrit vowel in the rashi ring. Represents an extremely subtle vibrational quality in the chakra.'}},
-  {label:'a',    type:'akshara',      detail:{name:'Vowel a — 2nd ring (अ)', desc:'The short \'a\' appears in the second ring — reinforcing its foundational quality as the seed of all sound and creation.'}},
-  {label:'Rohi', type:'nakshatra',    nakshatra:'Rohini',        sub:'Rohini'},
+  // ── ROW 3 ── nakshatra | akshara | vowel | rashis×3 | vowel | akshara | nakshatra
+  {label:'Abhi', type:'nakshatra', nakshatra:'Abhijit',       sub:'Abhijit'},
+  {label:'kh',   type:'akshara',   detail:{name:'Akshara: kh (ख)', desc:'Consonant kha — the syllable of open sky. Kha means \'sky\' in Sanskrit, giving this akshara cosmic spatial significance in the second ring.'}},
+  {label:'ai',   type:'vowel',     detail:{name:'Vowel ai (ऐ) — TL diagonal', desc:'Diphthong ai — part of the top-left diagonal (ii→rii→ai→ah). Connects to Saraswati energy of eloquence and learning. Lies in the rashi ring position but belongs to the vowel diagonal layer.'}},
+  {label:'Aq',   type:'rashi',     rashi:'Aquarius',  sub:'Kumbha'},
+  {label:'Pi',   type:'rashi',     rashi:'Pisces',    sub:'Meena'},
+  {label:'Ar',   type:'rashi',     rashi:'Aries',     sub:'Mesha'},
+  {label:'lu',   type:'vowel',     detail:{name:'Vowel lu (ॢ) — TR diagonal', desc:'Rare vocalic ḷ — part of the top-right diagonal (a→u→lu→o). Represents the most subtle vibrational quality in the chakra, connecting the akshara ring to the center.'}},
+  {label:'a',    type:'akshara',   detail:{name:'Akshara: a (अ) — 2nd ring', desc:'The short \'a\' in the second ring. Its position here influences name-vedha for names beginning with \'a\' sounds, distinct from the corner vowel \'a\'.'}},
+  {label:'Rohi', type:'nakshatra', nakshatra:'Rohini',        sub:'Rohini'},
 
-  // ── ROW 4 ── CYAN | ORANGE | PURPLE | PURPLE | PINK | TEAL-INNER | PURPLE | ORANGE | CYAN
-  {label:'USha', type:'nakshatra',    nakshatra:'Uttara Ashadha', sub:'Uttara Ashadha'},
-  {label:'j',    type:'akshara',      detail:{name:'Consonant j (ज)', desc:'The voiced palatal affricate (ja) — carries movement and vitality. Influences matters of travel and change in vedha analysis.'}},
-  {label:'Cp',   type:'rashi',        rashi:'Capricorn', sub:'Makara'},
-  {label:'ah',   type:'rashi',        rashi:'',    detail:{name:'Visarga ah (ः)', desc:'The visarga (ḥ) — a final breath sound in the rashi ring. Carries the quality of release, aspiration, and the out-breath of the cosmos.'}},
-  {label:'Rikta',type:'tithi-rikta',  tithi:'Rikta', sub:'Friday'},
-  {label:'o',    type:'center',       detail:{name:'Vowel o — Bindu (ओ)', desc:'The \'o\' vowel at the heart of the Sarvatobhadra Chakra. The center bindu is the point of creation from which all vedha radiates outward.'}},
-  {label:'Ta',   type:'rashi',        rashi:'Taurus',    sub:'Vrishabha'},
-  {label:'v',    type:'akshara',      detail:{name:'Consonant v (व)', desc:'The labio-dental approximant (va) — associated with Vayu (wind) and Rahu. Carries the quality of air and movement in vedha analysis.'}},
-  {label:'Mrig', type:'nakshatra',    nakshatra:'Mrigashira',    sub:'Mrigashira'},
+  // ── ROW 4 ── nakshatra | akshara | rashi | vowel | tithi | vowel(center) | rashi | akshara | nakshatra
+  {label:'USha', type:'nakshatra', nakshatra:'Uttara Ashadha', sub:'Uttara Ashadha'},
+  {label:'j',    type:'akshara',   detail:{name:'Akshara: j (ज)', desc:'Consonant ja — carries movement and vitality. Influences matters of travel, change and dynamism in name vedha analysis.'}},
+  {label:'Cp',   type:'rashi',     rashi:'Capricorn', sub:'Makara'},
+  {label:'ah',   type:'vowel',     detail:{name:'Visarga ah (ः) — TL diagonal', desc:'The visarga — final breath sound. Last cell of the top-left diagonal (ii→rii→ai→ah). Carries the quality of release and aspiration, the cosmic out-breath.'}},
+  {label:'Rikta\nFri', type:'tithi', tithi:'Rikta',   sub:'Friday'},
+  {label:'o',    type:'vowel',     extra:'center-vowel', detail:{name:'Vowel o — Bindu Center (ओ)', desc:'The vowel o at the geometric heart of the Sarvatobhadra Chakra. This is the bindu — the primordial point from which all vedha radiates. Last cell of the top-right diagonal (a→u→lu→o). A planet strongly influencing the center creates effects across the entire chakra simultaneously.'}},
+  {label:'Ta',   type:'rashi',     rashi:'Taurus',    sub:'Vrishabha'},
+  {label:'v',    type:'akshara',   detail:{name:'Akshara: v (व)', desc:'Consonant va — associated with Vayu (wind god) and Rahu. Carries air and movement qualities in the second ring.'}},
+  {label:'Mrig', type:'nakshatra', nakshatra:'Mrigashira',    sub:'Mrigashira'},
 
-  // ── ROW 5 ── CYAN | ORANGE | PURPLE | GREEN | LIGHT | LIGHT | PURPLE | ORANGE | CYAN
-  {label:'PSha', type:'nakshatra',    nakshatra:'Purva Ashadha', sub:'Purva Ashadha'},
-  {label:'bh',   type:'akshara',      detail:{name:'Consonant bh (भ)', desc:'The aspirated bilabial (bha) — begins \'Bharat\' and \'Bhava\' (existence). Carries the quality of becoming and manifestation.'}},
-  {label:'Sg',   type:'rashi',        rashi:'Sagittarius', sub:'Dhanu'},
-  {label:'Jaya', type:'tithi-green',  tithi:'Jaya',  sub:'Thursday'},
-  {label:'Poorna',type:'tithi-light', tithi:'Poorna', sub:'Sat'},
-  {label:'Nanda',type:'tithi-light',  tithi:'Nanda',  sub:'Sun · Tue'},
-  {label:'Ge',   type:'rashi',        rashi:'Gemini',    sub:'Mithuna'},
-  {label:'k',    type:'akshara',      detail:{name:'Consonant k (क)', desc:'The voiceless velar stop (ka) — the first consonant of Sanskrit. Represents the beginning of manifested sound.'}},
-  {label:'Ardr', type:'nakshatra',    nakshatra:'Ardra',         sub:'Ardra'},
+  // ── ROW 5 ── nakshatra | akshara | rashi | tithi | tithi | tithi | rashi | akshara | nakshatra
+  {label:'PSha', type:'nakshatra', nakshatra:'Purva Ashadha', sub:'Purva Ashadha'},
+  {label:'bh',   type:'akshara',   detail:{name:'Akshara: bh (भ)', desc:'Consonant bha — opens \'Bharat\' and \'Bhava\' (existence). Carries the quality of becoming and manifestation.'}},
+  {label:'Sg',   type:'rashi',     rashi:'Sagittarius', sub:'Dhanu'},
+  {label:'Jaya\nThu',  type:'tithi', tithi:'Jaya',     sub:'Thursday'},
+  {label:'Poorna\nSat', type:'tithi', tithi:'Poorna',  sub:'Saturday'},
+  {label:'Nanda\nSun\nTue', type:'tithi', tithi:'Nanda', sub:'Sun & Tue'},
+  {label:'Ge',   type:'rashi',     rashi:'Gemini',    sub:'Mithuna'},
+  {label:'k',    type:'akshara',   detail:{name:'Akshara: k (क)', desc:'Consonant ka — the first consonant of Sanskrit. Represents the beginning of manifested sound, carrying Sun and Ketu energy.'}},
+  {label:'Ardr', type:'nakshatra', nakshatra:'Ardra',         sub:'Ardra'},
 
-  // ── ROW 6 ── CYAN | ORANGE | PURPLE | GREEN | GREEN | TEAL-INNER | PURPLE | ORANGE | CYAN
-  {label:'Mool', type:'nakshatra',    nakshatra:'Moola',         sub:'Moola'},
-  {label:'y',    type:'akshara',      detail:{name:'Consonant y (य)', desc:'The palatal approximant (ya) — the semi-vowel of Jupiter. Initiates words meaning \'who\', \'sacrifice\' — carrying qualities of sacred offering.'}},
-  {label:'Sc',   type:'rashi',        rashi:'Scorpio',   sub:'Vrischika'},
-  {label:'am',   type:'tithi-green',  tithi:'Bhadra', sub:'Mon · Wed', detail:{name:'Anusvara am + Bhadra tithi', desc:'The anusvara (ṁ) and Bhadra tithi share this green cell. The humming primordial sound \'Om\' and the auspiciousness of Bhadra days converge here.'}},
-  {label:'Bhadra',type:'tithi-green', tithi:'Bhadra', sub:'Mon · Wed'},
-  {label:'au',   type:'center',       detail:{name:'Vowel au — Inner (औ)', desc:'The diphthong au — the most expanded Sanskrit vowel. Represents Shiva in his all-pervading form. This inner teal cell mirrors \'o\' across the center.'}},
-  {label:'Cn',   type:'rashi',        rashi:'Cancer',    sub:'Karka'},
-  {label:'h',    type:'akshara',      detail:{name:'Consonant h (ह)', desc:'The glottal fricative (ha) — the last consonant of Sanskrit. \'Ha\' is the seed sound of Shiva and carries the quality of dissolution and completion.'}},
-  {label:'Puna', type:'nakshatra',    nakshatra:'Punarvasu',     sub:'Punarvasu'},
+  // ── ROW 6 ── nakshatra | akshara | rashi | vowel | tithi | vowel(center) | rashi | akshara | nakshatra
+  {label:'Mool', type:'nakshatra', nakshatra:'Moola',         sub:'Moola'},
+  {label:'y',    type:'akshara',   detail:{name:'Akshara: y (य)', desc:'Consonant ya — semi-vowel of Jupiter. Initiates words for sacrifice and sacred offering.'}},
+  {label:'Sc',   type:'rashi',     rashi:'Scorpio',   sub:'Vrischika'},
+  {label:'am',   type:'vowel',     detail:{name:'Anusvara am (ं) — BL diagonal', desc:'The anusvara — nasal resonance that completes syllables. Part of the bottom-left diagonal (i→ri→e→am). The humming primordial sound of Om. Its position at the inner ring marks the transition to the center.'}},
+  {label:'Bhadra\nMon\nWed', type:'tithi', tithi:'Bhadra', sub:'Mon & Wed'},
+  {label:'au',   type:'vowel',     extra:'center-vowel', detail:{name:'Vowel au — Inner Center (औ)', desc:'The diphthong au — most expanded Sanskrit vowel, representing Shiva in his all-pervading form. Part of the bottom-right diagonal (aa→uu→luu→au). Mirrors \'o\' across the central axis, completing the bindu zone vowel symmetry.'}},
+  {label:'Cn',   type:'rashi',     rashi:'Cancer',    sub:'Karka'},
+  {label:'h',    type:'akshara',   detail:{name:'Akshara: h (ह)', desc:'Consonant ha — the last consonant of Sanskrit. The seed sound of Shiva, carrying the quality of dissolution and completion.'}},
+  {label:'Puna', type:'nakshatra', nakshatra:'Punarvasu',     sub:'Punarvasu'},
 
-  // ── ROW 7 ── CYAN | ORANGE | ORANGE | PURPLE×4 | ORANGE | CYAN
-  {label:'Jye',  type:'nakshatra',    nakshatra:'Jyeshtha',      sub:'Jyeshtha'},
-  {label:'n',    type:'akshara',      detail:{name:'Consonant n (न)', desc:'The dental nasal (na) — associated with Mercury and intelligence. Carries qualities of the earth element in its subtle form.'}},
-  {label:'e',    type:'akshara',      detail:{name:'Vowel e (ए)', desc:'The \'e\' vowel — associated with Venus and Taurus energy. Soft, receptive, and harmonious — carries creative and artistic qualities.'}},
-  {label:'Li',   type:'rashi',        rashi:'Libra',     sub:'Tula'},
-  {label:'Vi',   type:'rashi',        rashi:'Virgo',     sub:'Kanya'},
-  {label:'Le',   type:'rashi',        rashi:'Leo',       sub:'Simha'},
-  {label:'luu',  type:'rashi',        rashi:'',    detail:{name:'Vowel luu (ॣ)', desc:'The long vocalic ḷ — an extremely rare Sanskrit vowel. Its presence in the rashi ring represents the most subtle levels of vibrational influence.'}},
-  {label:'d',    type:'akshara',      detail:{name:'Consonant d — lower (द)', desc:'The voiced dental (da) — appears again in row 7. Reinforces Martian qualities and dynamic, cutting energy in this zone of the chakra.'}},
-  {label:'Push', type:'nakshatra',    nakshatra:'Pushya',        sub:'Pushya'},
+  // ── ROW 7 ── nakshatra | akshara | vowel | rashis×4 | akshara | nakshatra
+  {label:'Jye',  type:'nakshatra', nakshatra:'Jyeshtha',      sub:'Jyeshtha'},
+  {label:'n',    type:'akshara',   detail:{name:'Akshara: n (न)', desc:'Consonant na — associated with Mercury and intelligence. Carries subtle discrimination and the earth element in its refined form.'}},
+  {label:'e',    type:'vowel',     detail:{name:'Vowel e (ए) — BL diagonal', desc:'Vowel e — part of the bottom-left diagonal (i→ri→e→am). Associated with Venus and creative energy. Its position connects the corner vowel \'i\' through the ring toward the center.'}},
+  {label:'Li',   type:'rashi',     rashi:'Libra',     sub:'Tula'},
+  {label:'Vi',   type:'rashi',     rashi:'Virgo',     sub:'Kanya'},
+  {label:'Le',   type:'rashi',     rashi:'Leo',       sub:'Simha'},
+  {label:'luu',  type:'vowel',     detail:{name:'Vowel luu (ॣ) — BR diagonal', desc:'Long vocalic ḷ — part of the bottom-right diagonal (aa→uu→luu→au). Among the rarest Sanskrit sounds. Represents the most subtle vibrational layer connecting the corner \'aa\' toward the center \'au\'.'}},
+  {label:'d',    type:'akshara',   detail:{name:'Akshara: d (द) — lower', desc:'Consonant da — appears again in row 7. The symmetric structure of the SBC places this Martian consonant here, reinforcing dynamic energy in this zone.'}},
+  {label:'Push', type:'nakshatra', nakshatra:'Pushya',        sub:'Pushya'},
 
-  // ── ROW 8 ── CYAN | ORANGE×7 | CYAN
-  {label:'Anu',  type:'nakshatra',    nakshatra:'Anuradha',      sub:'Anuradha'},
-  {label:'ri',   type:'akshara',      detail:{name:'Vowel ri (ृ)', desc:'The short vocalic r̥ — the seed sound of the Rishis (sages). Carries divine wisdom, intuition, and the inner fire of tapas.'}},
-  {label:'t',    type:'akshara',      detail:{name:'Consonant t (त)', desc:'The voiceless dental stop (ta) — associated with Saturn and discipline. Carries the quality of law, order, and measured time.'}},
-  {label:'r',    type:'akshara',      detail:{name:'Consonant r (र)', desc:'The trill/flap (ra) — the seed sound of the Sun and fire. Appears in words for radiance (ravi) and passion throughout Sanskrit.'}},
-  {label:'p',    type:'akshara',      detail:{name:'Consonant p (प)', desc:'The voiceless bilabial stop (pa) — associated with Venus and water. Begins words for nourishment (pana), protection (pala), and the sacred (puja).'}},
-  {label:'t~',   type:'akshara',      detail:{name:'Consonant tha (थ)', desc:'The aspirated dental (tha) — carries the quality of expansion beyond normal limits. Associated with Jupiter\'s expansive quality.'}},
-  {label:'m',    type:'akshara',      detail:{name:'Consonant m (म)', desc:'The bilabial nasal (ma) — the seed of the Moon and mind. Begins words for mother (matru), mind (manas), and greatness (maha).'}},
-  {label:'uu',   type:'akshara',      detail:{name:'Vowel uu (ऊ)', desc:'The long \'ū\' vowel — deep, resonant, and associated with Shiva. The long form amplifies the transformative quality of the short \'u\'.'}},
-  {label:'Asre', type:'nakshatra',    nakshatra:'Ashlesha',      sub:'Ashlesha'},
+  // ── ROW 8 ── nakshatra | vowel | aksharas×5 | vowel | nakshatra
+  {label:'Anu',  type:'nakshatra', nakshatra:'Anuradha',      sub:'Anuradha'},
+  {label:'ri',   type:'vowel',     detail:{name:'Vowel ri (ृ) — BL diagonal', desc:'Short vocalic r̥ — part of the bottom-left diagonal (i→ri→e→am). The seed sound of the Rishis (sages), carrying divine wisdom and the inner fire of tapas.'}},
+  {label:'t',    type:'akshara',   detail:{name:'Akshara: t (त)', desc:'Consonant ta — associated with Saturn and discipline. Carries the quality of law, order and measured time.'}},
+  {label:'r',    type:'akshara',   detail:{name:'Akshara: r (र)', desc:'Consonant ra — seed sound of Sun and fire. Appears in words for radiance (ravi), colour (ranga) and passion.'}},
+  {label:'p',    type:'akshara',   detail:{name:'Akshara: p (प)', desc:'Consonant pa — associated with Venus and water. Begins words for nourishment (pana), protection (pala) and the sacred (puja).'}},
+  {label:'t~',   type:'akshara',   detail:{name:'Akshara: tha (थ)', desc:'Aspirated dental tha — carries the quality of expansion. Associated with Jupiter\'s expansive quality in this ring position.'}},
+  {label:'m',    type:'akshara',   detail:{name:'Akshara: m (म)', desc:'Consonant ma — seed of Moon and mind. Begins words for mother (matru), mind (manas) and greatness (maha).'}},
+  {label:'uu',   type:'vowel',     detail:{name:'Vowel uu (ऊ) — BR diagonal', desc:'Long ū vowel — part of the bottom-right diagonal (aa→uu→luu→au). Deep, resonant, associated with Shiva. Amplifies the transformative quality of short \'u\'.'}},
+  {label:'Asre', type:'nakshatra', nakshatra:'Ashlesha',      sub:'Ashlesha'},
 
-  // ── ROW 9 ── ALL CYAN
-  {label:'i',    type:'vowel-corner', detail:{name:'Vowel i (इ)', desc:'The short \'i\' vowel — associated with Vishnu and preservation. Carries the quality of the individual self (jiva) seeking union with the universal.'}},
-  {label:'Visa', type:'nakshatra',    nakshatra:'Vishakha',      sub:'Vishakha'},
-  {label:'Swat', type:'nakshatra',    nakshatra:'Swati',         sub:'Swati'},
-  {label:'Chit', type:'nakshatra',    nakshatra:'Chitra',        sub:'Chitra'},
-  {label:'Hast', type:'nakshatra',    nakshatra:'Hasta',         sub:'Hasta'},
-  {label:'UPha', type:'nakshatra',    nakshatra:'Uttara Phalguni', sub:'Uttara Phalguni'},
-  {label:'PPha', type:'nakshatra',    nakshatra:'Purva Phalguni',  sub:'Purva Phalguni'},
-  {label:'Magh', type:'nakshatra',    nakshatra:'Magha',         sub:'Magha'},
-  {label:'aa',   type:'vowel-corner', detail:{name:'Vowel aa (आ)', desc:'The long \'ā\' vowel — the primordial, extended sound. Represents Shakti, the divine feminine principle, and the expansive quality of all creation.'}},
+  // ── ROW 9 ── all nakshatras + corner vowels
+  {label:'i',    type:'vowel',     detail:{name:'Vowel i (इ)', desc:'Short vowel i — South-West corner. Associated with Vishnu and preservation. Carries the quality of the individual self (jiva) seeking union. Begins the bottom-left diagonal (i→ri→e→am).'}},
+  {label:'Visa', type:'nakshatra', nakshatra:'Vishakha',      sub:'Vishakha'},
+  {label:'Swat', type:'nakshatra', nakshatra:'Swati',         sub:'Swati'},
+  {label:'Chit', type:'nakshatra', nakshatra:'Chitra',        sub:'Chitra'},
+  {label:'Hast', type:'nakshatra', nakshatra:'Hasta',         sub:'Hasta'},
+  {label:'UPha', type:'nakshatra', nakshatra:'Uttara Phalguni', sub:'Uttara Phalguni'},
+  {label:'PPha', type:'nakshatra', nakshatra:'Purva Phalguni',  sub:'Purva Phalguni'},
+  {label:'Magh', type:'nakshatra', nakshatra:'Magha',         sub:'Magha'},
+  {label:'aa',   type:'vowel',     detail:{name:'Vowel aa (आ)', desc:'Long ā vowel — South-East corner. Represents Shakti, the divine feminine principle. The extended ā permeates all creation as the mother of vowels. Begins the bottom-right diagonal (aa→uu→luu→au).'}},
 ];
 
 function buildChakraGrid() {
@@ -972,8 +967,9 @@ function buildChakraGrid() {
   if (!grid) return;
   GRID_CELLS.forEach((cell, idx) => {
     const div = document.createElement('div');
-    const typeClass = 'type-' + cell.type;
-    div.className = 'sbc-cell ' + typeClass;
+    let classes = 'sbc-cell type-' + cell.type;
+    if (cell.extra) classes += ' ' + cell.extra;
+    div.className = classes;
     div.setAttribute('data-idx', idx);
     const labelLines = cell.label.split('\n');
     div.innerHTML = `<span class="cell-main">${labelLines.join('<br>')}</span>${cell.sub ? `<span class="cell-sub">${cell.sub}</span>` : ''}`;
@@ -1022,7 +1018,7 @@ function showChakraDetail(cell, el) {
         <div class="detail-row"><span class="detail-label">In SBC</span><span class="detail-value">Rashis occupy the third ring of the chakra. Transiting planets in a rashi create vedha with the nakshatras connected to that rashi position, influencing all matters signified by those nakshatras.</span></div>
       </div>`;
 
-  } else if (cell.tithi && (cell.type === 'tithi-rikta' || cell.type === 'tithi-light' || cell.type === 'tithi-green')) {
+  } else if (cell.tithi && (cell.type === 'tithi-rikta' || cell.type === 'tithi-light' || cell.type === 'tithi-green' || cell.type === 'tithi')) {
     const t = TITHI_DATA[cell.tithi];
     if (!t) return;
     const icons = {Nanda:'🌙', Bhadra:'✨', Jaya:'⚔️', Rikta:'🌑', Poorna:'🌕'};
@@ -1036,12 +1032,12 @@ function showChakraDetail(cell, el) {
       <div class="detail-body">
         <div class="detail-row"><span class="detail-label">Associated Days</span><span class="detail-value">${t.days}</span></div>
         <div class="detail-row"><span class="detail-label">Nature</span><span class="detail-value">${t.meaning}</span></div>
-        <div class="detail-row"><span class="detail-label">In SBC</span><span class="detail-value">When a planet transits and creates vedha on a tithi cell, the quality of that tithi influences the outcome — Jaya tithis amplify victory, Rikta tithis signal caution, Poorna tithis bring completion.</span></div>
+        <div class="detail-row"><span class="detail-label">In SBC</span><span class="detail-value">When a planet creates vedha on a tithi cell, that tithi's quality influences the outcome — Jaya amplifies victory, Rikta signals caution, Poorna brings completion, Nanda brings joy, Bhadra brings stability.</span></div>
       </div>`;
 
   } else if (cell.detail) {
-    const typeLabels = { 'center':'Bindu — Center', 'vowel-corner':'Corner Vowel', 'akshara':'Akshara (Second Ring)', 'rashi':'Rashi Ring Vowel' };
-    const typeIcons  = { 'center':'🕉️', 'vowel-corner':'🔤', 'akshara':'📿', 'rashi':'🔠' };
+    const typeLabels = { 'vowel':'Vowel — Diagonal Layer', 'vowel-corner':'Corner Vowel', 'akshara':'Akshara (Consonant)', 'rashi':'Rashi Ring Vowel', 'center':'Bindu — Center' };
+    const typeIcons  = { 'vowel':'🕉️', 'vowel-corner':'🔤', 'akshara':'📿', 'rashi':'🔠', 'center':'🕉️' };
     panel.innerHTML = `
       <div class="detail-header">
         <span class="detail-icon">${typeIcons[cell.type] || '📿'}</span>
@@ -1050,8 +1046,8 @@ function showChakraDetail(cell, el) {
       </div>
       <div class="detail-body">
         <div class="detail-row"><span class="detail-label">Significance</span><span class="detail-value">${cell.detail.desc}</span></div>
-        ${cell.type === 'center' ? `<div class="detail-row"><span class="detail-label">Vedha</span><span class="detail-value">The center of the SBC is the bindu — the cosmic point from which all vedha lines radiate. A planet near or aspecting the center creates influence across the entire chakra simultaneously.</span></div>` : ''}
-        ${cell.type === 'akshara' ? `<div class="detail-row"><span class="detail-label">In SBC</span><span class="detail-value">Aksharas in the second ring are used for name-based vedha analysis. The first letter of a person's name — mapped to its akshara — reveals which ring cells are sensitive to planetary vedha for that individual.</span></div>` : ''}
+        ${cell.extra === 'center-vowel' ? `<div class="detail-row"><span class="detail-label">Vedha</span><span class="detail-value">As a center bindu cell, a planet influencing this position creates effects across the entire chakra simultaneously.</span></div>` : ''}
+        ${cell.type === 'akshara' ? `<div class="detail-row"><span class="detail-label">Name Vedha</span><span class="detail-value">Aksharas are used for name-based vedha. The first letter of a person's name reveals which cells are sensitive to planetary influence for that individual.</span></div>` : ''}
       </div>`;
   }
 }
