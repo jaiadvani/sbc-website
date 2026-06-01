@@ -344,8 +344,11 @@
         <div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-muted);font-family:var(--font-elegant);font-style:italic;font-size:1.1rem">
           Loading articles...
         </div>`;
-      allArticles = await getArticles();
-      // Build category tabs
+      try {
+        allArticles = await getArticles();
+      } catch(e) {
+        allArticles = FALLBACK_ARTICLES;
+      }
       const cats = ['All', ...new Set(allArticles.map(a => a.category))];
       const tabs = document.getElementById('filter-tabs');
       tabs.innerHTML = cats.map(c =>

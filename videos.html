@@ -411,7 +411,11 @@
         <div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-muted);font-family:var(--font-elegant);font-style:italic;font-size:1.1rem">
           Loading videos...
         </div>`;
-      allVideos = await getVideos();
+      try {
+        allVideos = await getVideos();
+      } catch(e) {
+        allVideos = FALLBACK_VIDEOS;
+      }
       const cats = ['All', ...new Set(allVideos.map(v => v.category || 'General'))];
       const tabs = document.getElementById('filter-tabs');
       tabs.innerHTML = cats.map(c =>

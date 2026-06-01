@@ -1123,7 +1123,9 @@ function showChakraDetail(cell, el) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', buildChakraGrid);
+document.addEventListener('DOMContentLoaded', () => {
+  try { buildChakraGrid(); } catch(e) { console.warn('Chakra grid error:', e); }
+});
 </script>
 </body>
 </html>
