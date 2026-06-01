@@ -1409,40 +1409,32 @@ footer {
 ::-webkit-scrollbar-thumb:hover { background: rgba(200, 146, 42, 0.5); }
 
 /* ════════════════════════════════════════
-   SARVATOBHADRA CHAKRA INTERACTIVE SECTION
+   SARVATOBHADRA CHAKRA — REBUILT v5
+   Pixel-perfect square cells, exact color layers
    ════════════════════════════════════════ */
 #chakra-section {
   background: linear-gradient(180deg, var(--navy-deep) 0%, var(--navy-mid) 100%);
   position: relative;
   overflow: hidden;
 }
-#chakra-section::before {
-  content: '';
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 700px; height: 700px;
-  background: radial-gradient(circle, rgba(200,146,42,0.04) 0%, transparent 70%);
-  pointer-events: none;
-}
 .chakra-layout {
   display: grid;
-  grid-template-columns: 1fr 340px;
-  gap: 40px;
+  grid-template-columns: 1fr 320px;
+  gap: 48px;
   align-items: start;
 }
-.chakra-grid-wrap {
-  position: relative;
-}
+.chakra-grid-wrap { position: relative; }
 .chakra-outer-border {
-  border: 1.5px solid var(--gold-primary);
-  padding: 4px;
-  background: var(--navy-mid);
-  box-shadow: 0 0 50px rgba(200,146,42,0.1), inset 0 0 30px rgba(200,146,42,0.03);
+  border: 2px solid var(--gold-primary);
+  padding: 3px;
+  background: #050810;
+  box-shadow: 0 0 60px rgba(200,146,42,0.12), inset 0 0 20px rgba(0,0,0,0.5);
+  display: inline-block;
+  width: 100%;
 }
 .chakra-corner-ornament {
   position: absolute;
-  width: 20px; height: 20px;
+  width: 16px; height: 16px;
   border-color: var(--gold-light);
   border-style: solid;
   z-index: 2;
@@ -1452,82 +1444,107 @@ footer {
 .chakra-corner-ornament.bl { bottom: -2px; left: -2px; border-width: 0 0 3px 3px; }
 .chakra-corner-ornament.br { bottom: -2px; right: -2px; border-width: 0 3px 3px 0; }
 
-/* ── The 9×9 Grid ── */
+/* ── SQUARE 9×9 Grid — aspect-ratio enforces square cells ── */
 .sbc-grid-9 {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
-  border-left: 1px solid rgba(200,146,42,0.2);
-  border-top: 1px solid rgba(200,146,42,0.2);
   width: 100%;
+  border-left: 1px solid rgba(200,146,42,0.3);
+  border-top: 1px solid rgba(200,146,42,0.3);
 }
 .sbc-cell {
-  border-right: 1px solid rgba(200,146,42,0.2);
-  border-bottom: 1px solid rgba(200,146,42,0.2);
+  border-right: 1px solid rgba(200,146,42,0.3);
+  border-bottom: 1px solid rgba(200,146,42,0.3);
+  aspect-ratio: 1 / 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 52px;
-  padding: 4px 2px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.18s ease;
   position: relative;
   text-align: center;
   user-select: none;
+  padding: 2px;
+  overflow: hidden;
 }
-.sbc-cell:hover { transform: scale(1.08); z-index: 3; box-shadow: 0 0 20px rgba(200,146,42,0.4); }
-.sbc-cell.active { box-shadow: 0 0 0 2px var(--gold-light) inset, 0 0 20px rgba(200,146,42,0.5); z-index: 4; transform: scale(1.08); }
+.sbc-cell:hover { transform: scale(1.12); z-index: 5; box-shadow: 0 0 18px rgba(200,146,42,0.5); border-color: var(--gold-light); }
+.sbc-cell.active { box-shadow: 0 0 0 2px var(--gold-bright) inset, 0 0 18px rgba(200,146,42,0.6); z-index: 6; transform: scale(1.1); }
 
-/* Cell type colours — 7 groups matching original SBC colour logic, adapted to navy/gold branding
+/* ══════════════════════════════
+   6 COLOR LAYERS — matching original image
+   Branded dark equivalents, distinct & clear
+   ══════════════════════════════
 
-   Original → Branded equivalent:
-   CYAN outer ring    → deep teal-navy  (nakshatras + vowel corners)
-   ORANGE 2nd ring    → warm amber-navy (aksharas)
-   PURPLE 3rd ring    → deep indigo     (rashis + vowels ai/lu/luu)
-   PINK Rikta         → deep magenta    (rikta tithi only)
-   WHITE Poorna/Nanda → pale gold-cream (auspicious light tithis)
-   GREEN Jaya/Bhadra/am → forest-olive  (victory/auspicious tithis)
-   TEAL-INNER o/au    → deep teal       (inner center vowels — distinct from outer)
+   1. CYAN  → nakshatra ring + corner vowels (ii,a,i,aa)
+   2. ORANGE → akshara ring (consonants/vowels between nakshatra & rashi)
+   3. PURPLE → rashi ring + vowels (ai, lu, luu, ah)
+   4. MAGENTA → Rikta+Fri only
+   5. CREAM  → Poorna+Sat, Nanda+Sun+Tue (lightest — almost white in original)
+   6. GREEN  → Jaya+Thu, am, Bhadra+Mon+Wed
+   + CYAN-INNER → o and au (same family as #1 but inner position)
 */
-.sbc-cell.type-nakshatra   { background: #072030; }
-.sbc-cell.type-nakshatra:hover, .sbc-cell.type-nakshatra.active { background: #0D2C3E; }
-.sbc-cell.type-vowel-corner { background: #063A28; }
-.sbc-cell.type-vowel-corner:hover, .sbc-cell.type-vowel-corner.active { background: #0A4A34; }
-.sbc-cell.type-akshara     { background: #2A1A06; }
-.sbc-cell.type-akshara:hover, .sbc-cell.type-akshara.active { background: #38240A; }
-.sbc-cell.type-rashi       { background: #1A0C38; }
-.sbc-cell.type-rashi:hover, .sbc-cell.type-rashi.active { background: #241248; }
-.sbc-cell.type-tithi-rikta { background: #38062A; }
-.sbc-cell.type-tithi-rikta:hover, .sbc-cell.type-tithi-rikta.active { background: #480A36; }
-.sbc-cell.type-tithi-light { background: #2A2410; }
-.sbc-cell.type-tithi-light:hover, .sbc-cell.type-tithi-light.active { background: #362E14; }
-.sbc-cell.type-tithi-green { background: #0E2A08; }
-.sbc-cell.type-tithi-green:hover, .sbc-cell.type-tithi-green.active { background: #143810; }
-.sbc-cell.type-center      { background: #063824; border: 1.5px solid rgba(200,146,42,0.5); }
-.sbc-cell.type-center:hover, .sbc-cell.type-center.active { background: #0A4830; }
 
-/* Cell text colours per type */
+/* 1. CYAN — Nakshatras + corner vowels */
+.sbc-cell.type-nakshatra  { background: #003A3A; }
+.sbc-cell.type-nakshatra:hover, .sbc-cell.type-nakshatra.active { background: #005050; }
+.sbc-cell.type-vowel-corner { background: #003A3A; }
+.sbc-cell.type-vowel-corner:hover, .sbc-cell.type-vowel-corner.active { background: #005050; }
+
+/* 2. ORANGE — Aksharas */
+.sbc-cell.type-akshara    { background: #3A1E00; }
+.sbc-cell.type-akshara:hover, .sbc-cell.type-akshara.active { background: #502A00; }
+
+/* 3. PURPLE — Rashis + rashi-ring vowels */
+.sbc-cell.type-rashi      { background: #250A40; }
+.sbc-cell.type-rashi:hover, .sbc-cell.type-rashi.active { background: #341258; }
+
+/* 4. MAGENTA — Rikta tithi only */
+.sbc-cell.type-tithi-rikta { background: #400028; }
+.sbc-cell.type-tithi-rikta:hover, .sbc-cell.type-tithi-rikta.active { background: #580036; }
+
+/* 5. CREAM — Poorna + Nanda tithis */
+.sbc-cell.type-tithi-light { background: #2A2408; }
+.sbc-cell.type-tithi-light:hover, .sbc-cell.type-tithi-light.active { background: #383210; }
+
+/* 6. GREEN — Jaya + am + Bhadra */
+.sbc-cell.type-tithi-green { background: #0A2A00; }
+.sbc-cell.type-tithi-green:hover, .sbc-cell.type-tithi-green.active { background: #123A00; }
+
+/* CYAN-INNER — o and au (same hue as nakshatra but distinct border) */
+.sbc-cell.type-center     { background: #003A3A; border: 1.5px solid var(--gold-primary); }
+.sbc-cell.type-center:hover, .sbc-cell.type-center.active { background: #005050; }
+
+/* ── Cell Text ── */
 .sbc-cell .cell-main {
   font-family: 'Cinzel', serif;
-  font-size: 9.5px;
-  font-weight: 600;
-  line-height: 1.2;
-  color: var(--gold-light);
-  letter-spacing: 0.02em;
+  font-size: clamp(7px, 1.1vw, 11px);
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
 }
-.sbc-cell.type-nakshatra .cell-main    { color: #5DD4E8; font-weight: 700; }
-.sbc-cell.type-vowel-corner .cell-main { color: #4ECBA5; font-size: 11px; font-weight: 700; }
-.sbc-cell.type-akshara .cell-main     { color: #E8A84B; }
-.sbc-cell.type-rashi .cell-main       { color: #C4AAEE; }
-.sbc-cell.type-tithi-rikta .cell-main { color: #E87BBB; font-size: 9px; }
-.sbc-cell.type-tithi-light .cell-main { color: #F5E098; font-size: 9px; }
-.sbc-cell.type-tithi-green .cell-main { color: #90D460; font-size: 9px; }
-.sbc-cell.type-center .cell-main      { color: #60E8A0; font-size: 11px; font-weight: 700; }
+/* Nakshatra — bold, cyan text */
+.sbc-cell.type-nakshatra .cell-main    { color: #00E5CC; font-weight: 700; }
+/* Corner vowels — bold, same cyan */
+.sbc-cell.type-vowel-corner .cell-main { color: #00E5CC; font-weight: 700; }
+/* Aksharas — regular, warm amber */
+.sbc-cell.type-akshara .cell-main     { color: #FFB84D; font-weight: 400; }
+/* Rashis — regular, lavender */
+.sbc-cell.type-rashi .cell-main       { color: #C8AAFF; font-weight: 400; }
+/* Rikta — magenta/pink */
+.sbc-cell.type-tithi-rikta .cell-main { color: #FF77CC; font-weight: 400; font-size: clamp(6px, 0.9vw, 9px); }
+/* Poorna/Nanda — pale cream/gold */
+.sbc-cell.type-tithi-light .cell-main { color: #EEE0A0; font-weight: 400; font-size: clamp(6px, 0.9vw, 9px); }
+/* Jaya/Bhadra/am — lime green */
+.sbc-cell.type-tithi-green .cell-main { color: #88DD44; font-weight: 400; font-size: clamp(6px, 0.9vw, 9px); }
+/* Center o,au — same cyan as nakshatra */
+.sbc-cell.type-center .cell-main      { color: #00E5CC; font-weight: 700; }
+
 .sbc-cell .cell-sub {
   font-family: 'EB Garamond', serif;
   font-style: italic;
-  font-size: 7.5px;
-  color: rgba(200,146,42,0.45);
+  font-size: clamp(5.5px, 0.7vw, 7px);
+  color: rgba(200,200,200,0.35);
   line-height: 1.2;
   margin-top: 1px;
 }
@@ -1542,22 +1559,18 @@ footer {
   border: 1px solid rgba(200,146,42,0.2);
   border-radius: 4px;
   overflow: hidden;
-  min-height: 400px;
+  min-height: 420px;
 }
 .detail-header {
   background: linear-gradient(135deg, rgba(200,146,42,0.1), rgba(10,14,26,0.8));
   border-bottom: 1px solid rgba(200,146,42,0.15);
-  padding: 24px;
+  padding: 20px;
   text-align: center;
 }
-.detail-icon {
-  font-size: 2.5rem;
-  margin-bottom: 8px;
-  display: block;
-}
+.detail-icon { font-size: 2.2rem; margin-bottom: 6px; display: block; }
 .detail-number {
   font-family: var(--font-heading);
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   letter-spacing: 0.3em;
   color: var(--orange-accent);
   text-transform: uppercase;
@@ -1565,7 +1578,7 @@ footer {
 }
 .detail-name {
   font-family: var(--font-display);
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: var(--gold-light);
   margin-bottom: 4px;
   line-height: 1.2;
@@ -1573,57 +1586,56 @@ footer {
 .detail-sanskrit {
   font-family: var(--font-elegant);
   font-style: italic;
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: var(--text-secondary);
 }
-.detail-body { padding: 24px; }
+.detail-body { padding: 20px; }
 .detail-row {
   display: flex;
-  gap: 12px;
-  margin-bottom: 14px;
+  gap: 10px;
+  margin-bottom: 12px;
   align-items: flex-start;
 }
 .detail-label {
   font-family: var(--font-heading);
-  font-size: 0.65rem;
-  letter-spacing: 0.15em;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-muted);
-  min-width: 80px;
+  min-width: 72px;
   padding-top: 2px;
   flex-shrink: 0;
 }
 .detail-value {
   font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: var(--text-primary);
   line-height: 1.5;
 }
 .detail-meaning {
   font-family: var(--font-elegant);
   font-style: italic;
-  font-size: 1.05rem;
+  font-size: 1rem;
   color: var(--text-secondary);
   line-height: 1.6;
-  padding: 16px;
+  padding: 14px 20px;
   border-top: 1px solid rgba(200,146,42,0.1);
-  margin-top: 4px;
 }
 .detail-placeholder {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 400px;
+  height: 420px;
   gap: 16px;
   padding: 32px;
   text-align: center;
 }
-.detail-placeholder .placeholder-icon { font-size: 3rem; opacity: 0.4; }
+.detail-placeholder .placeholder-icon { font-size: 2.5rem; opacity: 0.35; }
 .detail-placeholder p {
   font-family: var(--font-elegant);
   font-style: italic;
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: var(--text-muted);
   line-height: 1.7;
 }
@@ -1633,7 +1645,7 @@ footer {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: 20px;
+  margin-top: 16px;
   justify-content: center;
 }
 .legend-item {
@@ -1641,25 +1653,20 @@ footer {
   align-items: center;
   gap: 6px;
   font-family: var(--font-heading);
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   letter-spacing: 0.08em;
   color: var(--text-muted);
   text-transform: uppercase;
 }
-.legend-dot {
-  width: 10px; height: 10px;
-  border-radius: 2px;
-  flex-shrink: 0;
-}
+.legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
 
 /* Responsive */
-@media (max-width: 1024px) {
+@media (max-width: 1100px) {
   .chakra-layout { grid-template-columns: 1fr; }
   .chakra-detail-panel { position: static; }
   .detail-card { min-height: auto; }
 }
 @media (max-width: 600px) {
-  .sbc-cell { min-height: 36px; }
-  .sbc-cell .cell-main { font-size: 7.5px; }
+  .sbc-cell .cell-main { font-size: 6px; }
   .sbc-cell .cell-sub { display: none; }
 }
