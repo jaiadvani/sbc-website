@@ -176,16 +176,57 @@
           <div class="admin-form-row" style="margin-bottom:20px">
             <div class="form-group" style="margin:0">
               <label>Article Title *</label>
-              <input type="text" id="new-article-title" placeholder="Enter article title">
+              <input type="text" id="new-article-title" placeholder="e.g. Understanding Vedha in SBC">
             </div>
             <div class="form-group" style="margin:0">
-              <label>Category</label>
-              <input type="text" id="new-article-category" placeholder="e.g. Fundamentals, Techniques">
+              <label>Category *</label>
+              <select id="new-article-category">
+                <option value="Learn SBC">🔯 Learn SBC — Foundational concepts</option>
+                <option value="SBC Techniques">⚡ SBC Techniques — How-to methods</option>
+                <option value="Life Applications">🌿 Life Applications — Marriage, Career, Health</option>
+                <option value="Case Studies">👑 Case Studies — Celebrities & Real Life</option>
+                <option value="Research & Insights">🔬 Research & Insights — Validation & Studies</option>
+                <option value="Advanced SBC">📚 Advanced SBC — Deep classical concepts</option>
+              </select>
+            </div>
+          </div>
+          <div class="admin-form-row" style="margin-bottom:20px">
+            <div class="form-group" style="margin:0">
+              <label>Icon</label>
+              <select id="new-article-icon">
+                <option value="🔯">🔯 General SBC</option>
+                <option value="⚡">⚡ Techniques / Vedha</option>
+                <option value="🌿">🌿 Life Applications</option>
+                <option value="👑">👑 Case Studies</option>
+                <option value="🔬">🔬 Research</option>
+                <option value="📚">📚 Advanced / Classical</option>
+                <option value="⭐">⭐ Nakshatras</option>
+                <option value="🌙">🌙 Tithis / Moon</option>
+                <option value="☀️">☀️ Rashis / Sun</option>
+                <option value="📿">📿 Aksharas</option>
+                <option value="🕐">🕐 Muhurta / Timing</option>
+                <option value="🏥">🏥 Health</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin:0">
+              <label>Tags (comma separated)</label>
+              <input type="text" id="new-article-tags" placeholder="e.g. Vedha, Moon, Nakshatra, Transit">
             </div>
           </div>
           <div class="form-group">
             <label>Article Content *</label>
-            <textarea id="new-article-content" style="min-height:300px" placeholder="Write your article content here. Separate paragraphs with double line breaks. Use **Bold Text** for headings."></textarea>
+            <textarea id="new-article-content" style="min-height:320px" placeholder="Write each paragraph on a new line (press Enter twice between paragraphs).&#10;&#10;First paragraph = intro pull-quote — make it strong.&#10;Aim for 6-8 paragraphs, 100-150 words each.&#10;&#10;Use **Bold Text** for subheadings within the article."></textarea>
+          </div>
+          <div class="admin-card" style="background:rgba(200,146,42,0.04);border-color:rgba(200,146,42,0.1);margin-bottom:20px">
+            <p style="font-size:0.8rem;color:var(--text-muted);margin:0;line-height:1.8">
+              <strong style="color:var(--gold-primary)">Category Guide:</strong><br>
+              🔯 <strong style="color:var(--text-secondary)">Learn SBC</strong> — What is SBC, nakshatras, aksharas, tithis, rashis, basics<br>
+              ⚡ <strong style="color:var(--text-secondary)">SBC Techniques</strong> — Vedha analysis, muhurta, prashna, step-by-step methods<br>
+              🌿 <strong style="color:var(--text-secondary)">Life Applications</strong> — Marriage, career, business, health, travel, property<br>
+              👑 <strong style="color:var(--text-secondary)">Case Studies</strong> — Celebrity charts, historical events, real consultations<br>
+              🔬 <strong style="color:var(--text-secondary)">Research & Insights</strong> — Validation, classical text comparisons, original research<br>
+              📚 <strong style="color:var(--text-secondary)">Advanced SBC</strong> — Complex vedha combinations, rare techniques, classical references
+            </p>
           </div>
           <button class="btn-primary" onclick="addArticle()"><span>💾 Save as Draft</span></button>
         </div>

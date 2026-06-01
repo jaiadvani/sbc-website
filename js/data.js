@@ -7,7 +7,7 @@ const SBC_ARTICLES = [
   {
     id: 1,
     title: "Understanding the Sarvatobhadra Chakra: An Introduction",
-    category: "Fundamentals",
+    category: "Learn SBC",
     date: "15 May 2025",
     readTime: "8 min read",
     excerpt: "The Sarvatobhadra Chakra is one of the most profound and versatile tools in Vedic astrology, offering insights across multiple dimensions of life.",
@@ -19,14 +19,12 @@ const SBC_ARTICLES = [
       "The chakra's structure is elegantly layered — the outermost ring contains the 27 (or 28) nakshatras, the second ring holds the aksharas (Sanskrit phonemes), the third ring maps the 12 rashis, and the innermost cells contain the tithis (lunar days) and their associated weekdays. Each layer interacts with every other, creating a web of cosmic correspondences that a trained astrologer can read like a living map.",
       "For the student approaching the SBC for the first time, the key is to appreciate its holistic nature. This is not a tool that gives single-factor answers — it is a system that reveals the totality of cosmic influence operating at any given moment, for any given individual or endeavor."
     ],
-    icon: "🔯",
-    status: "published",
-    tags: ["Introduction", "SBC", "Vedic Astrology", "Basics"]
+    icon: "🔯",  // Learn SBC
   },
   {
     id: 2,
     title: "Nakshatras and the Chakra: The 27 Lunar Mansions",
-    category: "Nakshatras",
+    category: "Learn SBC",
     date: "22 May 2025",
     readTime: "10 min read",
     excerpt: "How the 27 (or 28) nakshatras form the foundational structure of the Sarvatobhadra Chakra and their significance in reading vedhas.",
@@ -38,14 +36,14 @@ const SBC_ARTICLES = [
       "Among the 27 nakshatras, the 28th — Abhijit — holds a special place in the SBC. Located in the corner position associated with the 21st nakshatra Uttara Ashadha, Abhijit is particularly significant in muhurta (electional astrology) and carries the energy of the most auspicious moment, the zenith of the Sun.",
       "The study of nakshatras is a lifetime journey. Each of the 27 mansions has layers of meaning — their deity reveals the cosmic principle at work, their symbol reveals the mechanism, their ruling planet shows the energy channel, and their quality (fixed, movable, or mixed) shows how to work with their energy most effectively."
     ],
-    icon: "⭐",
+    icon: "🔯",  // Learn SBC
     status: "published",
     tags: ["Nakshatras", "Lunar Mansions", "Vedha", "Moon"]
   },
   {
     id: 3,
     title: "Vedha: The Art of Piercing — Understanding Afflictions",
-    category: "Techniques",
+    category: "SBC Techniques",
     date: "1 June 2025",
     readTime: "12 min read",
     excerpt: "Vedha is the central mechanism of the Sarvatobhadra Chakra. Learn how to identify, interpret and apply vedha analysis in chart reading.",
@@ -57,14 +55,14 @@ const SBC_ARTICLES = [
       "Mastering vedha analysis requires both technical precision and intuitive understanding — it is where the science and art of SBC astrology beautifully converge. The practitioner must first identify which sensitive points are being activated, then assess the nature and strength of the activating planet, and finally synthesize this information with the broader context of the individual's chart.",
       "One of the most powerful applications of vedha is in timing — understanding when a particular life event is most likely to manifest. By tracking the transit of planets through the chakra and noting when they create vedha with the natal sensitive points, the astrologer can identify windows of opportunity, caution, and transformation with remarkable precision."
     ],
-    icon: "🌟",
+    icon: "⚡",  // SBC Techniques
     status: "published",
     tags: ["Vedha", "Techniques", "Transits", "Analysis"]
   },
   {
     id: 4,
     title: "Muhurta and SBC: Choosing Auspicious Timings",
-    category: "Muhurta",
+    category: "Life Applications",
     date: "10 June 2025",
     readTime: "9 min read",
     excerpt: "How the Sarvatobhadra Chakra is used in Muhurta (electional astrology) to identify the most auspicious moments for important endeavors.",
@@ -76,14 +74,14 @@ const SBC_ARTICLES = [
       "The five tithi groups shown in the SBC — Nanda, Bhadra, Jaya, Rikta, and Poorna — each have specific applications in muhurta. Rikta tithis are generally avoided for new beginnings, while Jaya tithis are particularly auspicious for competitive endeavors and Poorna tithis for completions and spiritual practices.",
       "Guruji's muhurta consultations using the SBC have helped clients choose auspicious times for some of the most important decisions of their lives. The feedback consistently reveals that events begun during SBC-verified auspicious muhurtas tend to proceed with greater ease and success than those chosen by conventional methods alone."
     ],
-    icon: "🕐",
+    icon: "🌿",  // Life Applications
     status: "published",
     tags: ["Muhurta", "Timing", "Auspicious", "Elections"]
   },
   {
     id: 5,
     title: "Health Analysis Through the Sarvatobhadra Chakra",
-    category: "Health",
+    category: "Life Applications",
     date: "18 June 2025",
     readTime: "11 min read",
     excerpt: "Traditional applications of SBC in health prediction — understanding body vulnerabilities, disease timing, and recovery periods.",
@@ -95,14 +93,14 @@ const SBC_ARTICLES = [
       "Specific vedha patterns have been associated with particular health vulnerabilities across generations of SBC practitioners. For example, repeated Saturn vedha on certain nakshatra groups has been associated with chronic conditions affecting the joints and nervous system, while Rahu vedha on specific points can indicate unusual or difficult-to-diagnose conditions.",
       "The predictive value of SBC health analysis lies not in diagnosis but in timing and preparedness. When the chakra indicates a vulnerable period, the wise approach is to strengthen the body through appropriate diet, rest, and preventive measures — using the cosmic timing as a guide for proactive self-care."
     ],
-    icon: "🏥",
+    icon: "🌿",  // Life Applications
     status: "published",
     tags: ["Health", "Medical Astrology", "Prevention", "Body"]
   },
   {
     id: 6,
     title: "SBC in Prashna: Answering Pressing Questions",
-    category: "Prashna",
+    category: "SBC Techniques",
     date: "25 June 2025",
     readTime: "10 min read",
     excerpt: "How to use the Sarvatobhadra Chakra in Prashna (horary astrology) to answer specific questions with remarkable accuracy.",
@@ -114,19 +112,19 @@ const SBC_ARTICLES = [
       "One of the most powerful aspects of SBC prashna is its ability to give timing answers. Not only can it indicate whether something will happen, but the vedha patterns can reveal approximate timescales — suggesting whether resolution will come within days, weeks, or months.",
       "The ethical practice of prashna requires the astrologer to approach each question with genuine compassion and detachment. The goal is not to impress with predictions but to provide genuine guidance that empowers the questioner to navigate their situation with greater wisdom and confidence."
     ],
-    icon: "❓",
+    icon: "⚡",  // SBC Techniques
     status: "published",
     tags: ["Prashna", "Horary", "Questions", "Divination"]
   }
 ];
 
 const SBC_VIDEOS = [
-  { id: 1, title: "Introduction to Sarvatobhadra Chakra", youtubeId: "dQw4w9WgXcQ", duration: "32:15", views: "12.4K", category: "Fundamentals", description: "A comprehensive introduction to the Sarvatobhadra Chakra — its structure, history, and fundamental principles.", status: "published" },
-  { id: 2, title: "Reading Vedhas in Your Birth Chart", youtubeId: "dQw4w9WgXcQ", duration: "45:08", views: "8.7K", category: "Techniques", description: "Step-by-step guide to identifying and interpreting vedhas in a natal chart using the SBC matrix.", status: "published" },
-  { id: 3, title: "Nakshatra Analysis — Part 1", youtubeId: "dQw4w9WgXcQ", duration: "28:42", views: "15.2K", category: "Nakshatras", description: "Deep dive into the 27 nakshatras — their qualities, deities, symbols and role in the Sarvatobhadra Chakra.", status: "published" },
-  { id: 4, title: "Muhurta Selection Using SBC", youtubeId: "dQw4w9WgXcQ", duration: "38:55", views: "6.1K", category: "Muhurta", description: "Practical guide to selecting auspicious timings for important life events using the Sarvatobhadra Chakra.", status: "published" },
-  { id: 5, title: "Advanced Vedha Combinations", youtubeId: "dQw4w9WgXcQ", duration: "51:20", views: "9.3K", category: "Advanced", description: "Advanced analysis of complex vedha combinations and their precise interpretations in SBC practice.", status: "published" },
-  { id: 6, title: "Prashna Using Sarvatobhadra", youtubeId: "dQw4w9WgXcQ", duration: "44:10", views: "7.8K", category: "Prashna", description: "How to cast and interpret a Prashna chart using the Sarvatobhadra Chakra framework for horary readings.", status: "published" }
+  { id: 1, title: "Introduction to Sarvatobhadra Chakra", youtubeId: "dQw4w9WgXcQ", duration: "32:15", views: "12.4K", category: "Learn SBC", description: "A comprehensive introduction to the Sarvatobhadra Chakra — its structure, history, and fundamental principles.", status: "published" },
+  { id: 2, title: "Reading Vedhas in Your Birth Chart", youtubeId: "dQw4w9WgXcQ", duration: "45:08", views: "8.7K", category: "SBC Techniques", description: "Step-by-step guide to identifying and interpreting vedhas in a natal chart using the SBC matrix.", status: "published" },
+  { id: 3, title: "Nakshatra Analysis — Part 1", youtubeId: "dQw4w9WgXcQ", duration: "28:42", views: "15.2K", category: "Learn SBC", description: "Deep dive into the 27 nakshatras — their qualities, deities, symbols and role in the Sarvatobhadra Chakra.", status: "published" },
+  { id: 4, title: "Muhurta Selection Using SBC", youtubeId: "dQw4w9WgXcQ", duration: "38:55", views: "6.1K", category: "Life Applications", description: "Practical guide to selecting auspicious timings for important life events using the Sarvatobhadra Chakra.", status: "published" },
+  { id: 5, title: "Advanced Vedha Combinations", youtubeId: "dQw4w9WgXcQ", duration: "51:20", views: "9.3K", category: "Advanced SBC", description: "Advanced analysis of complex vedha combinations and their precise interpretations in SBC practice.", status: "published" },
+  { id: 6, title: "Prashna Using Sarvatobhadra", youtubeId: "dQw4w9WgXcQ", duration: "44:10", views: "7.8K", category: "SBC Techniques", description: "How to cast and interpret a Prashna chart using the Sarvatobhadra Chakra framework for horary readings.", status: "published" }
 ];
 
 // Get articles from localStorage if available, else use defaults

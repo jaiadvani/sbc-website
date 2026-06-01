@@ -437,33 +437,35 @@ function confirmBooking(id) {
 
 function addArticle() {
   const title    = document.getElementById('new-article-title').value.trim();
-  const category = document.getElementById('new-article-category').value.trim();
+  const category = document.getElementById('new-article-category').value;
   const content  = document.getElementById('new-article-content').value.trim();
+  const icon     = document.getElementById('new-article-icon')?.value || '🔯';
+  const tagsRaw  = document.getElementById('new-article-tags')?.value || '';
   if (!title || !content) { alert('Please fill in the title and content before saving.'); return; }
 
+  const tags = tagsRaw.split(',').map(t => t.trim()).filter(Boolean);
+  const wordCount = content.split(/\s+/).length;
   const article = {
-    id: Date.now(), title,
-    category: category || 'General',
+    id: Date.now(), title, category, icon, tags,
     date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }),
+    readTime: Math.max(3, Math.ceil(wordCount / 200)) + ' min read',
     excerpt: content.replace(/\n/g,' ').slice(0, 140) + '...',
-    content, status: 'draft', icon: '📜'
+    content, status: 'draft'
   };
 
   const articles = State.articles;
   articles.unshift(article);
   State.articles = articles;
 
-  document.getElementById('new-article-title').value   = '';
-  document.getElementById('new-article-category').value = '';
-  document.getElementById('new-article-content').value  = '';
+  document.getElementById('new-article-title').value = '';
+  document.getElementById('new-article-content').value = '';
+  if (document.getElementById('new-article-tags')) document.getElementById('new-article-tags').value = '';
 
   renderAdminArticles();
   renderArticles();
   renderAdminDashboard();
-
-  // Switch to articles panel to show it saved
   switchAdminSection('articles');
-  showToast('✅ Article saved as draft! Use the Publish button to make it live.');
+  showToast('✅ Article saved as draft! Click Publish to make it live.');
 }
 
 function addVideo() {
