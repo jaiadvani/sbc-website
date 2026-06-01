@@ -43,7 +43,7 @@ const SBC_ARTICLES = [
   {
     id: 3,
     title: "Vedha: The Art of Piercing — Understanding Afflictions",
-    category: "SBC Techniques",
+    category: "Learn SBC",
     date: "1 June 2025",
     readTime: "12 min read",
     excerpt: "Vedha is the central mechanism of the Sarvatobhadra Chakra. Learn how to identify, interpret and apply vedha analysis in chart reading.",
@@ -100,7 +100,7 @@ const SBC_ARTICLES = [
   {
     id: 6,
     title: "SBC in Prashna: Answering Pressing Questions",
-    category: "SBC Techniques",
+    category: "Learn SBC",
     date: "25 June 2025",
     readTime: "10 min read",
     excerpt: "How to use the Sarvatobhadra Chakra in Prashna (horary astrology) to answer specific questions with remarkable accuracy.",
@@ -120,11 +120,11 @@ const SBC_ARTICLES = [
 
 const SBC_VIDEOS = [
   { id: 1, title: "Introduction to Sarvatobhadra Chakra", youtubeId: "dQw4w9WgXcQ", duration: "32:15", views: "12.4K", category: "Learn SBC", description: "A comprehensive introduction to the Sarvatobhadra Chakra — its structure, history, and fundamental principles.", status: "published" },
-  { id: 2, title: "Reading Vedhas in Your Birth Chart", youtubeId: "dQw4w9WgXcQ", duration: "45:08", views: "8.7K", category: "SBC Techniques", description: "Step-by-step guide to identifying and interpreting vedhas in a natal chart using the SBC matrix.", status: "published" },
+  { id: 2, title: "Reading Vedhas in Your Birth Chart", youtubeId: "dQw4w9WgXcQ", duration: "45:08", views: "8.7K", category: "Learn SBC", description: "Step-by-step guide to identifying and interpreting vedhas in a natal chart using the SBC matrix.", status: "published" },
   { id: 3, title: "Nakshatra Analysis — Part 1", youtubeId: "dQw4w9WgXcQ", duration: "28:42", views: "15.2K", category: "Learn SBC", description: "Deep dive into the 27 nakshatras — their qualities, deities, symbols and role in the Sarvatobhadra Chakra.", status: "published" },
   { id: 4, title: "Muhurta Selection Using SBC", youtubeId: "dQw4w9WgXcQ", duration: "38:55", views: "6.1K", category: "Life Applications", description: "Practical guide to selecting auspicious timings for important life events using the Sarvatobhadra Chakra.", status: "published" },
-  { id: 5, title: "Advanced Vedha Combinations", youtubeId: "dQw4w9WgXcQ", duration: "51:20", views: "9.3K", category: "Advanced SBC", description: "Advanced analysis of complex vedha combinations and their precise interpretations in SBC practice.", status: "published" },
-  { id: 6, title: "Prashna Using Sarvatobhadra", youtubeId: "dQw4w9WgXcQ", duration: "44:10", views: "7.8K", category: "SBC Techniques", description: "How to cast and interpret a Prashna chart using the Sarvatobhadra Chakra framework for horary readings.", status: "published" }
+  { id: 5, title: "Advanced Vedha Combinations", youtubeId: "dQw4w9WgXcQ", duration: "51:20", views: "9.3K", category: "Learn SBC", description: "Advanced analysis of complex vedha combinations and their precise interpretations in SBC practice.", status: "published" },
+  { id: 6, title: "Prashna Using Sarvatobhadra", youtubeId: "dQw4w9WgXcQ", duration: "44:10", views: "7.8K", category: "Learn SBC", description: "How to cast and interpret a Prashna chart using the Sarvatobhadra Chakra framework for horary readings.", status: "published" }
 ];
 
 // Get articles from localStorage if available, else use defaults
