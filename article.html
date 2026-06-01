@@ -321,53 +321,39 @@
 
     // Get article ID from URL
     const params = new URLSearchParams(window.location.search);
-    // Support both ?slug=xxx and ?id=xxx
-    const params = new URLSearchParams(window.location.search);
     const slugParam = params.get('slug');
-    const idParam = params.get('id');
+    const idParam   = params.get('id');
 
     async function init() {
       try {
         let article = null;
+
         if (slugParam) {
-          // Fetch by slug — try slug first, fallback to id if slug is numeric
-          if (/^\d+$/.test(slugParam)) {
-            article = await getArticleById(parseInt(slugParam));
-          } else {
-            // Fetch all and find by slug
-            const all = await getArticles();
-            article = all.find(a => a.slug === slugParam);
-            if (article) article = await getArticleById(article.id);
-          }
+          article = await getArticleBySlug(slugParam);
         } else if (idParam) {
           article = await getArticleById(parseInt(idParam));
         }
 
         if (!article || article.status !== 'published') { showNotFound(); return; }
 
-        // Update SEO meta tags
+        // SEO meta
         document.getElementById('page-title').textContent = `${article.title} | Sarvatobhadra Chakra`;
         document.getElementById('page-desc').setAttribute('content', article.excerpt || '');
         document.getElementById('og-title').setAttribute('content', article.title);
         document.getElementById('og-desc').setAttribute('content', article.excerpt || '');
-        document.getElementById('breadcrumb-title').textContent = article.title.length > 40 ? article.title.slice(0, 40) + '...' : article.title;
-
-        // Set canonical URL with slug for SEO
-        const canonical = document.querySelector('link[rel="canonical"]') || document.createElement('link');
-        canonical.rel = 'canonical';
-        canonical.href = `${window.location.origin}/article.html?slug=${article.slug || article.id}`;
-        document.head.appendChild(canonical);
+        document.getElementById('breadcrumb-title').textContent =
+          article.title.length > 40 ? article.title.slice(0, 40) + '...' : article.title;
 
         renderArticle(article);
 
-        const allArticles = await getArticles();
-        // Related = same category first, then others
-        const sameCat = allArticles.filter(a => a.id !== article.id && a.category === article.category);
-        const others  = allArticles.filter(a => a.id !== article.id && a.category !== article.category);
-        const related = [...sameCat, ...others].slice(0, 4);
-        renderSidebar(related);
+        // Related — same category first
+        const all = await getArticles();
+        const sameCat = all.filter(a => a.id !== article.id && a.category === article.category);
+        const others  = all.filter(a => a.id !== article.id && a.category !== article.category);
+        renderSidebar([...sameCat, ...others].slice(0, 4));
+
       } catch(e) {
-        console.error('Article load error:', e);
+        console.error('Article init error:', e);
         showNotFound();
       }
     }

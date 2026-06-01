@@ -72,6 +72,19 @@ async function getArticleById(id) {
   }
 }
 
+async function getArticleBySlug(slug) {
+  // If slug is numeric, treat as ID
+  if (/^\d+$/.test(slug)) return getArticleById(parseInt(slug));
+  try {
+    const json = await apiFetch(`/api/articles/slug/${encodeURIComponent(slug)}`);
+    return mapArticle(json.data);
+  } catch(e) {
+    // Fallback: search in fallback articles
+    console.warn('Slug fetch failed:', e.message);
+    return FALLBACK_ARTICLES.find(a => a.slug === slug) || null;
+  }
+}
+
 // ══════════════════════════════════
 //  ADMIN API
 // ══════════════════════════════════
