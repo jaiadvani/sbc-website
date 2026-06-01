@@ -384,11 +384,13 @@
       }
       const formatDate = d => d ? new Date(d).toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'}) : '';
       grid.innerHTML = articles.map(a => {
+        const barColor = a.category === 'Learn SBC' ? '#C8922A' : a.category === 'Life Applications' ? '#4A9B6F' : '#7B68CC';
         const barClass = a.category === 'Learn SBC' ? 'learn-sbc' : a.category === 'Life Applications' ? 'life-applications' : 'case-studies';
+        const articleUrl = `article.html?slug=${a.slug || a.id}`;
         const formatDate = d => d ? new Date(d).toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'}) : '';
         return `
-        <a href="article.html?id=${a.id}" class="article-card-full">
-          <div class="article-cat-bar" style="height:4px;background:${barClass === 'learn-sbc' ? '#C8922A' : barClass === 'life-applications' ? '#4A9B6F' : '#7B68CC'}"></div>
+        <a href="${articleUrl}" class="article-card-full">
+          <div class="article-cat-bar" style="height:4px;background:${barColor}"></div>
           <div class="article-body">
             <div class="article-cat">
               <span class="cat-bar ${barClass}"></span>

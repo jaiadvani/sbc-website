@@ -321,11 +321,28 @@
 
     // Get article ID from URL
     const params = new URLSearchParams(window.location.search);
-    const articleId = parseInt(params.get('id'));
+    // Support both ?slug=xxx and ?id=xxx
+    const params = new URLSearchParams(window.location.search);
+    const slugParam = params.get('slug');
+    const idParam = params.get('id');
 
     async function init() {
       try {
-        const article = await getArticleById(articleId);
+        let article = null;
+        if (slugParam) {
+          // Fetch by slug — try slug first, fallback to id if slug is numeric
+          if (/^\d+$/.test(slugParam)) {
+            article = await getArticleById(parseInt(slugParam));
+          } else {
+            // Fetch all and find by slug
+            const all = await getArticles();
+            article = all.find(a => a.slug === slugParam);
+            if (article) article = await getArticleById(article.id);
+          }
+        } else if (idParam) {
+          article = await getArticleById(parseInt(idParam));
+        }
+
         if (!article || article.status !== 'published') { showNotFound(); return; }
 
         // Update SEO meta tags
@@ -335,13 +352,22 @@
         document.getElementById('og-desc').setAttribute('content', article.excerpt || '');
         document.getElementById('breadcrumb-title').textContent = article.title.length > 40 ? article.title.slice(0, 40) + '...' : article.title;
 
+        // Set canonical URL with slug for SEO
+        const canonical = document.querySelector('link[rel="canonical"]') || document.createElement('link');
+        canonical.rel = 'canonical';
+        canonical.href = `${window.location.origin}/article.html?slug=${article.slug || article.id}`;
+        document.head.appendChild(canonical);
+
         renderArticle(article);
 
-        // Related articles
         const allArticles = await getArticles();
-        const related = allArticles.filter(a => a.id !== article.id).slice(0, 4);
+        // Related = same category first, then others
+        const sameCat = allArticles.filter(a => a.id !== article.id && a.category === article.category);
+        const others  = allArticles.filter(a => a.id !== article.id && a.category !== article.category);
+        const related = [...sameCat, ...others].slice(0, 4);
         renderSidebar(related);
       } catch(e) {
+        console.error('Article load error:', e);
         showNotFound();
       }
     }
@@ -364,7 +390,13 @@
         const formatted = line
           .replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>')
           .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-          .replace(/\*(.+?)\*/g, '<em>$1</em>');
+          .replace(/\*(.+?)\*/g, '<em>$1</em>')
+          // Internal article links: [article:slug|Link text]
+          .replace(/\[article:([^\|]+)\|([^\]]+)\]/g, (_, slug, text) =>
+            `<a href="article.html?slug=${slug.trim()}" style="color:var(--gold-primary);text-decoration:underline;text-underline-offset:3px">${text.trim()}</a>`)
+          // External links: [link:https://...|Link text]
+          .replace(/\[link:([^\|]+)\|([^\]]+)\]/g, (_, url, text) =>
+            `<a href="${url.trim()}" target="_blank" rel="noopener" style="color:var(--gold-primary);text-decoration:underline;text-underline-offset:3px">${text.trim()}</a>`);
 
         const trimmed = line.trim();
 
@@ -452,7 +484,7 @@
         <div class="sidebar-card">
           <h3>Related Articles</h3>
           ${related.map(a => `
-            <a href="article.html?id=${a.id}" class="related-article">
+            <a href="article.html?slug=${a.slug || a.id}" class="related-article">
               <div class="rel-cat">${a.category}</div>
               <div class="rel-title">${a.title}</div>
             </a>

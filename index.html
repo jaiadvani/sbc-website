@@ -215,7 +215,18 @@
           </div>
           <div class="form-group">
             <label>Article Content *</label>
-            <textarea id="new-article-content" style="min-height:320px" placeholder="Write each paragraph on a new line (press Enter twice between paragraphs).&#10;&#10;First paragraph = intro pull-quote — make it strong.&#10;Aim for 6-8 paragraphs, 100-150 words each.&#10;&#10;Use **Bold Text** for subheadings within the article."></textarea>
+            <textarea id="new-article-content" style="min-height:320px" placeholder="Write each paragraph on a new line (press Enter twice between paragraphs).&#10;&#10;## H2 heading&#10;### H3 heading&#10;**Bold text**&#10;*Italic text*&#10;&#10;To link another article: [article:article-slug-here|Link text]&#10;Example: [article:vedha-the-art-of-piercing|Read about Vedha]"></textarea>
+          </div>
+          <div class="admin-card" style="background:rgba(200,146,42,0.03);border-color:rgba(200,146,42,0.1);margin-bottom:20px;padding:16px">
+            <p style="font-size:0.78rem;color:var(--text-muted);margin:0 0 8px"><strong style="color:var(--gold-primary)">Formatting guide:</strong></p>
+            <p style="font-size:0.75rem;color:var(--text-muted);margin:0;line-height:1.9">
+              <code style="color:var(--gold-light)">## Heading</code> → H2 section heading<br>
+              <code style="color:var(--gold-light)">### Sub-heading</code> → H3 sub-heading<br>
+              <code style="color:var(--gold-light)">**bold**</code> → <strong>Bold text</strong><br>
+              <code style="color:var(--gold-light)">*italic*</code> → <em>Italic text</em><br>
+              <code style="color:var(--gold-light)">[article:slug|Link text]</code> → Internal article link (SEO)<br>
+              <code style="color:var(--gold-light)">[link:https://example.com|Link text]</code> → External link
+            </p>
           </div>
           <div class="admin-card" style="background:rgba(200,146,42,0.04);border-color:rgba(200,146,42,0.1);margin-bottom:20px">
             <p style="font-size:0.8rem;color:var(--text-muted);margin:0;line-height:1.8">
@@ -771,11 +782,32 @@
                   <input type="date" id="booking-date" required>
                 </div>
                 <div class="form-group">
-                  <label>Preferred Time</label>
+                  <label>Preferred Time *</label>
                   <select id="booking-time">
-                    <option>Morning (9–12 AM)</option>
-                    <option>Afternoon (12–4 PM)</option>
-                    <option>Evening (4–7 PM)</option>
+                    <option>Morning (9–11 AM)</option>
+                    <option>Late Morning (11 AM–1 PM)</option>
+                    <option>Afternoon (1–3 PM)</option>
+                    <option>Late Afternoon (3–5 PM)</option>
+                    <option>Evening (5–7 PM)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>City / Location *</label>
+                  <input type="text" id="booking-location" required placeholder="e.g. Mumbai, Dubai, London">
+                </div>
+                <div class="form-group">
+                  <label>Time Zone *</label>
+                  <select id="booking-timezone">
+                    <option value="IST">IST — India (UTC+5:30)</option>
+                    <option value="GST">GST — Dubai/UAE (UTC+4)</option>
+                    <option value="GMT">GMT — London (UTC+0)</option>
+                    <option value="EST">EST — New York (UTC-5)</option>
+                    <option value="PST">PST — Los Angeles (UTC-8)</option>
+                    <option value="SGT">SGT — Singapore (UTC+8)</option>
+                    <option value="AEST">AEST — Sydney (UTC+10)</option>
+                    <option value="Other">Other (mention in message)</option>
                   </select>
                 </div>
               </div>
