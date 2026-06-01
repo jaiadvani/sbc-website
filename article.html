@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Article | Sarvatobhadra Chakra</title>
+  <meta name="description" id="page-desc" content="Read this article on the Sarvatobhadra Chakra by Guruji.">
+  <meta property="og:title" id="og-title" content="Article | Sarvatobhadra Chakra">
+  <meta property="og:description" id="og-desc" content="">
+  <meta property="og:image" content="images/SBC_Logo.png">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/png" href="images/SBC_Logo.png">
+  <style>
+    .article-page { background: var(--navy-deep); min-height: 100vh; padding-bottom: 100px; }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      padding: 120px 0 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-heading);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .breadcrumb a { color: var(--text-muted); transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--gold-light); }
+    .breadcrumb .sep { color: rgba(200,146,42,0.3); }
+    .breadcrumb .current { color: var(--gold-primary); }
+
+    /* Article Layout */
+    .article-layout {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 60px;
+      padding: 40px 0 0;
+      align-items: start;
+    }
+
+    /* Article Content */
+    .article-content-wrap { max-width: 760px; }
+    .article-header { margin-bottom: 40px; }
+    .article-header .cat-badge {
+      font-family: var(--font-heading);
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--orange-accent);
+      margin-bottom: 16px;
+      display: block;
+    }
+    .article-header h1 {
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      color: var(--gold-light);
+      line-height: 1.25;
+      margin-bottom: 20px;
+    }
+    .article-header .meta-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(200,146,42,0.12);
+    }
+    .article-header .meta-row span {
+      font-family: var(--font-heading);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+    .article-header .meta-row .dot { color: rgba(200,146,42,0.3); }
+    .article-icon-large {
+      font-size: 4rem;
+      display: block;
+      margin-bottom: 24px;
+      text-align: center;
+      padding: 32px;
+      background: linear-gradient(135deg, rgba(200,146,42,0.06), rgba(10,14,26,0.8));
+      border: 1px solid rgba(200,146,42,0.1);
+      border-radius: 4px;
+      margin-bottom: 32px;
+    }
+
+    /* Article Body Text */
+    .article-body-text { line-height: 1.9; }
+    .article-body-text p {
+      font-family: var(--font-elegant);
+      font-size: 1.15rem;
+      color: var(--text-primary);
+      margin-bottom: 24px;
+      opacity: 0.9;
+    }
+    .article-body-text p:first-child {
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--text-secondary);
+      border-left: 3px solid var(--gold-primary);
+      padding-left: 20px;
+      margin-bottom: 32px;
+    }
+
+    /* Share Section */
+    .share-section {
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(200,146,42,0.12);
+    }
+    .share-label {
+      font-family: var(--font-heading);
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      display: block;
+    }
+    .share-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+    .share-btn {
+      font-family: var(--font-heading);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 10px 20px;
+      border-radius: 2px;
+      cursor: pointer;
+      border: 1px solid;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+    }
+    .share-btn.whatsapp { color: #25D366; border-color: rgba(37,211,102,0.3); }
+    .share-btn.whatsapp:hover { background: rgba(37,211,102,0.08); }
+    .share-btn.copy { color: var(--gold-light); border-color: rgba(200,146,42,0.3); }
+    .share-btn.copy:hover { background: rgba(200,146,42,0.08); }
+
+    /* Tags */
+    .article-tags-section { margin-top: 32px; }
+    .article-tags-section .label {
+      font-family: var(--font-heading);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      display: block;
+    }
+    .tags-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag-pill {
+      font-family: var(--font-heading);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold-primary);
+      border: 1px solid rgba(200,146,42,0.25);
+      padding: 5px 12px;
+      border-radius: 1px;
+      background: rgba(200,146,42,0.05);
+    }
+
+    /* Sidebar */
+    .article-sidebar { position: sticky; top: 100px; }
+    .sidebar-card {
+      background: var(--navy-card);
+      border: 1px solid rgba(200,146,42,0.12);
+      border-radius: 4px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .sidebar-card h3 {
+      font-family: var(--font-heading);
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold-primary);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(200,146,42,0.1);
+    }
+    .related-article {
+      display: block;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(200,146,42,0.06);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .related-article:last-child { border-bottom: none; padding-bottom: 0; }
+    .related-article:hover { padding-left: 4px; }
+    .related-article .rel-cat {
+      font-family: var(--font-heading);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--orange-accent);
+      margin-bottom: 4px;
+    }
+    .related-article .rel-title {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+      transition: color 0.2s;
+    }
+    .related-article:hover .rel-title { color: var(--gold-light); }
+    .consult-cta {
+      background: linear-gradient(135deg, rgba(200,146,42,0.1), rgba(10,14,26,0.8));
+      border: 1px solid rgba(200,146,42,0.2);
+      border-radius: 4px;
+      padding: 24px;
+      text-align: center;
+    }
+    .consult-cta .cta-icon { font-size: 2rem; margin-bottom: 12px; display: block; }
+    .consult-cta h3 {
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      color: var(--gold-light);
+      margin-bottom: 8px;
+      letter-spacing: 0.05em;
+    }
+    .consult-cta p {
+      font-family: var(--font-elegant);
+      font-style: italic;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    /* Not found */
+    .not-found { text-align: center; padding: 160px 20px 100px; }
+    .not-found .icon { font-size: 4rem; margin-bottom: 20px; opacity: 0.4; }
+    .not-found h2 { color: var(--gold-light); margin-bottom: 12px; }
+    .not-found p { color: var(--text-muted); margin-bottom: 24px; }
+
+    @media (max-width: 1024px) {
+      .article-layout { grid-template-columns: 1fr; }
+      .article-sidebar { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav id="navbar" class="scrolled">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="images/SBC_Logo.png" alt="Sarvatobhadra Chakra Logo">
+        <div class="nav-logo-text">
+          <span class="name">Sarvatobhadra Chakra</span>
+          <span class="sub">Research • Consultation • Tradition</span>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#about-sbc">About SBC</a></li>
+        <li><a href="index.html#chakra-section">The Chakra</a></li>
+        <li><a href="index.html#guruji">Guruji</a></li>
+        <li><a href="articles.html" style="color:var(--gold-light)">Articles</a></li>
+        <li><a href="videos.html">Videos</a></li>
+        <li><a href="index.html#consultation" class="nav-cta">Book Consultation</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="index.html">Home</a>
+    <a href="articles.html">Articles</a>
+    <a href="videos.html">Videos</a>
+    <a href="index.html#consultation">Book Consultation</a>
+  </div>
+
+  <div class="article-page" id="article-page">
+    <div class="container">
+
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="sep">›</span>
+        <a href="articles.html">Articles</a>
+        <span class="sep">›</span>
+        <span class="current" id="breadcrumb-title">Loading...</span>
+      </nav>
+
+      <!-- Article Layout -->
+      <div class="article-layout" id="article-layout">
+        <!-- Content -->
+        <div class="article-content-wrap" id="article-content">
+          <div style="text-align:center;padding:80px 0;color:var(--text-muted);font-family:var(--font-elegant);font-style:italic">Loading article...</div>
+        </div>
+        <!-- Sidebar -->
+        <aside class="article-sidebar" id="article-sidebar"></aside>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2025 Sarvatobhadra Chakra Research. All rights reserved.</p>
+        <p class="footer-mantra">॥ सर्वतो भद्रं भवतु ॥</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script>
+    // Navbar
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 10);
+    });
+    document.getElementById('navbar').classList.add('scrolled');
+    document.getElementById('hamburger').addEventListener('click', function() {
+      this.classList.toggle('active');
+      document.getElementById('mobile-nav').classList.toggle('open');
+    });
+
+    // Get article ID from URL
+    const params = new URLSearchParams(window.location.search);
+    const articleId = parseInt(params.get('id'));
+
+    function init() {
+      const articles = getArticles();
+      const article = articles.find(a => a.id === articleId);
+
+      if (!article || article.status !== 'published') {
+        showNotFound();
+        return;
+      }
+
+      // Update SEO meta tags
+      document.getElementById('page-title').textContent = `${article.title} | Sarvatobhadra Chakra`;
+      document.getElementById('page-desc').setAttribute('content', article.excerpt);
+      document.getElementById('og-title').setAttribute('content', article.title);
+      document.getElementById('og-desc').setAttribute('content', article.excerpt);
+      document.getElementById('breadcrumb-title').textContent = article.title.length > 40 ? article.title.slice(0, 40) + '...' : article.title;
+
+      // Render article
+      renderArticle(article);
+
+      // Render sidebar
+      const related = articles.filter(a => a.id !== article.id && a.status === 'published').slice(0, 4);
+      renderSidebar(related);
+    }
+
+    function renderArticle(article) {
+      const content = document.getElementById('article-content');
+      const paragraphs = Array.isArray(article.content) ? article.content : article.content.split('\n\n');
+
+      content.innerHTML = `
+        <div class="article-header">
+          <span class="cat-badge">${article.category}</span>
+          <h1>${article.title}</h1>
+          <div class="meta-row">
+            <span>${article.date}</span>
+            <span class="dot">•</span>
+            <span>${article.readTime || '8 min read'}</span>
+            <span class="dot">•</span>
+            <span>By Guruji</span>
+          </div>
+        </div>
+        <div class="article-icon-large">${article.icon}</div>
+        <div class="article-body-text">
+          ${paragraphs.map(p => {
+            const text = p.startsWith('**') ? `<strong>${p.replace(/\*\*/g, '')}</strong>` : p;
+            return `<p>${text}</p>`;
+          }).join('')}
+        </div>
+        <div class="article-tags-section">
+          <span class="label">Topics</span>
+          <div class="tags-row">${(article.tags || []).map(t => `<span class="tag-pill">${t}</span>`).join('')}</div>
+        </div>
+        <div class="share-section">
+          <span class="share-label">Share this article</span>
+          <div class="share-buttons">
+            <button class="share-btn whatsapp" onclick="shareWhatsApp()">📱 Share on WhatsApp</button>
+            <button class="share-btn copy" onclick="copyLink(this)">🔗 Copy Link</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderSidebar(related) {
+      const sidebar = document.getElementById('article-sidebar');
+      sidebar.innerHTML = `
+        <div class="consult-cta">
+          <span class="cta-icon">🔯</span>
+          <h3>Book a Consultation</h3>
+          <p>Receive personalised guidance from Guruji based on your birth chart and the Sarvatobhadra Chakra.</p>
+          <a href="index.html#consultation" class="btn-primary" style="display:inline-block;padding:12px 24px"><span>Book Now</span></a>
+        </div>
+        <div class="sidebar-card">
+          <h3>Related Articles</h3>
+          ${related.map(a => `
+            <a href="article.html?id=${a.id}" class="related-article">
+              <div class="rel-cat">${a.category}</div>
+              <div class="rel-title">${a.title}</div>
+            </a>
+          `).join('')}
+          <a href="articles.html" style="display:block;margin-top:16px;font-family:var(--font-heading);font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold-primary)">View All Articles →</a>
+        </div>
+      `;
+    }
+
+    function showNotFound() {
+      document.getElementById('article-layout').innerHTML = `
+        <div class="not-found" style="grid-column:1/-1">
+          <div class="icon">🔍</div>
+          <h2>Article Not Found</h2>
+          <p>This article may have been moved or is not yet published.</p>
+          <a href="articles.html" class="btn-secondary" style="display:inline-block;padding:12px 28px">Browse All Articles</a>
+        </div>
+      `;
+    }
+
+    function shareWhatsApp() {
+      const text = encodeURIComponent(`${document.title}\n${window.location.href}`);
+      window.open(`https://wa.me/?text=${text}`, '_blank');
+    }
+
+    function copyLink(btn) {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        const orig = btn.innerHTML;
+        btn.innerHTML = '✅ Copied!';
+        setTimeout(() => btn.innerHTML = orig, 2000);
+      });
+    }
+
+    init();
+  </script>
+</body>
+</html>

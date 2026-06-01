@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Articles & Insights | Sarvatobhadra Chakra</title>
+  <meta name="description" content="In-depth articles on the Sarvatobhadra Chakra — nakshatras, vedha analysis, muhurta, prashna, health prediction and more. Written by Guruji.">
+  <meta name="keywords" content="Sarvatobhadra Chakra articles, SBC astrology, nakshatra, vedha, muhurta, Vedic astrology blog">
+  <meta property="og:title" content="Articles & Insights | Sarvatobhadra Chakra">
+  <meta property="og:description" content="Deep explorations of SBC techniques, nakshatras, vedha and Vedic wisdom.">
+  <meta property="og:image" content="images/SBC_Logo.png">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/png" href="images/SBC_Logo.png">
+  <style>
+    .page-hero {
+      padding: 140px 0 60px;
+      text-align: center;
+      background: linear-gradient(180deg, var(--navy-mid) 0%, var(--navy-deep) 100%);
+      position: relative;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 60% at 50% 0%, rgba(200,146,42,0.06), transparent);
+      pointer-events: none;
+    }
+    .page-hero .eyebrow {
+      font-family: var(--font-heading);
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
+      color: var(--orange-accent);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .page-hero h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--gold-light);
+      margin-bottom: 16px;
+    }
+    .page-hero p {
+      font-family: var(--font-elegant);
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* Search & Filter */
+    .articles-controls {
+      padding: 40px 0 20px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .search-box {
+      flex: 1;
+      min-width: 240px;
+      position: relative;
+    }
+    .search-box input {
+      width: 100%;
+      background: var(--navy-card);
+      border: 1px solid rgba(200,146,42,0.2);
+      border-radius: 2px;
+      padding: 12px 16px 12px 44px;
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+    .search-box input:focus {
+      border-color: rgba(200,146,42,0.4);
+      box-shadow: 0 0 0 3px rgba(200,146,42,0.08);
+    }
+    .search-box::before {
+      content: '🔍';
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.9rem;
+      pointer-events: none;
+    }
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .filter-tab {
+      font-family: var(--font-heading);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      border: 1px solid rgba(200,146,42,0.2);
+      border-radius: 2px;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .filter-tab:hover, .filter-tab.active {
+      background: rgba(200,146,42,0.1);
+      border-color: rgba(200,146,42,0.4);
+      color: var(--gold-light);
+    }
+
+    /* Articles Grid */
+    .articles-main { padding: 20px 0 100px; }
+    .articles-count {
+      font-family: var(--font-heading);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .articles-grid-full {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .article-card-full {
+      background: var(--navy-card);
+      border: 1px solid rgba(200,146,42,0.12);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+    }
+    .article-card-full:hover {
+      border-color: rgba(200,146,42,0.35);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .article-thumb-full {
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .article-thumb-full::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, var(--navy-card));
+    }
+    .article-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+    .article-cat {
+      font-family: var(--font-heading);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--orange-accent);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .article-card-full h2 {
+      font-size: 1.05rem;
+      color: var(--gold-light);
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+    .article-card-full p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin: 0 0 16px;
+      flex: 1;
+    }
+    .article-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid rgba(200,146,42,0.08);
+      margin-top: auto;
+    }
+    .article-meta-info {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .article-meta-info span {
+      font-family: var(--font-heading);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+    .article-read-btn {
+      font-family: var(--font-heading);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-primary);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s ease;
+    }
+    .article-card-full:hover .article-read-btn { color: var(--gold-light); gap: 8px; }
+
+    /* Tags */
+    .article-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .article-tag {
+      font-family: var(--font-heading);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border: 1px solid rgba(200,146,42,0.15);
+      padding: 3px 8px;
+      border-radius: 1px;
+    }
+
+    /* No results */
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 80px 20px;
+    }
+    .no-results .icon { font-size: 3rem; margin-bottom: 16px; opacity: 0.4; }
+    .no-results p {
+      font-family: var(--font-elegant);
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 1024px) { .articles-grid-full { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) {
+      .articles-grid-full { grid-template-columns: 1fr; }
+      .articles-controls { flex-direction: column; }
+      .search-box { min-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav id="navbar" class="scrolled">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="images/SBC_Logo.png" alt="Sarvatobhadra Chakra Logo">
+        <div class="nav-logo-text">
+          <span class="name">Sarvatobhadra Chakra</span>
+          <span class="sub">Research • Consultation • Tradition</span>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#about-sbc">About SBC</a></li>
+        <li><a href="index.html#chakra-section">The Chakra</a></li>
+        <li><a href="index.html#guruji">Guruji</a></li>
+        <li><a href="articles.html" style="color:var(--gold-light)">Articles</a></li>
+        <li><a href="videos.html">Videos</a></li>
+        <li><a href="index.html#consultation" class="nav-cta">Book Consultation</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="index.html">Home</a>
+    <a href="articles.html">Articles</a>
+    <a href="videos.html">Videos</a>
+    <a href="index.html#consultation">Book Consultation</a>
+  </div>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <p class="eyebrow">Knowledge Library</p>
+    <h1>Articles & Insights</h1>
+    <div class="divider" style="justify-content:center;margin:16px 0"><div class="divider-gem"></div></div>
+    <p>Deep explorations of the Sarvatobhadra Chakra, its techniques, and its application in everyday Vedic life</p>
+  </div>
+
+  <!-- Articles Section -->
+  <section style="background:var(--navy-deep);min-height:60vh">
+    <div class="container">
+
+      <!-- Controls -->
+      <div class="articles-controls">
+        <div class="search-box">
+          <input type="text" id="search-input" placeholder="Search articles..." oninput="filterArticles()">
+        </div>
+        <div class="filter-tabs" id="filter-tabs">
+          <button class="filter-tab active" data-cat="All" onclick="setCategory(this, 'All')">All</button>
+        </div>
+      </div>
+
+      <!-- Count -->
+      <div class="articles-count" id="articles-count"></div>
+
+      <!-- Grid -->
+      <div class="articles-main">
+        <div class="articles-grid-full" id="articles-grid"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2025 Sarvatobhadra Chakra Research. All rights reserved.</p>
+        <p class="footer-mantra">॥ सर्वतो भद्रं भवतु ॥</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script>
+    // Navbar scroll
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 10);
+    });
+    document.getElementById('navbar').classList.add('scrolled');
+
+    // Hamburger
+    document.getElementById('hamburger').addEventListener('click', function() {
+      this.classList.toggle('active');
+      document.getElementById('mobile-nav').classList.toggle('open');
+    });
+
+    let currentCategory = 'All';
+
+    function init() {
+      const articles = getArticles().filter(a => a.status === 'published');
+      // Build category tabs
+      const cats = ['All', ...new Set(articles.map(a => a.category))];
+      const tabs = document.getElementById('filter-tabs');
+      tabs.innerHTML = cats.map(c =>
+        `<button class="filter-tab ${c === 'All' ? 'active' : ''}" data-cat="${c}" onclick="setCategory(this,'${c}')">${c}</button>`
+      ).join('');
+      renderArticles(articles);
+    }
+
+    function setCategory(el, cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+      filterArticles();
+    }
+
+    function filterArticles() {
+      const q = document.getElementById('search-input').value.toLowerCase();
+      const articles = getArticles().filter(a => a.status === 'published');
+      const filtered = articles.filter(a => {
+        const matchCat = currentCategory === 'All' || a.category === currentCategory;
+        const matchQ = !q || a.title.toLowerCase().includes(q) || a.excerpt.toLowerCase().includes(q) || (a.tags || []).some(t => t.toLowerCase().includes(q));
+        return matchCat && matchQ;
+      });
+      renderArticles(filtered);
+    }
+
+    function renderArticles(articles) {
+      const grid = document.getElementById('articles-grid');
+      const count = document.getElementById('articles-count');
+      count.textContent = `${articles.length} article${articles.length !== 1 ? 's' : ''}`;
+      if (articles.length === 0) {
+        grid.innerHTML = `<div class="no-results"><div class="icon">🔍</div><p>No articles found. Try a different search or category.</p></div>`;
+        return;
+      }
+      grid.innerHTML = articles.map(a => `
+        <a href="article.html?id=${a.id}" class="article-card-full">
+          <div class="article-thumb-full" style="background:linear-gradient(135deg,rgba(200,146,42,0.08),rgba(10,14,26,0.95))">${a.icon}</div>
+          <div class="article-body">
+            <div class="article-cat">${a.category}</div>
+            <h2>${a.title}</h2>
+            <p>${a.excerpt}</p>
+            <div class="article-tags">${(a.tags||[]).slice(0,3).map(t => `<span class="article-tag">${t}</span>`).join('')}</div>
+            <div class="article-footer">
+              <div class="article-meta-info">
+                <span>${a.date}</span>
+                <span>•</span>
+                <span>${a.readTime || '8 min read'}</span>
+              </div>
+              <span class="article-read-btn">Read →</span>
+            </div>
+          </div>
+        </a>
+      `).join('');
+    }
+
+    init();
+  </script>
+</body>
+</html>

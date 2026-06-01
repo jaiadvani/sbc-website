@@ -1509,7 +1509,7 @@ footer {
 /* LAYER 4 — Vowels (all 4 diagonal lines) */
 .sbc-cell.type-vowel       { background: #300A28; }
 .sbc-cell.type-vowel:hover, .sbc-cell.type-vowel.active { background: #421038; }
-.sbc-cell.type-vowel.center-vowel { border: 1.5px solid var(--gold-primary); }
+.sbc-cell.type-vowel.center-vowel { background: #300A28; }
 
 /* LAYER 5 — ALL Tithis (Jaya, Bhadra, Rikta, Nanda, Poorna — one color) */
 .sbc-cell.type-tithi       { background: #0A2800; }
