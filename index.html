@@ -99,6 +99,9 @@
       <div class="admin-nav-item" data-section="add-article">
         <span class="nav-icon">✍️</span> Add Article
       </div>
+      <div class="admin-nav-item" data-section="edit-article" id="nav-edit-article" style="display:none">
+        <span class="nav-icon">✏️</span> Edit Article
+      </div>
       <div class="admin-nav-item" data-section="videos">
         <span class="nav-icon">🎬</span> Videos
       </div>
@@ -161,7 +164,7 @@
           <table class="admin-table">
             <thead>
               <tr>
-                <th>Title</th><th>Category</th><th>Date</th><th>Status</th><th>Actions</th>
+                <th>Title</th><th>Category</th><th>Published</th><th>Updated</th><th>Status</th><th>Actions</th>
               </tr>
             </thead>
             <tbody id="articles-tbody"></tbody>
@@ -226,7 +229,40 @@
         </div>
       </div>
 
-      <!-- Videos Panel -->
+      <!-- Edit Article Panel -->
+      <div class="admin-panel" id="panel-edit-article">
+        <h2>Edit Article</h2>
+        <div class="admin-card">
+          <input type="hidden" id="edit-article-id">
+          <div class="admin-form-row" style="margin-bottom:20px">
+            <div class="form-group" style="margin:0">
+              <label>Article Title *</label>
+              <input type="text" id="edit-article-title" placeholder="Article title">
+            </div>
+            <div class="form-group" style="margin:0">
+              <label>Category *</label>
+              <select id="edit-article-category">
+                <option value="Learn SBC">🔯 Learn SBC</option>
+                <option value="Life Applications">🌿 Life Applications</option>
+                <option value="Case Studies">👑 Case Studies</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Tags (comma separated)</label>
+            <input type="text" id="edit-article-tags" placeholder="e.g. Vedha, Moon, Nakshatra">
+          </div>
+          <div class="form-group">
+            <label>Article Content *</label>
+            <textarea id="edit-article-content" style="min-height:400px" placeholder="Edit your article content here. Use ## for H2, ### for H3, **bold**"></textarea>
+          </div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <button class="btn-primary" onclick="saveEditArticle('draft')"><span>💾 Save as Draft</span></button>
+            <button class="btn-primary" onclick="saveEditArticle('published')" style="background:linear-gradient(135deg,#4A9B6F,#2D7A52)"><span>🚀 Save & Publish</span></button>
+            <button class="btn-secondary" onclick="switchAdminSection('articles')" style="padding:12px 20px">Cancel</button>
+          </div>
+        </div>
+      </div>
       <div class="admin-panel" id="panel-videos">
         <h2>Manage Videos</h2>
         <div class="admin-card" style="overflow-x:auto">

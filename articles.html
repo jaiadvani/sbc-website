@@ -380,11 +380,17 @@
         return;
       }
       const formatDate = d => d ? new Date(d).toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'}) : '';
-      grid.innerHTML = articles.map(a => `
+      grid.innerHTML = articles.map(a => {
+        const barClass = a.category === 'Learn SBC' ? 'learn-sbc' : a.category === 'Life Applications' ? 'life-applications' : 'case-studies';
+        const formatDate = d => d ? new Date(d).toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'}) : '';
+        return `
         <a href="article.html?id=${a.id}" class="article-card-full">
-          <div class="article-thumb-full" style="background:linear-gradient(135deg,rgba(200,146,42,0.08),rgba(10,14,26,0.95))">${a.icon || categoryIcon(a.category)}</div>
+          <div class="article-cat-bar" style="height:4px;background:${barClass === 'learn-sbc' ? '#C8922A' : barClass === 'life-applications' ? '#4A9B6F' : '#7B68CC'}"></div>
           <div class="article-body">
-            <div class="article-cat">${a.category}</div>
+            <div class="article-cat">
+              <span class="cat-bar ${barClass}"></span>
+              ${a.category}
+            </div>
             <h2>${a.title}</h2>
             <p>${a.excerpt}</p>
             <div class="article-tags">${(Array.isArray(a.tags) ? a.tags : (a.tags||'').split(',')).slice(0,3).map(t => `<span class="article-tag">${t.trim()}</span>`).join('')}</div>
@@ -397,8 +403,8 @@
               <span class="article-read-btn">Read →</span>
             </div>
           </div>
-        </a>
-      `).join('');
+        </a>`;
+      }).join('');
     }
 
     init();

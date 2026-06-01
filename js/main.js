@@ -1,7 +1,9 @@
 // ============================================================
 //  SARVATOBHADRA CHAKRA — Main JavaScript
-//  v2 — localStorage persistence for local editing
+//  v3 — Connected to PostgreSQL API
 // ============================================================
+
+const API_URL = 'http://y2hewqyikxpxfrml3rsk5i28.72.62.228.4.sslip.io';
 
 /* ── Default seed data (used only on first ever load) ── */
 const DEFAULT_ARTICLES = [
@@ -332,11 +334,11 @@ async function renderAdminDashboard() {
 async function renderAdminArticles() {
   const tbody = document.getElementById('articles-tbody');
   if (!tbody) return;
-  tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:24px">Loading...</td></tr>`;
+  tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:24px">Loading...</td></tr>`;
   try {
     const articles = await getAdminArticles();
     if (!articles.length) {
-      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:24px">No articles yet. Use "Add Article" to create your first one.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:24px">No articles yet. Use "Add Article" to create your first one.</td></tr>`;
       return;
     }
     const fmt = d => d ? new Date(d).toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'}) : '';
@@ -345,14 +347,16 @@ async function renderAdminArticles() {
         <td>${a.title}</td>
         <td>${a.category}</td>
         <td>${fmt(a.created_at)}</td>
+        <td>${a.updated_at && a.updated_at !== a.created_at ? fmt(a.updated_at) : '—'}</td>
         <td><span class="badge badge-${a.status}">${a.status}</span></td>
         <td>
+          <button class="btn-sm btn-edit" onclick="editArticle(${a.id})">Edit</button>
           <button class="btn-sm btn-edit" onclick="toggleStatus(${a.id},'article')">${a.status === 'published' ? 'Unpublish' : 'Publish'}</button>
           <button class="btn-sm btn-delete" onclick="deleteArticle(${a.id})">Delete</button>
         </td>
       </tr>`).join('');
   } catch(e) {
-    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:#f87171;padding:24px">Could not load from API. Check connection.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:#f87171;padding:24px">Could not load from API. Check connection.</td></tr>`;
   }
 }
 
@@ -486,6 +490,57 @@ async function addVideo() {
     showToast('❌ Error saving video: ' + e.message);
   } finally {
     if (btn) { btn.disabled = false; btn.querySelector('span').textContent = '🎬 Save Video'; }
+  }
+}
+
+/* ── Edit Article ── */
+async function editArticle(id) {
+  try {
+    const res = await fetch(`${API_URL}/api/articles/${id}`);
+    const json = await res.json();
+    if (!json.success) { showToast('❌ Could not load article.'); return; }
+    const a = json.data;
+
+    document.getElementById('edit-article-id').value = a.id;
+    document.getElementById('edit-article-title').value = a.title;
+    document.getElementById('edit-article-category').value = a.category;
+    document.getElementById('edit-article-tags').value = a.tags || '';
+    document.getElementById('edit-article-content').value = a.content;
+
+    // Show edit nav item and switch to it
+    document.getElementById('nav-edit-article').style.display = 'flex';
+    switchAdminSection('edit-article');
+  } catch(e) {
+    showToast('❌ Error loading article: ' + e.message);
+  }
+}
+
+async function saveEditArticle(status) {
+  const id      = document.getElementById('edit-article-id').value;
+  const title   = document.getElementById('edit-article-title').value.trim();
+  const category= document.getElementById('edit-article-category').value;
+  const tags    = document.getElementById('edit-article-tags').value.trim();
+  const content = document.getElementById('edit-article-content').value.trim();
+  if (!title || !content) { alert('Title and content are required.'); return; }
+
+  const btn = document.querySelector('#panel-edit-article .btn-primary');
+  if (btn) { btn.disabled = true; }
+  try {
+    const res = await fetch(`${API_URL}/api/admin/articles/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title, category, content, tags, status })
+    });
+    const json = await res.json();
+    if (!json.success) throw new Error(json.error);
+    renderAdminArticles(); renderAdminDashboard();
+    document.getElementById('nav-edit-article').style.display = 'none';
+    switchAdminSection('articles');
+    showToast(`✅ Article ${status === 'published' ? 'saved & published' : 'saved as draft'}!`);
+  } catch(e) {
+    showToast('❌ Error saving: ' + e.message);
+  } finally {
+    if (btn) { btn.disabled = false; }
   }
 }
 
