@@ -492,16 +492,43 @@
     }
 
     function shareWhatsApp() {
-      const text = encodeURIComponent(`${document.title}\n${window.location.href}`);
+      const url = window.location.href;
+      const text = encodeURIComponent(`${document.title}\n\nRead here: ${url}`);
       window.open(`https://wa.me/?text=${text}`, '_blank');
     }
 
     function copyLink(btn) {
-      navigator.clipboard.writeText(window.location.href).then(() => {
+      const url = window.location.href;
+      // Try modern clipboard API first
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(url).then(() => {
+          const orig = btn.innerHTML;
+          btn.innerHTML = '✅ Copied!';
+          setTimeout(() => btn.innerHTML = orig, 2000);
+        }).catch(() => fallbackCopy(btn, url));
+      } else {
+        fallbackCopy(btn, url);
+      }
+    }
+
+    function fallbackCopy(btn, url) {
+      // Fallback for HTTP (non-HTTPS) — uses textarea trick
+      const ta = document.createElement('textarea');
+      ta.value = url;
+      ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try {
+        document.execCommand('copy');
         const orig = btn.innerHTML;
         btn.innerHTML = '✅ Copied!';
         setTimeout(() => btn.innerHTML = orig, 2000);
-      });
+      } catch(e) {
+        // Last resort — show the URL in a prompt so user can copy manually
+        prompt('Copy this link:', url);
+      }
+      document.body.removeChild(ta);
     }
 
     init();

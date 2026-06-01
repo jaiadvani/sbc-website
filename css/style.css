@@ -18,18 +18,33 @@
   --navy-light: #152040;
   --navy-card: #111827;
   --navy-border: #1E2D4A;
-  --text-primary: #F5E8C8;
+  --text-primary: #EDE8E0;
   --text-secondary: #C4A870;
-  --text-muted: #7A8AAA;
+  --text-muted: #8A9AB8;
   --white: #FFFFFF;
   --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   --shadow-gold: 0 0 30px rgba(200, 146, 42, 0.25);
   --shadow-card: 0 8px 40px rgba(0,0,0,0.5);
   --font-display: 'Cinzel Decorative', serif;
   --font-heading: 'Cinzel', serif;
-  --font-body: 'EB Garamond', serif;
+  --font-body: 'Lora', Georgia, serif;
   --font-elegant: 'Cormorant Garamond', serif;
 }
+
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: 'Lora', Georgia, serif;
+  background: var(--navy-deep);
+  color: #EDE8E0;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+p { font-size: 1.05rem; color: #D8D2C8; margin-bottom: 1rem; line-height: 1.85; font-family: 'Lora', Georgia, serif; }
 
 /* ── Reset & Base ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -70,7 +85,7 @@ h1, h2, h3, h4, h5 { font-family: var(--font-heading); font-weight: 600; line-he
 a { color: var(--gold-light); text-decoration: none; transition: var(--transition); }
 a:hover { color: var(--gold-bright); }
 
-p { font-size: 1.1rem; color: var(--text-primary); margin-bottom: 1rem; }
+p { font-size: 1.05rem; color: #D8D2C8; margin-bottom: 1rem; line-height: 1.85; font-family: 'Lora', Georgia, serif; }
 
 /* ── Utility Classes ── */
 .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
