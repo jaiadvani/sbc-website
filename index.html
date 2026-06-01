@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Meta Tags -->
+  <title>Sarvatobhadra Chakra | Vedic Astrology Research & Consultation</title>
+  <meta name="description" content="Expert Sarvatobhadra Chakra consultation, research, and teaching by Guruji. Ancient Vedic wisdom for birth chart analysis, muhurta, prashna, and health predictions. Book your consultation today.">
+  <meta name="keywords" content="Sarvatobhadra Chakra, Vedic astrology, SBC astrology, nakshatra, vedha, muhurta, prashna, birth chart analysis, Jyotisha, Indian astrology consultation">
+  <meta name="author" content="Sarvatobhadra Chakra Research">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://sarvatobhadrachakra.com/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Sarvatobhadra Chakra | Vedic Astrology Research & Consultation">
+  <meta property="og:description" content="Expert Sarvatobhadra Chakra consultations. Ancient Vedic wisdom for modern lives.">
+  <meta property="og:image" content="images/SBC_Logo.png">
+  <meta property="og:url" content="https://sarvatobhadrachakra.com/">
+  <meta property="og:site_name" content="Sarvatobhadra Chakra">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sarvatobhadra Chakra | Vedic Astrology">
+  <meta name="twitter:description" content="Expert SBC consultations. Ancient Vedic wisdom for modern lives.">
+  <meta name="twitter:image" content="images/SBC_Logo.png">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Sarvatobhadra Chakra Research & Consultation",
+    "description": "Expert Vedic astrology consultations specializing in Sarvatobhadra Chakra analysis.",
+    "serviceType": "Astrology Consultation",
+    "areaServed": "Worldwide",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Consultation Services",
+      "itemListElement": [
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Birth Chart Analysis"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Muhurta Consultation"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Annual Forecast"}}
+      ]
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/png" href="images/SBC_Logo.png">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     LOGIN SCREEN
+═══════════════════════════════════════ -->
+<div id="login-screen">
+  <div class="login-box">
+    <img src="images/SBC_Logo.png" alt="SBC Logo">
+    <h2>Admin Portal</h2>
+    <p>Sarvatobhadra Chakra • Secure Access</p>
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" id="admin-user" placeholder="Enter username" autocomplete="off">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="admin-pass" placeholder="Enter password">
+    </div>
+    <div class="login-error" id="login-error"></div>
+    <button class="form-submit" onclick="doLogin()" style="margin-top:16px">Access Portal</button>
+    <p style="margin-top:20px;font-size:0.8rem;color:var(--text-muted)">
+      <a href="#" onclick="document.getElementById('login-screen').classList.remove('active')" style="color:var(--text-muted)">← Return to Website</a>
+    </p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     ADMIN PORTAL
+═══════════════════════════════════════ -->
+<div id="admin-portal">
+  <div class="admin-header">
+    <h1>🔯 SBC Admin Portal</h1>
+    <div class="admin-header-right">
+      <span style="font-family:var(--font-heading);font-size:0.7rem;color:var(--text-muted);letter-spacing:0.1em">ADMIN</span>
+      <button class="admin-logout" onclick="doLogout()">← Exit to Site</button>
+    </div>
+  </div>
+  <div class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="admin-nav-item active" data-section="dashboard">
+        <span class="nav-icon">📊</span> Dashboard
+      </div>
+      <div class="admin-nav-item" data-section="articles">
+        <span class="nav-icon">📜</span> Articles
+      </div>
+      <div class="admin-nav-item" data-section="add-article">
+        <span class="nav-icon">✍️</span> Add Article
+      </div>
+      <div class="admin-nav-item" data-section="videos">
+        <span class="nav-icon">🎬</span> Videos
+      </div>
+      <div class="admin-nav-item" data-section="add-video">
+        <span class="nav-icon">➕</span> Add Video
+      </div>
+      <div class="admin-nav-item" data-section="bookings">
+        <span class="nav-icon">📅</span> Bookings
+      </div>
+    </aside>
+
+    <!-- Content -->
+    <main class="admin-content">
+
+      <!-- Dashboard -->
+      <div class="admin-panel active" id="panel-dashboard">
+        <h2>Dashboard Overview</h2>
+        <div class="admin-stats">
+          <div class="stat-card">
+            <span class="stat-number" id="stat-articles">0</span>
+            <span class="stat-label">Published Articles</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number" id="stat-videos">0</span>
+            <span class="stat-label">Published Videos</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number" id="stat-bookings">0</span>
+            <span class="stat-label">Total Bookings</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number" id="stat-pending">0</span>
+            <span class="stat-label">Pending Bookings</span>
+          </div>
+        </div>
+        <div class="admin-card">
+          <h3 style="font-family:var(--font-heading);font-size:1rem;color:var(--gold-light);margin-bottom:16px">Quick Guide</h3>
+          <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:8px">• Use <strong style="color:var(--text-secondary)">Articles</strong> to view and manage blog posts</p>
+          <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:8px">• Use <strong style="color:var(--text-secondary)">Add Article</strong> to write and publish new content</p>
+          <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:8px">• Use <strong style="color:var(--text-secondary)">Videos</strong> to manage YouTube video links</p>
+          <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:8px">• Use <strong style="color:var(--text-secondary)">Add Video</strong> to add YouTube video IDs to the site</p>
+          <p style="font-size:0.9rem;color:var(--text-muted)">• Use <strong style="color:var(--text-secondary)">Bookings</strong> to view and confirm consultation requests</p>
+        </div>
+        <div class="admin-card">
+          <h3 style="font-family:var(--font-heading);font-size:1rem;color:var(--gold-light);margin-bottom:4px">Login Credentials (Demo)</h3>
+          <p style="font-size:0.85rem;color:var(--text-muted);margin:0">Username: <strong style="color:var(--gold-primary)">admin</strong> &nbsp;|&nbsp; Password: <strong style="color:var(--gold-primary)">sbc2025</strong></p>
+          <p style="font-size:0.8rem;color:var(--text-muted);margin-top:8px;">⚠️ Change these credentials before going live by updating the <code style="color:var(--gold-light)">doLogin()</code> function in js/main.js</p>
+        </div>
+        <div class="admin-card" style="border-color:rgba(248,113,113,0.15)">
+          <h3 style="font-family:var(--font-heading);font-size:1rem;color:var(--gold-light);margin-bottom:8px">💾 Your content saves automatically</h3>
+          <p style="font-size:0.85rem;color:var(--text-muted);margin:0 0 16px">Everything you add — articles, videos, bookings — is saved to your browser's local storage. It persists across refreshes and browser restarts on this computer.</p>
+          <button class="btn-sm btn-delete" onclick="resetToDefaults()" style="padding:8px 16px">↩️ Reset to demo content</button>
+        </div>
+      </div>
+
+      <!-- Articles Panel -->
+      <div class="admin-panel" id="panel-articles">
+        <h2>Manage Articles</h2>
+        <div class="admin-card" style="overflow-x:auto">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Title</th><th>Category</th><th>Date</th><th>Status</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="articles-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Add Article Panel -->
+      <div class="admin-panel" id="panel-add-article">
+        <h2>Add New Article</h2>
+        <div class="admin-card">
+          <div class="admin-form-row" style="margin-bottom:20px">
+            <div class="form-group" style="margin:0">
+              <label>Article Title *</label>
+              <input type="text" id="new-article-title" placeholder="Enter article title">
+            </div>
+            <div class="form-group" style="margin:0">
+              <label>Category</label>
+              <input type="text" id="new-article-category" placeholder="e.g. Fundamentals, Techniques">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Article Content *</label>
+            <textarea id="new-article-content" style="min-height:300px" placeholder="Write your article content here. Separate paragraphs with double line breaks. Use **Bold Text** for headings."></textarea>
+          </div>
+          <button class="btn-primary" onclick="addArticle()"><span>💾 Save as Draft</span></button>
+        </div>
+      </div>
+
+      <!-- Videos Panel -->
+      <div class="admin-panel" id="panel-videos">
+        <h2>Manage Videos</h2>
+        <div class="admin-card" style="overflow-x:auto">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Title</th><th>YouTube ID</th><th>Duration</th><th>Views</th><th>Status</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="videos-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Add Video Panel -->
+      <div class="admin-panel" id="panel-add-video">
+        <h2>Add YouTube Video</h2>
+        <div class="admin-card">
+          <div class="admin-form-row" style="margin-bottom:20px">
+            <div class="form-group" style="margin:0">
+              <label>Video Title *</label>
+              <input type="text" id="new-video-title" placeholder="Enter video title">
+            </div>
+            <div class="form-group" style="margin:0">
+              <label>YouTube Video ID *</label>
+              <input type="text" id="new-video-id" placeholder="e.g. dQw4w9WgXcQ">
+            </div>
+          </div>
+          <div class="form-group" style="max-width:200px">
+            <label>Duration</label>
+            <input type="text" id="new-video-duration" placeholder="e.g. 32:15">
+          </div>
+          <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:20px">
+            💡 The YouTube ID is the part after <code style="color:var(--gold-light)">?v=</code> in the YouTube URL. 
+            Example: youtube.com/watch?v=<strong style="color:var(--gold-light)">dQw4w9WgXcQ</strong>
+          </p>
+          <button class="btn-primary" onclick="addVideo()"><span>🎬 Save Video</span></button>
+        </div>
+      </div>
+
+      <!-- Bookings Panel -->
+      <div class="admin-panel" id="panel-bookings">
+        <h2>Consultation Bookings</h2>
+        <div class="admin-card" style="overflow-x:auto">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Name</th><th>Service</th><th>Date</th><th>Time</th><th>Status</th><th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="bookings-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     MAIN WEBSITE
+═══════════════════════════════════════ -->
+<div id="main-site">
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <div class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <img src="images/SBC_Logo.png" alt="Sarvatobhadra Chakra Logo">
+        <div class="nav-logo-text">
+          <span class="name">Sarvatobhadra Chakra</span>
+          <span class="sub">Research • Consultation • Tradition</span>
+        </div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#about-sbc">About SBC</a></li>
+        <li><a href="#chakra-section">The Chakra</a></li>
+        <li><a href="#guruji">Guruji</a></li>
+        <li><a href="#articles">Articles</a></li>
+        <li><a href="#videos">Videos</a></li>
+        <li><a href="#consultation" class="nav-cta">Book Consultation</a></li>
+        <li><a href="#" onclick="showAdmin();return false" style="font-size:0.68rem;opacity:0.5">Admin</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Nav -->
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="#about-sbc">About SBC</a>
+    <a href="#chakra-section">The Chakra</a>
+    <a href="#guruji">About Guruji</a>
+    <a href="#articles">Articles</a>
+    <a href="#videos">Videos</a>
+    <a href="#consultation">Book Consultation</a>
+    <a href="#" onclick="showAdmin();return false">Admin Portal</a>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       HERO SECTION
+  ═══════════════════════════════════════ -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <!-- Decorative mandala rings -->
+    <svg class="hero-mandala" viewBox="0 0 700 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="350" cy="350" r="340" stroke="#C8922A" stroke-width="1" stroke-dasharray="8 16"/>
+      <circle cx="350" cy="350" r="280" stroke="#C8922A" stroke-width="1" stroke-dasharray="4 8"/>
+      <circle cx="350" cy="350" r="220" stroke="#C8922A" stroke-width="1"/>
+      <circle cx="350" cy="350" r="160" stroke="#C8922A" stroke-width="1" stroke-dasharray="12 6"/>
+      <circle cx="350" cy="350" r="100" stroke="#C8922A" stroke-width="0.5"/>
+      <line x1="350" y1="10" x2="350" y2="690" stroke="#C8922A" stroke-width="0.5" stroke-dasharray="4 8"/>
+      <line x1="10" y1="350" x2="690" y2="350" stroke="#C8922A" stroke-width="0.5" stroke-dasharray="4 8"/>
+      <line x1="110" y1="110" x2="590" y2="590" stroke="#C8922A" stroke-width="0.5" stroke-dasharray="4 8"/>
+      <line x1="590" y1="110" x2="110" y2="590" stroke="#C8922A" stroke-width="0.5" stroke-dasharray="4 8"/>
+      <!-- Chakra grid hints -->
+      <rect x="260" y="260" width="180" height="180" stroke="#C8922A" stroke-width="0.8" fill="none"/>
+      <rect x="220" y="220" width="260" height="260" stroke="#C8922A" stroke-width="0.4" fill="none" stroke-dasharray="4 8"/>
+    </svg>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">॥ श्री गणेशाय नमः ॥</p>
+      <img src="images/SBC_Logo.png" alt="Sarvatobhadra Chakra" class="hero-logo-img">
+      <h1 class="hero-title">Sarvatobhadra<br>Chakra</h1>
+      <p class="hero-subtitle">Research • Consultation • Tradition</p>
+      <p class="hero-desc">
+        Ancient Vedic cosmological wisdom, meticulously researched and compassionately shared — 
+        illuminating the sacred geometry of your life's journey through the timeless art of the Sarvatobhadra Chakra.
+      </p>
+      <div class="hero-buttons">
+        <button class="btn-primary" onclick="document.getElementById('consultation').scrollIntoView({behavior:'smooth'})">
+          <span>Book a Consultation</span>
+        </button>
+        <button class="btn-secondary" onclick="document.getElementById('about-sbc').scrollIntoView({behavior:'smooth'})">
+          Discover SBC
+        </button>
+      </div>
+    </div>
+
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       FEATURES STRIP
+  ═══════════════════════════════════════ -->
+  <section class="features-strip">
+    <div class="container">
+      <div class="features-grid">
+        <div class="feature-item">
+          <span class="feature-icon">🔯</span>
+          <div>
+            <h4>Ancient Tradition</h4>
+            <p>Rooted in classical Vedic texts, preserved across generations of dedicated scholars</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">🌟</span>
+          <div>
+            <h4>Expert Guidance</h4>
+            <p>Decades of research and practical consultation experience with thousands of clients</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">📿</span>
+          <div>
+            <h4>Holistic Insight</h4>
+            <p>Health, relationships, timing, and destiny revealed through multidimensional analysis</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       ABOUT SBC SECTION
+  ═══════════════════════════════════════ -->
+  <section id="about-sbc" class="section-pad">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-visual reveal">
+          <div class="chakra-diagram">
+            <div class="chakra-ring chakra-ring-1"></div>
+            <div class="chakra-ring chakra-ring-2"></div>
+            <div class="chakra-ring chakra-ring-3"></div>
+            <svg viewBox="0 0 360 360" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.7">
+              <!-- SBC Grid -->
+              <rect x="80" y="80" width="200" height="200" stroke="#C8922A" stroke-width="1.5" fill="none"/>
+              <!-- Grid lines -->
+              <line x1="80" y1="124" x2="280" y2="124" stroke="#C8922A" stroke-width="0.8" opacity="0.5"/>
+              <line x1="80" y1="168" x2="280" y2="168" stroke="#C8922A" stroke-width="0.8" opacity="0.5"/>
+              <line x1="80" y1="212" x2="280" y2="212" stroke="#C8922A" stroke-width="0.8" opacity="0.5"/>
+              <line x1="80" y1="236" x2="280" y2="236" stroke="#C8922A" stroke-width="0.8" opacity="0.5"/>
+              <line x1="124" y1="80" x2="124" y2="280" stroke="#C8922A" stroke-width="0.8" opacity="0.5"/>
+              <line x1="168" y1="80" x2="168" y2="280" stroke="#C8922A" stroke-width="0.8" opacity="0.5"/>
+              <line x1="212" y1="80" x2="212" y2="280" stroke="#C8922A" stroke-width="0.8" opacity="0.5"/>
+              <line x1="236" y1="80" x2="236" y2="280" stroke="#C8922A" stroke-width="0.8" opacity="0.5"/>
+              <!-- Center sun -->
+              <circle cx="180" cy="180" r="20" fill="rgba(200,146,42,0.15)" stroke="#C8922A" stroke-width="1.5"/>
+              <circle cx="180" cy="180" r="8" fill="#C8922A" opacity="0.6"/>
+              <!-- Directional arrows -->
+              <path d="M180 60 L175 72 L180 68 L185 72 Z" fill="#C8922A" opacity="0.7"/>
+              <path d="M180 300 L175 288 L180 292 L185 288 Z" fill="#C8922A" opacity="0.7"/>
+              <path d="M60 180 L72 175 L68 180 L72 185 Z" fill="#C8922A" opacity="0.7"/>
+              <path d="M300 180 L288 175 L292 180 L288 185 Z" fill="#C8922A" opacity="0.7"/>
+              <!-- Accent dots at nakshatra positions -->
+              <circle cx="130" cy="130" r="4" fill="#E8B84B" opacity="0.8"/>
+              <circle cx="230" cy="130" r="4" fill="#E8B84B" opacity="0.8"/>
+              <circle cx="130" cy="230" r="4" fill="#E8B84B" opacity="0.8"/>
+              <circle cx="230" cy="230" r="4" fill="#E8B84B" opacity="0.8"/>
+            </svg>
+            <div class="chakra-center">🔯</div>
+          </div>
+        </div>
+
+        <div class="about-text reveal">
+          <p class="eyebrow" style="font-family:var(--font-heading);font-size:0.72rem;letter-spacing:0.3em;color:var(--orange-accent);text-transform:uppercase;margin-bottom:8px">What is it?</p>
+          <h2>The Sarvatobhadra Chakra</h2>
+          <div class="divider" style="justify-content:flex-start"><div class="divider-gem"></div></div>
+          <p class="intro">"Auspicious in All Directions" — a sacred 9×9 cosmological matrix that maps the entire universe of Vedic influence.</p>
+          <p>The Sarvatobhadra Chakra is one of the most sophisticated and versatile instruments in the entire corpus of Vedic astrology. Unlike conventional charts, the SBC integrates nakshatras (lunar mansions), Sanskrit phonemes, weekdays, and rashis (zodiac signs) into a unified cosmological grid of extraordinary depth.</p>
+          <p>Its central mechanism — "vedha" or piercing — reveals how transiting planets interact with the sensitive points in an individual's cosmic blueprint, offering predictions about health, relationships, timing, travel, and destiny with remarkable precision.</p>
+          <div class="about-pillars">
+            <div class="pillar">
+              <h4>🌙 Nakshatras</h4>
+              <p>27 lunar mansions form the foundational matrix of the chakra</p>
+            </div>
+            <div class="pillar">
+              <h4>⚡ Vedha</h4>
+              <p>The piercing mechanism that reveals cosmic influences</p>
+            </div>
+            <div class="pillar">
+              <h4>🔤 Aksharas</h4>
+              <p>Sanskrit phonemes encoded within the chakra's structure</p>
+            </div>
+            <div class="pillar">
+              <h4>📅 Varas</h4>
+              <p>Days of the week integrated into the timing system</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       SARVATOBHADRA CHAKRA INTERACTIVE
+  ═══════════════════════════════════════ -->
+  <section id="chakra-section" class="section-pad">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="eyebrow">The Sacred Matrix</p>
+        <h2>Explore the Chakra</h2>
+        <div class="divider"><div class="divider-gem"></div></div>
+        <p>Click any cell to explore its nakshatra, rashi, tithi or aksharas in detail</p>
+      </div>
+      <div class="chakra-layout reveal">
+        <!-- Grid -->
+        <div class="chakra-grid-wrap">
+          <div class="chakra-outer-border">
+            <div class="chakra-corner-ornament tl"></div>
+            <div class="chakra-corner-ornament tr"></div>
+            <div class="chakra-corner-ornament bl"></div>
+            <div class="chakra-corner-ornament br"></div>
+            <div class="sbc-grid-9" id="sbc-grid"></div>
+          </div>
+          <div class="chakra-legend">
+            <div class="legend-item"><div class="legend-dot" style="background:#072030;border:1px solid #5DD4E8"></div>Nakshatra</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#063A28;border:1px solid #4ECBA5"></div>Vowel Corner</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#2A1A06;border:1px solid #E8A84B"></div>Akshara</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#1A0C38;border:1px solid #C4AAEE"></div>Rashi / Vowel</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#38062A;border:1px solid #E87BBB"></div>Rikta Tithi</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#2A2410;border:1px solid #F5E098"></div>Poorna / Nanda</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#0E2A08;border:1px solid #90D460"></div>Jaya / Bhadra</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#063824;border:1px solid rgba(200,146,42,0.6)"></div>Center Vowels</div>
+          </div>
+        </div>
+        <!-- Detail Panel -->
+        <div class="chakra-detail-panel">
+          <div class="detail-card" id="chakra-detail">
+            <div class="detail-placeholder">
+              <span class="placeholder-icon">🔯</span>
+              <p>Click any cell in the Sarvatobhadra Chakra to explore its significance — nakshatra qualities, ruling deity, planetary lord, and Vedic meaning.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       GURUJI SECTION
+  ═══════════════════════════════════════ -->
+  <section id="guruji" class="section-pad">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="eyebrow">The Teacher</p>
+        <h2>About Guruji</h2>
+        <div class="divider"><div class="divider-gem"></div></div>
+      </div>
+      <div class="guruji-inner">
+        <div class="guruji-portrait reveal">
+          <div class="portrait-frame">
+            <div class="portrait-placeholder">
+              🧘
+              <span>Photo Coming Soon</span>
+            </div>
+          </div>
+          <div class="guruji-credentials">
+            <div class="credential-badge">
+              <span class="badge-icon">🎓</span>
+              <span>30+ Years of Vedic Scholarship</span>
+            </div>
+            <div class="credential-badge">
+              <span class="badge-icon">📚</span>
+              <span>Classical Sanskrit & Jyotisha Training</span>
+            </div>
+            <div class="credential-badge">
+              <span class="badge-icon">🌍</span>
+              <span>International Consultations & Lectures</span>
+            </div>
+            <div class="credential-badge">
+              <span class="badge-icon">✍️</span>
+              <span>Author & Researcher in SBC Tradition</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="guruji-bio reveal">
+          <span class="title-tag">Jyotisha Acharya</span>
+          <h2>Guruji's Journey</h2>
+          <div class="divider" style="justify-content:flex-start"><div class="divider-gem"></div></div>
+          <div class="quote">
+            "The Sarvatobhadra Chakra is not merely a predictive tool — it is a mirror of cosmic consciousness, reflecting the divine order that permeates all existence."
+          </div>
+          <p>Guruji's journey with the Sarvatobhadra Chakra began under the tutelage of his own Guru in the sacred tradition of classical Jyotisha. Having immersed himself in the primary Sanskrit texts — including the Brihat Samhita, Sarvatobhadra texts, and rare manuscript traditions — he brings decades of rigorous scholarship to every consultation.</p>
+          <p>What distinguishes Guruji's approach is his rare ability to bridge the precision of classical methodology with compassionate, practical guidance for modern seekers. He neither sensationalizes predictions nor reduces this profound science to mere fortune-telling, but uses it as a tool for genuine self-understanding and life navigation.</p>
+          <p>Having consulted thousands of individuals across India and internationally, Guruji continues to research, teach, and share the living tradition of Sarvatobhadra Chakra through consultations, workshops, and his growing library of articles and video lectures.</p>
+          <div class="expertise-tags">
+            <span class="tag">Sarvatobhadra Chakra</span>
+            <span class="tag">Nakshatra Analysis</span>
+            <span class="tag">Muhurta</span>
+            <span class="tag">Prashna Jyotisha</span>
+            <span class="tag">Health Prediction</span>
+            <span class="tag">Vedic Astrology</span>
+            <span class="tag">Annual Forecast</span>
+            <span class="tag">Sanskrit</span>
+          </div>
+          <div style="margin-top:32px">
+            <button class="btn-primary" onclick="document.getElementById('consultation').scrollIntoView({behavior:'smooth'})">
+              <span>Consult Guruji</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       ARTICLES SECTION
+  ═══════════════════════════════════════ -->
+  <section id="articles" class="section-pad">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="eyebrow">Knowledge Library</p>
+        <h2>Articles & Insights</h2>
+        <div class="divider"><div class="divider-gem"></div></div>
+        <p>Deep explorations of the Sarvatobhadra Chakra, its techniques, and its application in everyday life</p>
+      </div>
+      <div class="articles-grid" id="articles-grid">
+        <!-- Rendered by JS -->
+      </div>
+      <div class="articles-cta reveal">
+        <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:16px">More articles coming soon. Subscribe for updates.</p>
+        <button class="btn-secondary" onclick="document.getElementById('consultation').scrollIntoView({behavior:'smooth'})">
+          Have a Question? Book a Consultation
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Article Modal -->
+  <div class="modal-overlay" id="article-modal" onclick="if(event.target===this)closeArticle()">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeArticle()">✕</button>
+      <p class="modal-meta" id="modal-meta"></p>
+      <h2 id="modal-title"></h2>
+      <div class="divider" style="justify-content:flex-start;margin:16px 0 24px"><div class="divider-gem"></div></div>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       VIDEOS SECTION
+  ═══════════════════════════════════════ -->
+  <section id="videos" class="section-pad">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="eyebrow">Video Library</p>
+        <h2>Video Lectures</h2>
+        <div class="divider"><div class="divider-gem"></div></div>
+        <p>In-depth video teachings on the Sarvatobhadra Chakra, nakshatra analysis, and Vedic astrology techniques</p>
+      </div>
+      <div class="videos-grid" id="videos-grid">
+        <!-- Rendered by JS -->
+      </div>
+      <div class="articles-cta reveal" style="margin-top:48px">
+        <a href="https://youtube.com/@sarvatobhadrachakra" target="_blank" rel="noopener" class="btn-secondary" style="display:inline-block;padding:14px 32px">
+          🎬 Subscribe on YouTube
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Video Modal -->
+  <div class="video-modal-embed" id="video-modal">
+    <div class="video-embed-inner">
+      <button class="video-embed-close" onclick="closeVideo()">✕ Close</button>
+      <iframe id="video-iframe" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       CONSULTATION SECTION
+  ═══════════════════════════════════════ -->
+  <section id="consultation" class="section-pad">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="eyebrow">Begin Your Journey</p>
+        <h2>Book a Consultation</h2>
+        <div class="divider"><div class="divider-gem"></div></div>
+        <p>Receive personalized guidance rooted in the ancient wisdom of the Sarvatobhadra Chakra</p>
+      </div>
+      <div class="consultation-inner">
+        <!-- Services -->
+        <div class="consult-info reveal">
+          <h2>Our Services</h2>
+          <p class="intro">Each consultation is a sacred exchange — an opportunity to receive clarity, direction, and insight for your unique life journey.</p>
+          <div class="service-list">
+            <div class="service-item">
+              <span class="service-icon">🔯</span>
+              <div>
+                <h4>Birth Chart SBC Analysis</h4>
+                <p>A comprehensive reading of your natal chart through the Sarvatobhadra Chakra, revealing your life's themes, strengths, and timing cycles.</p>
+              </div>
+            </div>
+            <div class="service-item">
+              <span class="service-icon">🕐</span>
+              <div>
+                <h4>Muhurta Consultation</h4>
+                <p>Selection of auspicious timings for marriages, business inaugurations, travel, property purchase, and other important events.</p>
+              </div>
+            </div>
+            <div class="service-item">
+              <span class="service-icon">❓</span>
+              <div>
+                <h4>Prashna — Horary Reading</h4>
+                <p>Answers to pressing specific questions — career, health, relationships, legal matters — through the SBC prashna method.</p>
+              </div>
+            </div>
+            <div class="service-item">
+              <span class="service-icon">📅</span>
+              <div>
+                <h4>Annual Forecast</h4>
+                <p>A detailed year-ahead reading using the Varshaphal and SBC transit analysis, with month-by-month guidance.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Booking Form -->
+        <div class="reveal">
+          <div class="booking-form">
+            <h3>Request Consultation</h3>
+            <p class="form-subtitle">Fill in your details and we will confirm your appointment within 24 hours.</p>
+            <form id="booking-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Full Name *</label>
+                  <input type="text" id="booking-name" required placeholder="Your full name">
+                </div>
+                <div class="form-group">
+                  <label>Phone / WhatsApp *</label>
+                  <input type="tel" id="booking-phone" required placeholder="+91 98765 43210">
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Email Address *</label>
+                <input type="email" id="booking-email" required placeholder="your@email.com">
+              </div>
+              <div class="form-group">
+                <label>Consultation Type *</label>
+                <select id="booking-type" required>
+                  <option value="">Select a service...</option>
+                  <option>Birth Chart SBC Analysis</option>
+                  <option>Muhurta Consultation</option>
+                  <option>Prashna — Horary Reading</option>
+                  <option>Annual Forecast</option>
+                  <option>Health Analysis</option>
+                  <option>Other / Discussion</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Preferred Date *</label>
+                  <input type="date" id="booking-date" required>
+                </div>
+                <div class="form-group">
+                  <label>Preferred Time</label>
+                  <select id="booking-time">
+                    <option>Morning (9–12 AM)</option>
+                    <option>Afternoon (12–4 PM)</option>
+                    <option>Evening (4–7 PM)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Date of Birth (for chart analysis)</label>
+                <input type="date" id="booking-dob" placeholder="Your date of birth">
+              </div>
+              <div class="form-group">
+                <label>Your Question / Message</label>
+                <textarea id="booking-message" placeholder="Briefly describe what you'd like to explore in this consultation..."></textarea>
+              </div>
+              <button type="submit" class="form-submit">Request Appointment</button>
+            </form>
+            <div class="form-success" id="form-success">
+              <div class="success-icon">🙏</div>
+              <h4>Consultation Requested!</h4>
+              <p>Thank you for reaching out. Guruji's team will confirm your appointment within 24 hours via email or WhatsApp.</p>
+              <p style="margin-top:8px;font-family:var(--font-elegant);font-style:italic;color:var(--text-secondary)">॥ Om Tat Sat ॥</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════ -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="brand-logo">
+            <img src="images/SBC_Logo.png" alt="SBC Logo">
+            <div class="nav-logo-text">
+              <span class="name" style="font-family:var(--font-heading);font-size:1rem;color:var(--gold-light);font-weight:700;letter-spacing:0.05em">Sarvatobhadra Chakra</span>
+              <span class="sub" style="font-family:var(--font-heading);font-size:0.6rem;letter-spacing:0.2em;color:var(--text-secondary);text-transform:uppercase">Research • Consultation • Tradition</span>
+            </div>
+          </div>
+          <p>Preserving and sharing the ancient wisdom of the Sarvatobhadra Chakra for seekers worldwide — bridging timeless Vedic tradition with compassionate modern guidance.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="#about-sbc">About SBC</a></li>
+            <li><a href="#guruji">About Guruji</a></li>
+            <li><a href="#articles">Articles</a></li>
+            <li><a href="#videos">Videos</a></li>
+            <li><a href="#consultation">Book Consultation</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#consultation">Birth Chart Analysis</a></li>
+            <li><a href="#consultation">Muhurta Consultation</a></li>
+            <li><a href="#consultation">Prashna Reading</a></li>
+            <li><a href="#consultation">Annual Forecast</a></li>
+            <li><a href="#consultation">Health Analysis</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="https://youtube.com/@sarvatobhadrachakra" target="_blank">YouTube Channel</a></li>
+            <li><a href="#" onclick="showAdmin();return false">Admin Portal</a></li>
+            <li><a href="mailto:info@sarvatobhadrachakra.com">Email Us</a></li>
+            <li><a href="https://wa.me/919876543210" target="_blank">WhatsApp</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Sarvatobhadra Chakra Research. All rights reserved.</p>
+        <p class="footer-mantra">॥ सर्वतो भद्रं भवतु ॥ — May auspiciousness prevail in all directions</p>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /main-site -->
+
+<script src="js/main.js"></script>
+<script>
+// ════════════════════════════════════════
+//  SARVATOBHADRA CHAKRA — Interactive Grid
+// ════════════════════════════════════════
+
+const NAKSHATRA_DATA = {
+  'Ashwini':      { num:1,  icon:'🐴', ruler:'Ketu',    deity:'Ashwini Kumaras', symbol:'Horse head',    guna:'Rajas',  quality:'Movable',   meaning:'Born of a horse; swiftness and healing',   aksharas:'Chu, Che, Cho, La' },
+  'Bharani':      { num:2,  icon:'🔺', ruler:'Venus',   deity:'Yama',            symbol:'Yoni',          guna:'Rajas',  quality:'Fixed',     meaning:'The bearer; karma and transformation',     aksharas:'Li, Lu, Le, Lo' },
+  'Krittika':     { num:3,  icon:'🔥', ruler:'Sun',     deity:'Agni',            symbol:'Flame/razor',   guna:'Rajas',  quality:'Mixed',     meaning:'The cutter; purification through fire',   aksharas:'A, I, U, E' },
+  'Rohini':       { num:4,  icon:'🌿', ruler:'Moon',    deity:'Brahma/Prajapati',symbol:'Cart/temple',   guna:'Rajas',  quality:'Fixed',     meaning:'The red one; growth, fertility, beauty',  aksharas:'O, Va, Vi, Vu' },
+  'Mrigashira':   { num:5,  icon:'🦌', ruler:'Mars',    deity:'Soma/Moon',       symbol:'Deer head',     guna:'Tamas',  quality:'Soft',      meaning:'Deer head; seeking, searching, gentle',   aksharas:'Ve, Vo, Ka, Ki' },
+  'Ardra':        { num:6,  icon:'💧', ruler:'Rahu',    deity:'Rudra',           symbol:'Teardrop/gem',  guna:'Tamas',  quality:'Sharp',     meaning:'The moist one; storm, destruction, renewal',aksharas:'Ku, Gha, Na, Chha' },
+  'Punarvasu':    { num:7,  icon:'♊', ruler:'Jupiter', deity:'Aditi',           symbol:'Quiver/bow',    guna:'Sattva', quality:'Movable',   meaning:'Return of the light; renewal, prosperity', aksharas:'Ke, Ko, Ha, Hi' },
+  'Pushya':       { num:8,  icon:'🌸', ruler:'Saturn',  deity:'Brihaspati',      symbol:'Flower/cow udder',guna:'Tamas', quality:'Fixed',    meaning:'The nourisher; most auspicious nakshatra', aksharas:'Hu, He, Ho, Da' },
+  'Ashlesha':     { num:9,  icon:'🐍', ruler:'Mercury', deity:'Nagas/Sarpas',    symbol:'Coiled serpent',guna:'Sattva', quality:'Sharp',     meaning:'The embrace; kundalini, mystical power',  aksharas:'Di, Du, De, Do' },
+  'Magha':        { num:10, icon:'👑', ruler:'Ketu',    deity:'Pitrs/Ancestors', symbol:'Throne/palanquin',guna:'Tamas',quality:'Fixed',    meaning:'The mighty; ancestors, royalty, authority',aksharas:'Ma, Mi, Mu, Me' },
+  'Purva Phalguni':{ num:11,icon:'🛋️', ruler:'Venus',   deity:'Bhaga',           symbol:'Front legs of bed',guna:'Rajas',quality:'Fixed',  meaning:'The former reddish one; rest, pleasure',  aksharas:'Mo, Ta, Ti, Tu' },
+  'Uttara Phalguni':{ num:12,icon:'🌞',ruler:'Sun',     deity:'Aryaman',         symbol:'Back legs of bed',guna:'Rajas', quality:'Fixed',   meaning:'The latter reddish; patronage, contracts', aksharas:'Te, To, Pa, Pi' },
+  'Hasta':        { num:13, icon:'✋', ruler:'Moon',    deity:'Savitur/Sun',     symbol:'Hand/fist',     guna:'Rajas',  quality:'Light',     meaning:'The hand; dexterity, craft, cleverness',  aksharas:'Pu, Sha, Na, Tha' },
+  'Chitra':       { num:14, icon:'💎', ruler:'Mars',    deity:'Vishwakarma/Tvashtr',symbol:'Pearl/gem',  guna:'Tamas',  quality:'Soft',      meaning:'The bright one; beauty, creativity, art', aksharas:'Pe, Po, Ra, Ri' },
+  'Swati':        { num:15, icon:'🌬️', ruler:'Rahu',    deity:'Vayu/Wind god',   symbol:'Coral/sword',   guna:'Tamas',  quality:'Movable',   meaning:'The sword; independence, flexibility',    aksharas:'Ru, Re, Ro, Ta' },
+  'Vishakha':     { num:16, icon:'⚖️', ruler:'Jupiter', deity:'Indra-Agni',      symbol:'Potter\'s wheel',guna:'Rajas', quality:'Mixed',     meaning:'The forked branch; ambition, achievement',aksharas:'Ti, Tu, Te, To' },
+  'Anuradha':     { num:17, icon:'🌺', ruler:'Saturn',  deity:'Mitra',           symbol:'Lotus/staff',   guna:'Tamas',  quality:'Soft',      meaning:'The disciple of Radha; devotion, friendship',aksharas:'Na, Ni, Nu, Ne' },
+  'Jyeshtha':     { num:18, icon:'🌂', ruler:'Mercury', deity:'Indra',           symbol:'Circular amulet',guna:'Sattva',quality:'Sharp',    meaning:'The elder; authority, seniority, pride',  aksharas:'No, Ya, Yi, Yu' },
+  'Moola':        { num:19, icon:'🌿', ruler:'Ketu',    deity:'Nirriti',         symbol:'Root/bunch of roots',guna:'Tamas',quality:'Sharp', meaning:'The root; investigation, destruction, healing',aksharas:'Ye, Yo, Ba, Bi' },
+  'Purva Ashadha':{ num:20, icon:'🌊', ruler:'Venus',   deity:'Apas/Water',      symbol:'Elephant tusk/fan',guna:'Rajas',quality:'Fixed',  meaning:'The early victory; invincible, purification',aksharas:'Bu, Dha, Pha, Dha' },
+  'Uttara Ashadha':{ num:21,icon:'🏆', ruler:'Sun',     deity:'Vishwadevas',     symbol:'Elephant tusk/plank',guna:'Rajas',quality:'Fixed', meaning:'The latter victory; irresistible, righteous',aksharas:'Be, Bo, Ja, Ji' },
+  'Shravana':     { num:22, icon:'👂', ruler:'Moon',    deity:'Vishnu',          symbol:'Three footprints/ear',guna:'Rajas',quality:'Movable','meaning':'The ear/listening; learning, connection', aksharas:'Khi, Khu, Khe, Kho' },
+  'Dhanishtha':   { num:23, icon:'🥁', ruler:'Mars',    deity:'Eight Vasus',     symbol:'Drum/flute',    guna:'Tamas',  quality:'Movable',   meaning:'The wealthy one; music, prosperity, abundance',aksharas:'Ga, Gi, Gu, Ge' },
+  'Shatabhisha':  { num:24, icon:'💊', ruler:'Rahu',    deity:'Varuna',          symbol:'Empty circle',  guna:'Tamas',  quality:'Movable',   meaning:'Hundred physicians; healing, secrets, isolation',aksharas:'Go, Sa, Si, Su' },
+  'Purva Bhadra': { num:25, icon:'⚡', ruler:'Jupiter', deity:'Aja Ekapada',     symbol:'Swords/two front legs of funeral cot',guna:'Sattva',quality:'Fixed','meaning':'The former auspicious one; intense, fiery transformation',aksharas:'Se, So, Da, Di' },
+  'Uttara Bhadra':{ num:26, icon:'🐍', ruler:'Saturn',  deity:'Ahir Budhnya',    symbol:'Back legs of funeral cot/snake',guna:'Tamas',quality:'Fixed','meaning':'The latter auspicious one; depth, wisdom, serpent power',aksharas:'Du, Tha, Jha, Na' },
+  'Revati':       { num:27, icon:'🐟', ruler:'Mercury', deity:'Pushan',          symbol:'Fish/drum',     guna:'Sattva', quality:'Soft',      meaning:'The wealthy/prosperous; protection, completion',aksharas:'De, Do, Cha, Chi' },
+  'Abhijit':      { num:28, icon:'⭐', ruler:'Moon',    deity:'Brahma',          symbol:'Jewel/triangle',guna:'Sattva', quality:'Fixed',     meaning:'The victorious one; most auspicious muhurta nakshatra',aksharas:'Special — used in muhurta' },
+};
+
+const RASHI_DATA = {
+  'Aries':'Mesha (♈) — Fiery, cardinal. Ruled by Mars.',
+  'Taurus':'Vrishabha (♉) — Earthy, fixed. Ruled by Venus.',
+  'Gemini':'Mithuna (♊) — Airy, dual. Ruled by Mercury.',
+  'Cancer':'Karka (♋) — Watery, cardinal. Ruled by Moon.',
+  'Leo':'Simha (♌) — Fiery, fixed. Ruled by Sun.',
+  'Virgo':'Kanya (♍) — Earthy, dual. Ruled by Mercury.',
+  'Libra':'Tula (♎) — Airy, cardinal. Ruled by Venus.',
+  'Scorpio':'Vrischika (♏) — Watery, fixed. Ruled by Mars.',
+  'Sagittarius':'Dhanu (♐) — Fiery, dual. Ruled by Jupiter.',
+  'Capricorn':'Makara (♑) — Earthy, cardinal. Ruled by Saturn.',
+  'Aquarius':'Kumbha (♒) — Airy, fixed. Ruled by Saturn.',
+  'Pisces':'Meena (♓) — Watery, dual. Ruled by Jupiter.',
+};
+
+const TITHI_DATA = {
+  'Nanda':  { meaning:'Joy and pleasure — 1st, 6th, 11th lunar day. Favourable for celebrations, new beginnings, pleasurable activities.', days:'Sunday & Tuesday' },
+  'Bhadra': { meaning:'Auspiciousness — 2nd, 7th, 12th lunar day. Good for stable, lasting activities, construction, long-term plans.', days:'Monday & Wednesday' },
+  'Jaya':   { meaning:'Victory — 3rd, 8th, 13th lunar day. Excellent for battles, competition, achieving goals, court matters.', days:'Thursday' },
+  'Rikta':  { meaning:'Empty/Void — 4th, 9th, 14th lunar day. Generally inauspicious; avoid major new beginnings. Good for destructive work.', days:'Friday' },
+  'Poorna': { meaning:'Complete/Full — 5th, 10th, 15th lunar day (Purnima/Amavasya). Auspicious for completion, spiritual practice, worship.', days:'Sunday & Tuesday' },
+};
+
+// ── 7 colour types matching the original image exactly ──
+// CYAN (type-nakshatra / type-vowel-corner) = outer ring, all nakshatras + 4 corner vowels
+// ORANGE (type-akshara) = second ring aksharas — consonants & vowels between nakshatra and rashi rings
+// PURPLE (type-rashi) = third ring — rashis + vowels ai, lu, luu
+// PINK (type-tithi-rikta) = Rikta/Fri cell only
+// LIGHT (type-tithi-light) = Poorna/Sat + Nanda/Sun/Tue — lighter/white-toned
+// GREEN (type-tithi-green) = Jaya/Thu + am + Bhadra/Mon/Wed
+// TEAL-INNER (type-center) = o and au only — distinct inner teal, different from cyan outer
+
+// ROW 1: ALL 9 = CYAN (nakshatras + corner vowels)
+// ROW 2: col1 CYAN, cols2-8 ORANGE, col9 CYAN
+// ROW 3: col1 CYAN, col2 ORANGE, cols3-7 PURPLE, col8 ORANGE, col9 CYAN
+// ROW 4: col1 CYAN, col2 ORANGE, col3 PURPLE, col4 PURPLE, col5 PINK, col6 TEAL-INNER, col7 PURPLE, col8 ORANGE, col9 CYAN
+// ROW 5: col1 CYAN, col2 ORANGE, col3 PURPLE, col4 GREEN, col5 LIGHT, col6 LIGHT, col7 PURPLE, col8 ORANGE, col9 CYAN
+// ROW 6: col1 CYAN, col2 ORANGE, col3 PURPLE, col4 GREEN, col5 GREEN, col6 TEAL-INNER, col7 PURPLE, col8 ORANGE, col9 CYAN
+// ROW 7: col1 CYAN, col2 ORANGE, col3 ORANGE, cols4-7 PURPLE, col8 ORANGE, col9 CYAN
+// ROW 8: col1 CYAN, cols2-8 ORANGE, col9 CYAN
+// ROW 9: ALL 9 = CYAN (nakshatras + corner vowels)
+
+const GRID_CELLS = [
+  // ── ROW 1 ── all CYAN
+  {label:'ii',   type:'vowel-corner', detail:{name:'Vowel ii (ई)', desc:'The long vowel ī — carries the quality of Vishnu, associated with nourishment and sustenance in the aksharas of the chakra.'}},
+  {label:'Dhan', type:'nakshatra',    nakshatra:'Dhanishtha',    sub:'Dhanishtha'},
+  {label:'Sata', type:'nakshatra',    nakshatra:'Shatabhisha',   sub:'Shatabhisha'},
+  {label:'PBha', type:'nakshatra',    nakshatra:'Purva Bhadra',  sub:'Purva Bhadra'},
+  {label:'UBha', type:'nakshatra',    nakshatra:'Uttara Bhadra', sub:'Uttara Bhadra'},
+  {label:'Reva', type:'nakshatra',    nakshatra:'Revati',        sub:'Revati'},
+  {label:'Aswi', type:'nakshatra',    nakshatra:'Ashwini',       sub:'Ashwini'},
+  {label:'Bhar', type:'nakshatra',    nakshatra:'Bharani',       sub:'Bharani'},
+  {label:'a',    type:'vowel-corner', detail:{name:'Vowel a (अ)', desc:'The first vowel — the primordial sound from which all creation emerges. The short \'a\' represents Brahma and the beginning of the alphabet.'}},
+
+  // ── ROW 2 ── CYAN | ORANGE×7 | CYAN
+  {label:'Srav', type:'nakshatra',    nakshatra:'Shravana',      sub:'Shravana'},
+  {label:'rii',  type:'akshara',      detail:{name:'Vowel ṛi (ृ)', desc:'The vocalic ṛ — associated with the sage-seers (Rishis). Appears in the second ring, holding aksharas that influence intellect and wisdom.'}},
+  {label:'g',    type:'akshara',      detail:{name:'Consonant g (ग)', desc:'The voiced velar stop (ga) — associated with Jupiter (Guru). Consonants in this ring connect to planetary influences in vedha analysis.'}},
+  {label:'s',    type:'akshara',      detail:{name:'Consonant s (स)', desc:'The sibilant (sa) — associated with Saturn and the air element. One of the key consonants in name-based vedha analysis.'}},
+  {label:'d',    type:'akshara',      detail:{name:'Consonant d (द)', desc:'The voiced dental stop (da) — associated with Mars. Used in name-based vedha analysis within the SBC system.'}},
+  {label:'ch',   type:'akshara',      detail:{name:'Consonant ch (च)', desc:'The palatal affricate (cha) — associated with the Moon. Carries lunar influence in vedha readings of this ring.'}},
+  {label:'l',    type:'akshara',      detail:{name:'Consonant l (ल)', desc:'The lateral approximant (la) — associated with Venus. Soft sounds like \'l\' carry Venusian qualities of beauty and harmony.'}},
+  {label:'u',    type:'akshara',      detail:{name:'Vowel u (उ)', desc:'The short \'u\' vowel — associated with Shiva and transformation. Holds an important position in the aksharas of the second ring.'}},
+  {label:'Krit', type:'nakshatra',    nakshatra:'Krittika',      sub:'Krittika'},
+
+  // ── ROW 3 ── CYAN | ORANGE | PURPLE×5 | ORANGE | CYAN
+  {label:'Abhi', type:'nakshatra',    nakshatra:'Abhijit',       sub:'Abhijit'},
+  {label:'kh',   type:'akshara',      detail:{name:'Consonant kh (ख)', desc:'The aspirated velar (kha) — the syllable of open sky and space. Kha means \'sky\' in Sanskrit, giving this consonant cosmic spatial significance.'}},
+  {label:'ai',   type:'rashi',        rashi:'',    detail:{name:'Vowel ai (ऐ)', desc:'The diphthong ai — occupies a position in the rashi ring. Connects to Saraswati energy of eloquence and learning in the chakra.'}},
+  {label:'Aq',   type:'rashi',        rashi:'Aquarius',  sub:'Kumbha'},
+  {label:'Pi',   type:'rashi',        rashi:'Pisces',    sub:'Meena'},
+  {label:'Ar',   type:'rashi',        rashi:'Aries',     sub:'Mesha'},
+  {label:'lu',   type:'rashi',        rashi:'',    detail:{name:'Vowel lu (ॢ)', desc:'The vocalic ḷ — a rare Sanskrit vowel in the rashi ring. Represents an extremely subtle vibrational quality in the chakra.'}},
+  {label:'a',    type:'akshara',      detail:{name:'Vowel a — 2nd ring (अ)', desc:'The short \'a\' appears in the second ring — reinforcing its foundational quality as the seed of all sound and creation.'}},
+  {label:'Rohi', type:'nakshatra',    nakshatra:'Rohini',        sub:'Rohini'},
+
+  // ── ROW 4 ── CYAN | ORANGE | PURPLE | PURPLE | PINK | TEAL-INNER | PURPLE | ORANGE | CYAN
+  {label:'USha', type:'nakshatra',    nakshatra:'Uttara Ashadha', sub:'Uttara Ashadha'},
+  {label:'j',    type:'akshara',      detail:{name:'Consonant j (ज)', desc:'The voiced palatal affricate (ja) — carries movement and vitality. Influences matters of travel and change in vedha analysis.'}},
+  {label:'Cp',   type:'rashi',        rashi:'Capricorn', sub:'Makara'},
+  {label:'ah',   type:'rashi',        rashi:'',    detail:{name:'Visarga ah (ः)', desc:'The visarga (ḥ) — a final breath sound in the rashi ring. Carries the quality of release, aspiration, and the out-breath of the cosmos.'}},
+  {label:'Rikta',type:'tithi-rikta',  tithi:'Rikta', sub:'Friday'},
+  {label:'o',    type:'center',       detail:{name:'Vowel o — Bindu (ओ)', desc:'The \'o\' vowel at the heart of the Sarvatobhadra Chakra. The center bindu is the point of creation from which all vedha radiates outward.'}},
+  {label:'Ta',   type:'rashi',        rashi:'Taurus',    sub:'Vrishabha'},
+  {label:'v',    type:'akshara',      detail:{name:'Consonant v (व)', desc:'The labio-dental approximant (va) — associated with Vayu (wind) and Rahu. Carries the quality of air and movement in vedha analysis.'}},
+  {label:'Mrig', type:'nakshatra',    nakshatra:'Mrigashira',    sub:'Mrigashira'},
+
+  // ── ROW 5 ── CYAN | ORANGE | PURPLE | GREEN | LIGHT | LIGHT | PURPLE | ORANGE | CYAN
+  {label:'PSha', type:'nakshatra',    nakshatra:'Purva Ashadha', sub:'Purva Ashadha'},
+  {label:'bh',   type:'akshara',      detail:{name:'Consonant bh (भ)', desc:'The aspirated bilabial (bha) — begins \'Bharat\' and \'Bhava\' (existence). Carries the quality of becoming and manifestation.'}},
+  {label:'Sg',   type:'rashi',        rashi:'Sagittarius', sub:'Dhanu'},
+  {label:'Jaya', type:'tithi-green',  tithi:'Jaya',  sub:'Thursday'},
+  {label:'Poorna',type:'tithi-light', tithi:'Poorna', sub:'Sat'},
+  {label:'Nanda',type:'tithi-light',  tithi:'Nanda',  sub:'Sun · Tue'},
+  {label:'Ge',   type:'rashi',        rashi:'Gemini',    sub:'Mithuna'},
+  {label:'k',    type:'akshara',      detail:{name:'Consonant k (क)', desc:'The voiceless velar stop (ka) — the first consonant of Sanskrit. Represents the beginning of manifested sound.'}},
+  {label:'Ardr', type:'nakshatra',    nakshatra:'Ardra',         sub:'Ardra'},
+
+  // ── ROW 6 ── CYAN | ORANGE | PURPLE | GREEN | GREEN | TEAL-INNER | PURPLE | ORANGE | CYAN
+  {label:'Mool', type:'nakshatra',    nakshatra:'Moola',         sub:'Moola'},
+  {label:'y',    type:'akshara',      detail:{name:'Consonant y (य)', desc:'The palatal approximant (ya) — the semi-vowel of Jupiter. Initiates words meaning \'who\', \'sacrifice\' — carrying qualities of sacred offering.'}},
+  {label:'Sc',   type:'rashi',        rashi:'Scorpio',   sub:'Vrischika'},
+  {label:'am',   type:'tithi-green',  tithi:'Bhadra', sub:'Mon · Wed', detail:{name:'Anusvara am + Bhadra tithi', desc:'The anusvara (ṁ) and Bhadra tithi share this green cell. The humming primordial sound \'Om\' and the auspiciousness of Bhadra days converge here.'}},
+  {label:'Bhadra',type:'tithi-green', tithi:'Bhadra', sub:'Mon · Wed'},
+  {label:'au',   type:'center',       detail:{name:'Vowel au — Inner (औ)', desc:'The diphthong au — the most expanded Sanskrit vowel. Represents Shiva in his all-pervading form. This inner teal cell mirrors \'o\' across the center.'}},
+  {label:'Cn',   type:'rashi',        rashi:'Cancer',    sub:'Karka'},
+  {label:'h',    type:'akshara',      detail:{name:'Consonant h (ह)', desc:'The glottal fricative (ha) — the last consonant of Sanskrit. \'Ha\' is the seed sound of Shiva and carries the quality of dissolution and completion.'}},
+  {label:'Puna', type:'nakshatra',    nakshatra:'Punarvasu',     sub:'Punarvasu'},
+
+  // ── ROW 7 ── CYAN | ORANGE | ORANGE | PURPLE×4 | ORANGE | CYAN
+  {label:'Jye',  type:'nakshatra',    nakshatra:'Jyeshtha',      sub:'Jyeshtha'},
+  {label:'n',    type:'akshara',      detail:{name:'Consonant n (न)', desc:'The dental nasal (na) — associated with Mercury and intelligence. Carries qualities of the earth element in its subtle form.'}},
+  {label:'e',    type:'akshara',      detail:{name:'Vowel e (ए)', desc:'The \'e\' vowel — associated with Venus and Taurus energy. Soft, receptive, and harmonious — carries creative and artistic qualities.'}},
+  {label:'Li',   type:'rashi',        rashi:'Libra',     sub:'Tula'},
+  {label:'Vi',   type:'rashi',        rashi:'Virgo',     sub:'Kanya'},
+  {label:'Le',   type:'rashi',        rashi:'Leo',       sub:'Simha'},
+  {label:'luu',  type:'rashi',        rashi:'',    detail:{name:'Vowel luu (ॣ)', desc:'The long vocalic ḷ — an extremely rare Sanskrit vowel. Its presence in the rashi ring represents the most subtle levels of vibrational influence.'}},
+  {label:'d',    type:'akshara',      detail:{name:'Consonant d — lower (द)', desc:'The voiced dental (da) — appears again in row 7. Reinforces Martian qualities and dynamic, cutting energy in this zone of the chakra.'}},
+  {label:'Push', type:'nakshatra',    nakshatra:'Pushya',        sub:'Pushya'},
+
+  // ── ROW 8 ── CYAN | ORANGE×7 | CYAN
+  {label:'Anu',  type:'nakshatra',    nakshatra:'Anuradha',      sub:'Anuradha'},
+  {label:'ri',   type:'akshara',      detail:{name:'Vowel ri (ृ)', desc:'The short vocalic r̥ — the seed sound of the Rishis (sages). Carries divine wisdom, intuition, and the inner fire of tapas.'}},
+  {label:'t',    type:'akshara',      detail:{name:'Consonant t (त)', desc:'The voiceless dental stop (ta) — associated with Saturn and discipline. Carries the quality of law, order, and measured time.'}},
+  {label:'r',    type:'akshara',      detail:{name:'Consonant r (र)', desc:'The trill/flap (ra) — the seed sound of the Sun and fire. Appears in words for radiance (ravi) and passion throughout Sanskrit.'}},
+  {label:'p',    type:'akshara',      detail:{name:'Consonant p (प)', desc:'The voiceless bilabial stop (pa) — associated with Venus and water. Begins words for nourishment (pana), protection (pala), and the sacred (puja).'}},
+  {label:'t~',   type:'akshara',      detail:{name:'Consonant tha (थ)', desc:'The aspirated dental (tha) — carries the quality of expansion beyond normal limits. Associated with Jupiter\'s expansive quality.'}},
+  {label:'m',    type:'akshara',      detail:{name:'Consonant m (म)', desc:'The bilabial nasal (ma) — the seed of the Moon and mind. Begins words for mother (matru), mind (manas), and greatness (maha).'}},
+  {label:'uu',   type:'akshara',      detail:{name:'Vowel uu (ऊ)', desc:'The long \'ū\' vowel — deep, resonant, and associated with Shiva. The long form amplifies the transformative quality of the short \'u\'.'}},
+  {label:'Asre', type:'nakshatra',    nakshatra:'Ashlesha',      sub:'Ashlesha'},
+
+  // ── ROW 9 ── ALL CYAN
+  {label:'i',    type:'vowel-corner', detail:{name:'Vowel i (इ)', desc:'The short \'i\' vowel — associated with Vishnu and preservation. Carries the quality of the individual self (jiva) seeking union with the universal.'}},
+  {label:'Visa', type:'nakshatra',    nakshatra:'Vishakha',      sub:'Vishakha'},
+  {label:'Swat', type:'nakshatra',    nakshatra:'Swati',         sub:'Swati'},
+  {label:'Chit', type:'nakshatra',    nakshatra:'Chitra',        sub:'Chitra'},
+  {label:'Hast', type:'nakshatra',    nakshatra:'Hasta',         sub:'Hasta'},
+  {label:'UPha', type:'nakshatra',    nakshatra:'Uttara Phalguni', sub:'Uttara Phalguni'},
+  {label:'PPha', type:'nakshatra',    nakshatra:'Purva Phalguni',  sub:'Purva Phalguni'},
+  {label:'Magh', type:'nakshatra',    nakshatra:'Magha',         sub:'Magha'},
+  {label:'aa',   type:'vowel-corner', detail:{name:'Vowel aa (आ)', desc:'The long \'ā\' vowel — the primordial, extended sound. Represents Shakti, the divine feminine principle, and the expansive quality of all creation.'}},
+];
+
+function buildChakraGrid() {
+  const grid = document.getElementById('sbc-grid');
+  if (!grid) return;
+  GRID_CELLS.forEach((cell, idx) => {
+    const div = document.createElement('div');
+    const typeClass = 'type-' + cell.type;
+    div.className = 'sbc-cell ' + typeClass;
+    div.setAttribute('data-idx', idx);
+    const labelLines = cell.label.split('\n');
+    div.innerHTML = `<span class="cell-main">${labelLines.join('<br>')}</span>${cell.sub ? `<span class="cell-sub">${cell.sub}</span>` : ''}`;
+    div.addEventListener('click', () => showChakraDetail(cell, div));
+    grid.appendChild(div);
+  });
+}
+
+function showChakraDetail(cell, el) {
+  document.querySelectorAll('.sbc-cell').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  const panel = document.getElementById('chakra-detail');
+  if (!panel) return;
+
+  if (cell.type === 'nakshatra' && cell.nakshatra) {
+    const n = NAKSHATRA_DATA[cell.nakshatra];
+    if (!n) return;
+    panel.innerHTML = `
+      <div class="detail-header">
+        <span class="detail-icon">${n.icon}</span>
+        <div class="detail-number">Nakshatra ${n.num} of 27</div>
+        <div class="detail-name">${cell.nakshatra}</div>
+        <div class="detail-sanskrit">${n.symbol}</div>
+      </div>
+      <div class="detail-body">
+        <div class="detail-row"><span class="detail-label">Ruler</span><span class="detail-value">${n.ruler}</span></div>
+        <div class="detail-row"><span class="detail-label">Deity</span><span class="detail-value">${n.deity}</span></div>
+        <div class="detail-row"><span class="detail-label">Symbol</span><span class="detail-value">${n.symbol}</span></div>
+        <div class="detail-row"><span class="detail-label">Guna</span><span class="detail-value">${n.guna}</span></div>
+        <div class="detail-row"><span class="detail-label">Quality</span><span class="detail-value">${n.quality}</span></div>
+        <div class="detail-row"><span class="detail-label">Aksharas</span><span class="detail-value">${n.aksharas}</span></div>
+      </div>
+      <div class="detail-meaning">${n.meaning}</div>`;
+
+  } else if (cell.type === 'rashi' && cell.rashi && RASHI_DATA[cell.rashi]) {
+    const rashiIcons = {Aries:'♈',Taurus:'♉',Gemini:'♊',Cancer:'♋',Leo:'♌',Virgo:'♍',Libra:'♎',Scorpio:'♏',Sagittarius:'♐',Capricorn:'♑',Aquarius:'♒',Pisces:'♓'};
+    panel.innerHTML = `
+      <div class="detail-header">
+        <span class="detail-icon">${rashiIcons[cell.rashi] || '♈'}</span>
+        <div class="detail-number">Rashi (Zodiac Sign)</div>
+        <div class="detail-name">${cell.rashi}</div>
+        <div class="detail-sanskrit">${cell.sub || ''}</div>
+      </div>
+      <div class="detail-body">
+        <div class="detail-row"><span class="detail-label">Details</span><span class="detail-value">${RASHI_DATA[cell.rashi]}</span></div>
+        <div class="detail-row"><span class="detail-label">In SBC</span><span class="detail-value">Rashis occupy the third ring of the chakra. Transiting planets in a rashi create vedha with the nakshatras connected to that rashi position, influencing all matters signified by those nakshatras.</span></div>
+      </div>`;
+
+  } else if (cell.tithi && (cell.type === 'tithi-rikta' || cell.type === 'tithi-light' || cell.type === 'tithi-green')) {
+    const t = TITHI_DATA[cell.tithi];
+    if (!t) return;
+    const icons = {Nanda:'🌙', Bhadra:'✨', Jaya:'⚔️', Rikta:'🌑', Poorna:'🌕'};
+    panel.innerHTML = `
+      <div class="detail-header">
+        <span class="detail-icon">${icons[cell.tithi] || '🌙'}</span>
+        <div class="detail-number">Tithi Group</div>
+        <div class="detail-name">${cell.tithi} Tithi</div>
+        <div class="detail-sanskrit">${t.days}</div>
+      </div>
+      <div class="detail-body">
+        <div class="detail-row"><span class="detail-label">Associated Days</span><span class="detail-value">${t.days}</span></div>
+        <div class="detail-row"><span class="detail-label">Nature</span><span class="detail-value">${t.meaning}</span></div>
+        <div class="detail-row"><span class="detail-label">In SBC</span><span class="detail-value">When a planet transits and creates vedha on a tithi cell, the quality of that tithi influences the outcome — Jaya tithis amplify victory, Rikta tithis signal caution, Poorna tithis bring completion.</span></div>
+      </div>`;
+
+  } else if (cell.detail) {
+    const typeLabels = { 'center':'Bindu — Center', 'vowel-corner':'Corner Vowel', 'akshara':'Akshara (Second Ring)', 'rashi':'Rashi Ring Vowel' };
+    const typeIcons  = { 'center':'🕉️', 'vowel-corner':'🔤', 'akshara':'📿', 'rashi':'🔠' };
+    panel.innerHTML = `
+      <div class="detail-header">
+        <span class="detail-icon">${typeIcons[cell.type] || '📿'}</span>
+        <div class="detail-number">${typeLabels[cell.type] || 'Akshara'}</div>
+        <div class="detail-name">${cell.detail.name}</div>
+      </div>
+      <div class="detail-body">
+        <div class="detail-row"><span class="detail-label">Significance</span><span class="detail-value">${cell.detail.desc}</span></div>
+        ${cell.type === 'center' ? `<div class="detail-row"><span class="detail-label">Vedha</span><span class="detail-value">The center of the SBC is the bindu — the cosmic point from which all vedha lines radiate. A planet near or aspecting the center creates influence across the entire chakra simultaneously.</span></div>` : ''}
+        ${cell.type === 'akshara' ? `<div class="detail-row"><span class="detail-label">In SBC</span><span class="detail-value">Aksharas in the second ring are used for name-based vedha analysis. The first letter of a person's name — mapped to its akshara — reveals which ring cells are sensitive to planetary vedha for that individual.</span></div>` : ''}
+      </div>`;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', buildChakraGrid);
+</script>
+</body>
+</html>
