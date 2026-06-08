@@ -138,24 +138,12 @@
     }
     .videos-grid-full {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-    /* Shorts get narrower columns — 4 per row */
-    .videos-grid-full.has-shorts {
       grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
     }
-    /* Mixed grid — shorts column narrower */
-    @media (max-width: 1100px) {
-      .videos-grid-full, .videos-grid-full.has-shorts {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    @media (max-width: 640px) {
-      .videos-grid-full, .videos-grid-full.has-shorts {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
+    @media (max-width: 1100px) { .videos-grid-full { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 768px)  { .videos-grid-full { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px)  { .videos-grid-full { grid-template-columns: repeat(2, 1fr); } }
     .video-card-full {
       background: var(--navy-card);
       border: 1px solid rgba(200,146,42,0.12);
@@ -173,11 +161,8 @@
       background: #000;
       overflow: hidden;
       cursor: pointer;
-      /* Auto-detect: shorts get vertical, regular get horizontal */
+      aspect-ratio: 1/1;  /* Square for all videos */
     }
-    .video-thumb-wrap.horizontal { aspect-ratio: 16/9; }
-    .video-thumb-wrap.vertical   { aspect-ratio: 9/16; max-height: 320px; }
-    .video-thumb-wrap.square     { aspect-ratio: 1/1; }
     .video-thumb-wrap img {
       width: 100%; height: 100%;
       object-fit: cover;
@@ -477,45 +462,36 @@
     }
 
     function renderVideos(videos) {
-      const grid = document.getElementById('videos-grid');
+      const grid  = document.getElementById('videos-grid');
       const count = document.getElementById('videos-count');
       count.textContent = `${videos.length} video${videos.length !== 1 ? 's' : ''}`;
-      if (videos.length === 0) {
-        grid.innerHTML = `<div class="no-results"><div class="icon">🎬</div><p>No videos found. Try a different search or category.</p></div>`;
+      if (!videos.length) {
+        grid.innerHTML = `<div class="no-results"><div class="icon">🎬</div><p>No videos found.</p></div>`;
         return;
       }
-
-      // Check if any shorts in the list
-      const hasShorts = videos.some(v => isShort(v));
-      grid.className = `videos-grid-full${hasShorts ? ' has-shorts' : ''}`;
-
+      grid.className = 'videos-grid-full';
       grid.innerHTML = videos.map(v => {
-        const ytId = v.youtube_id || v.youtubeId || '';
+        const ytId      = v.youtube_id || v.youtubeId || '';
         const safeTitle = v.title.replace(/'/g,"\\'").replace(/"/g,'&quot;');
-        const short = isShort(v);
-        const thumbClass = short ? 'vertical' : 'horizontal';
-        // Shorts use different thumbnail size - mqdefault vs hqdefault
-        const thumbUrl = short
-          ? `https://img.youtube.com/vi/${ytId}/0.jpg`
-          : `https://img.youtube.com/vi/${ytId}/mqdefault.jpg`;
-        const shortBadge = short ? `<span style="position:absolute;top:8px;left:8px;background:rgba(200,146,42,0.9);color:#0A0E1A;font-family:var(--font-heading);font-size:0.6rem;letter-spacing:0.1em;padding:2px 8px;border-radius:2px;font-weight:700">SHORT</span>` : '';
-
+        const short     = isShort(v);
+        const badge     = short ? `<span style="position:absolute;top:6px;left:6px;background:rgba(200,146,42,0.95);color:#0A0E1A;font-family:var(--font-heading);font-size:0.55rem;letter-spacing:0.1em;padding:2px 6px;border-radius:2px;font-weight:700;text-transform:uppercase">Short</span>` : '';
         return `
         <div class="video-card-full">
-          <div class="video-thumb-wrap ${thumbClass}" onclick="openVideo('${ytId}','${safeTitle}','${short}')">
-            <img src="${thumbUrl}" alt="${v.title}" onerror="this.style.background='#111827';this.style.display='none'" style="width:100%;height:100%;object-fit:cover;opacity:0.85;transition:all 0.3s">
+          <div class="video-thumb-wrap" onclick="openVideo('${ytId}','${safeTitle}','${short}')">
+            <img src="https://img.youtube.com/vi/${ytId}/mqdefault.jpg" alt="${v.title}"
+              style="width:100%;height:100%;object-fit:cover;opacity:0.85;transition:opacity 0.3s"
+              onerror="this.style.background='#111827';this.style.display='none'">
             <div class="play-btn-wrap">
               <div class="play-circle">▶</div>
             </div>
-            ${shortBadge}
+            ${badge}
             <span class="video-duration">${v.duration || ''}</span>
           </div>
           <div class="video-info">
             <div class="video-cat">${v.category || 'General'}</div>
             <h3>${v.title}</h3>
-            <p>${v.description || ''}</p>
             <div class="video-meta">
-              <span>${v.views || '0'} views${v.duration ? ' • ' + v.duration : ''}</span>
+              <span>${v.views || '0'} views</span>
               <button class="watch-btn" onclick="openVideo('${ytId}','${safeTitle}','${short}')">Watch →</button>
             </div>
           </div>
