@@ -365,7 +365,6 @@
         <li><a href="articles.html">Articles</a></li>
         <li><a href="videos.html">Videos</a></li>
         <li><a href="#consultation" class="nav-cta">Book Consultation</a></li>
-        <li><a href="#" onclick="showAdmin();return false" style="font-size:0.68rem;opacity:0.5">Admin</a></li>
       </ul>
       <div class="hamburger" id="hamburger">
         <span></span><span></span><span></span>
@@ -381,7 +380,6 @@
     <a href="articles.html">Articles</a>
     <a href="videos.html">Videos</a>
     <a href="#consultation">Book Consultation</a>
-    <a href="#" onclick="showAdmin();return false">Admin Portal</a>
   </div>
 
   <!-- ═══════════════════════════════════════
@@ -588,10 +586,12 @@
       <div class="guruji-inner">
         <div class="guruji-portrait reveal">
           <div class="portrait-frame">
-            <div class="portrait-placeholder">
-              🧘
-              <span>Photo Coming Soon</span>
-            </div>
+            <img
+              src="images/guruji.jpg"
+              alt="Guruji — Sarvatobhadra Chakra Scholar"
+              onerror="this.parentElement.innerHTML='<div class=\'portrait-placeholder\'>🧘<span>Photo Coming Soon</span></div>'"
+              style="width:100%;display:block;border-radius:2px"
+            >
           </div>
           <div class="guruji-credentials">
             <div class="credential-badge">
@@ -883,8 +883,7 @@
           <h4>Connect</h4>
           <ul>
             <li><a href="https://youtube.com/@sarvatobhadrachakra" target="_blank">YouTube Channel</a></li>
-            <li><a href="#" onclick="showAdmin();return false">Admin Portal</a></li>
-            <li><a href="mailto:info@sarvatobhadrachakra.com">Email Us</a></li>
+            <li><a href="mailto:info@sarvatobhadrachakra.org">Email Us</a></li>
             <li><a href="https://wa.me/919876543210" target="_blank">WhatsApp</a></li>
           </ul>
         </div>

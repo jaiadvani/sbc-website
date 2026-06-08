@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin | Sarvatobhadra Chakra</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/png" href="images/SBC_Logo.png">
+</head>
+<body>
+
+<!-- Login Screen -->
+<div id="login-screen" class="active">
+  <div class="login-box">
+    <img src="images/SBC_Logo.png" alt="SBC Logo">
+    <h2>Admin Portal</h2>
+    <p>Sarvatobhadra Chakra • Secure Access</p>
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" id="admin-user" placeholder="Enter username" autocomplete="off">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="admin-pass" placeholder="Enter password">
+    </div>
+    <div class="login-error" id="login-error"></div>
+    <button class="form-submit" onclick="doLogin()" style="margin-top:16px">Access Portal</button>
+    <p style="margin-top:20px;font-size:0.8rem;color:var(--text-muted)">
+      <a href="index.html" style="color:var(--text-muted)">← Return to Website</a>
+    </p>
+  </div>
+</div>
+
+<!-- Admin Portal -->
+<div id="admin-portal">
+  <div class="admin-header">
+    <h1>🔯 SBC Admin Portal</h1>
+    <div class="admin-header-right">
+      <span style="font-family:var(--font-heading);font-size:0.7rem;color:var(--text-muted);letter-spacing:0.1em">ADMIN</span>
+      <button class="admin-logout" onclick="doLogout()">← Exit to Site</button>
+    </div>
+  </div>
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="admin-nav-item active" data-section="dashboard"><span class="nav-icon">📊</span> Dashboard</div>
+      <div class="admin-nav-item" data-section="articles"><span class="nav-icon">📜</span> Articles</div>
+      <div class="admin-nav-item" data-section="add-article"><span class="nav-icon">✍️</span> Add Article</div>
+      <div class="admin-nav-item" data-section="edit-article" id="nav-edit-article" style="display:none"><span class="nav-icon">✏️</span> Edit Article</div>
+      <div class="admin-nav-item" data-section="videos"><span class="nav-icon">🎬</span> Videos</div>
+      <div class="admin-nav-item" data-section="add-video"><span class="nav-icon">➕</span> Add Video</div>
+      <div class="admin-nav-item" data-section="bookings"><span class="nav-icon">📅</span> Bookings</div>
+    </aside>
+    <main class="admin-content">
+
+      <!-- Dashboard -->
+      <div class="admin-panel active" id="panel-dashboard">
+        <h2>Dashboard Overview</h2>
+        <div class="admin-stats">
+          <div class="stat-card"><span class="stat-number" id="stat-articles">0</span><span class="stat-label">Published Articles</span></div>
+          <div class="stat-card"><span class="stat-number" id="stat-videos">0</span><span class="stat-label">Published Videos</span></div>
+          <div class="stat-card"><span class="stat-number" id="stat-bookings">0</span><span class="stat-label">Total Bookings</span></div>
+          <div class="stat-card"><span class="stat-number" id="stat-pending">0</span><span class="stat-label">Pending Bookings</span></div>
+        </div>
+        <div class="admin-card">
+          <h3 style="font-family:var(--font-heading);font-size:1rem;color:var(--gold-light);margin-bottom:8px">💾 Content saves to database</h3>
+          <p style="font-size:0.85rem;color:var(--text-muted);margin:0">Articles and videos you publish here are saved permanently to PostgreSQL and appear live on the website instantly for all visitors worldwide.</p>
+        </div>
+      </div>
+
+      <!-- Articles -->
+      <div class="admin-panel" id="panel-articles">
+        <h2>Manage Articles</h2>
+        <div class="admin-card" style="overflow-x:auto">
+          <table class="admin-table">
+            <thead><tr><th>Title</th><th>Category</th><th>Published</th><th>Updated</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="articles-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Add Article -->
+      <div class="admin-panel" id="panel-add-article">
+        <h2>Add New Article</h2>
+        <div class="admin-card">
+          <div class="admin-form-row" style="margin-bottom:20px">
+            <div class="form-group" style="margin:0">
+              <label>Article Title *</label>
+              <input type="text" id="new-article-title" placeholder="e.g. Understanding Vedha in SBC">
+            </div>
+            <div class="form-group" style="margin:0">
+              <label>Category *</label>
+              <select id="new-article-category">
+                <option value="Learn SBC">🔯 Learn SBC — Foundations, Techniques & Advanced</option>
+                <option value="Life Applications">🌿 Life Applications — Marriage, Career, Health, Business</option>
+                <option value="Case Studies">👑 Case Studies — Celebrities & Real Life</option>
+              </select>
+            </div>
+          </div>
+          <div class="admin-form-row" style="margin-bottom:20px">
+            <div class="form-group" style="margin:0">
+              <label>Icon</label>
+              <select id="new-article-icon">
+                <option value="🔯">🔯 General SBC</option>
+                <option value="⚡">⚡ Techniques / Vedha</option>
+                <option value="🌿">🌿 Life Applications</option>
+                <option value="👑">👑 Case Studies</option>
+                <option value="⭐">⭐ Nakshatras</option>
+                <option value="🌙">🌙 Tithis / Moon</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin:0">
+              <label>Tags (comma separated)</label>
+              <input type="text" id="new-article-tags" placeholder="e.g. Vedha, Moon, Nakshatra, Transit">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Article Content *</label>
+            <textarea id="new-article-content" style="min-height:320px" placeholder="## H2 heading&#10;### H3 heading&#10;**Bold text**&#10;*Italic text*&#10;[article:slug|Link text] — internal link&#10;[link:https://example.com|Link text] — external link"></textarea>
+          </div>
+          <div class="admin-card" style="background:rgba(200,146,42,0.04);border-color:rgba(200,146,42,0.1);margin-bottom:20px">
+            <p style="font-size:0.78rem;color:var(--text-muted);margin:0;line-height:1.8">
+              <strong style="color:var(--gold-primary)">Category Guide:</strong><br>
+              🔯 <strong style="color:var(--text-secondary)">Learn SBC</strong> — Foundations, nakshatras, vedha, muhurta, prashna, techniques, advanced<br>
+              🌿 <strong style="color:var(--text-secondary)">Life Applications</strong> — Marriage, career, business, health, travel, timing<br>
+              👑 <strong style="color:var(--text-secondary)">Case Studies</strong> — Celebrity charts, historical events, real consultations
+            </p>
+          </div>
+          <button class="btn-primary" onclick="addArticle()"><span>💾 Save as Draft</span></button>
+        </div>
+      </div>
+
+      <!-- Edit Article -->
+      <div class="admin-panel" id="panel-edit-article">
+        <h2>Edit Article</h2>
+        <div class="admin-card">
+          <input type="hidden" id="edit-article-id">
+          <div class="admin-form-row" style="margin-bottom:20px">
+            <div class="form-group" style="margin:0">
+              <label>Article Title *</label>
+              <input type="text" id="edit-article-title" placeholder="Article title">
+            </div>
+            <div class="form-group" style="margin:0">
+              <label>Category *</label>
+              <select id="edit-article-category">
+                <option value="Learn SBC">🔯 Learn SBC</option>
+                <option value="Life Applications">🌿 Life Applications</option>
+                <option value="Case Studies">👑 Case Studies</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Tags (comma separated)</label>
+            <input type="text" id="edit-article-tags" placeholder="e.g. Vedha, Moon, Nakshatra">
+          </div>
+          <div class="form-group">
+            <label>Article Content *</label>
+            <textarea id="edit-article-content" style="min-height:400px"></textarea>
+          </div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <button class="btn-primary" onclick="saveEditArticle('draft')"><span>💾 Save as Draft</span></button>
+            <button class="btn-primary" onclick="saveEditArticle('published')" style="background:linear-gradient(135deg,#4A9B6F,#2D7A52)"><span>🚀 Save & Publish</span></button>
+            <button class="btn-secondary" onclick="switchAdminSection('articles')" style="padding:12px 20px">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Videos -->
+      <div class="admin-panel" id="panel-videos">
+        <h2>Manage Videos</h2>
+        <div class="admin-card" style="overflow-x:auto">
+          <table class="admin-table">
+            <thead><tr><th>Title</th><th>YouTube ID</th><th>Type</th><th>Duration</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="videos-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Add Video -->
+      <div class="admin-panel" id="panel-add-video">
+        <h2>Add YouTube Video</h2>
+        <div class="admin-card">
+          <div class="admin-form-row" style="margin-bottom:20px">
+            <div class="form-group" style="margin:0">
+              <label>Video Title *</label>
+              <input type="text" id="new-video-title" placeholder="Enter video title">
+            </div>
+            <div class="form-group" style="margin:0">
+              <label>YouTube Video ID or URL *</label>
+              <input type="text" id="new-video-id" placeholder="Paste full URL or video ID">
+            </div>
+          </div>
+          <div class="admin-form-row" style="margin-bottom:20px">
+            <div class="form-group" style="margin:0">
+              <label>Duration</label>
+              <input type="text" id="new-video-duration" placeholder="e.g. 32:15 or 0:45 for Shorts">
+            </div>
+            <div class="form-group" style="margin:0">
+              <label>Video Type *</label>
+              <select id="new-video-type">
+                <option value="regular">📹 Regular Video (horizontal)</option>
+                <option value="short">📱 YouTube Short (vertical)</option>
+              </select>
+            </div>
+          </div>
+          <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:20px;line-height:1.7">
+            💡 Regular: youtube.com/watch?v=<strong style="color:var(--gold-light)">ID</strong><br>
+            📱 Shorts: youtube.com/shorts/<strong style="color:var(--gold-light)">ID</strong>
+          </p>
+          <button class="btn-primary" onclick="addVideo()"><span>🎬 Save Video</span></button>
+        </div>
+      </div>
+
+      <!-- Bookings -->
+      <div class="admin-panel" id="panel-bookings">
+        <h2>Consultation Bookings</h2>
+        <div class="admin-card" style="overflow-x:auto">
+          <table class="admin-table">
+            <thead><tr><th>Name</th><th>Service</th><th>Date</th><th>Time</th><th>Location</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody id="bookings-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
