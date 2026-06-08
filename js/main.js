@@ -218,7 +218,8 @@ function doLogin() {
 
   if (user === 'admin' && pass === 'sbc2025') {
     document.getElementById('login-screen').classList.remove('active');
-    document.getElementById('main-site').style.display = 'none';
+    const mainSite = document.getElementById('main-site');
+    if (mainSite) mainSite.style.display = 'none';
     document.getElementById('admin-portal').classList.add('active');
     renderAdminDashboard();
     renderAdminArticles();
@@ -232,7 +233,9 @@ function doLogin() {
 
 function doLogout() {
   document.getElementById('admin-portal').classList.remove('active');
-  document.getElementById('main-site').style.display = 'block';
+  const mainSite = document.getElementById('main-site');
+  if (mainSite) mainSite.style.display = 'block';
+  else window.location.href = 'index.html';
   document.getElementById('admin-user').value = '';
   document.getElementById('admin-pass').value = '';
 }
