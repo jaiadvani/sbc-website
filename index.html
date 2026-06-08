@@ -298,17 +298,27 @@
               <input type="text" id="new-video-title" placeholder="Enter video title">
             </div>
             <div class="form-group" style="margin:0">
-              <label>YouTube Video ID *</label>
-              <input type="text" id="new-video-id" placeholder="e.g. dQw4w9WgXcQ">
+              <label>YouTube Video ID or URL *</label>
+              <input type="text" id="new-video-id" placeholder="e.g. dQw4w9WgXcQ or full URL">
             </div>
           </div>
-          <div class="form-group" style="max-width:200px">
-            <label>Duration</label>
-            <input type="text" id="new-video-duration" placeholder="e.g. 32:15">
+          <div class="admin-form-row" style="margin-bottom:20px">
+            <div class="form-group" style="margin:0">
+              <label>Duration</label>
+              <input type="text" id="new-video-duration" placeholder="e.g. 32:15 or 0:45 for Shorts">
+            </div>
+            <div class="form-group" style="margin:0">
+              <label>Video Type *</label>
+              <select id="new-video-type">
+                <option value="regular">📹 Regular Video (horizontal)</option>
+                <option value="short">📱 YouTube Short (vertical)</option>
+              </select>
+            </div>
           </div>
-          <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:20px">
-            💡 The YouTube ID is the part after <code style="color:var(--gold-light)">?v=</code> in the YouTube URL. 
-            Example: youtube.com/watch?v=<strong style="color:var(--gold-light)">dQw4w9WgXcQ</strong>
+          <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:20px;line-height:1.7">
+            💡 <strong style="color:var(--gold-light)">Regular video URL:</strong> youtube.com/watch?v=<strong style="color:var(--gold-light)">VIDEO_ID</strong><br>
+            📱 <strong style="color:var(--gold-light)">Shorts URL:</strong> youtube.com/shorts/<strong style="color:var(--gold-light)">VIDEO_ID</strong><br>
+            You can paste the full URL — we'll extract the ID automatically.
           </p>
           <button class="btn-primary" onclick="addVideo()"><span>🎬 Save Video</span></button>
         </div>

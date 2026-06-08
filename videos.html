@@ -139,7 +139,22 @@
     .videos-grid-full {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 28px;
+      gap: 24px;
+    }
+    /* Shorts get narrower columns — 4 per row */
+    .videos-grid-full.has-shorts {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    /* Mixed grid — shorts column narrower */
+    @media (max-width: 1100px) {
+      .videos-grid-full, .videos-grid-full.has-shorts {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 640px) {
+      .videos-grid-full, .videos-grid-full.has-shorts {
+        grid-template-columns: 1fr 1fr;
+      }
     }
     .video-card-full {
       background: var(--navy-card);
@@ -155,11 +170,14 @@
     }
     .video-thumb-wrap {
       position: relative;
-      aspect-ratio: 16/9;
       background: #000;
       overflow: hidden;
       cursor: pointer;
+      /* Auto-detect: shorts get vertical, regular get horizontal */
     }
+    .video-thumb-wrap.horizontal { aspect-ratio: 16/9; }
+    .video-thumb-wrap.vertical   { aspect-ratio: 9/16; max-height: 320px; }
+    .video-thumb-wrap.square     { aspect-ratio: 1/1; }
     .video-thumb-wrap img {
       width: 100%; height: 100%;
       object-fit: cover;
@@ -441,6 +459,23 @@
       renderVideos(filtered);
     }
 
+    function isShort(v) {
+      // Detect if video is a Short based on:
+      // 1. type field set to 'short'
+      // 2. youtube_id contains 'shorts' in original URL stored
+      // 3. duration is under 60 seconds e.g. "0:45" or "00:45"
+      if (v.type === 'short') return true;
+      if (v.video_type === 'short') return true;
+      if (v.description && v.description.toLowerCase().includes('#shorts')) return true;
+      // Check duration — if under 1:00 treat as short
+      if (v.duration) {
+        const parts = v.duration.split(':');
+        if (parts.length === 2 && parseInt(parts[0]) === 0) return true;
+        if (parts.length === 3 && parseInt(parts[0]) === 0 && parseInt(parts[1]) === 0) return true;
+      }
+      return false;
+    }
+
     function renderVideos(videos) {
       const grid = document.getElementById('videos-grid');
       const count = document.getElementById('videos-count');
@@ -449,16 +484,30 @@
         grid.innerHTML = `<div class="no-results"><div class="icon">🎬</div><p>No videos found. Try a different search or category.</p></div>`;
         return;
       }
+
+      // Check if any shorts in the list
+      const hasShorts = videos.some(v => isShort(v));
+      grid.className = `videos-grid-full${hasShorts ? ' has-shorts' : ''}`;
+
       grid.innerHTML = videos.map(v => {
         const ytId = v.youtube_id || v.youtubeId || '';
         const safeTitle = v.title.replace(/'/g,"\\'").replace(/"/g,'&quot;');
+        const short = isShort(v);
+        const thumbClass = short ? 'vertical' : 'horizontal';
+        // Shorts use different thumbnail size - mqdefault vs hqdefault
+        const thumbUrl = short
+          ? `https://img.youtube.com/vi/${ytId}/0.jpg`
+          : `https://img.youtube.com/vi/${ytId}/mqdefault.jpg`;
+        const shortBadge = short ? `<span style="position:absolute;top:8px;left:8px;background:rgba(200,146,42,0.9);color:#0A0E1A;font-family:var(--font-heading);font-size:0.6rem;letter-spacing:0.1em;padding:2px 8px;border-radius:2px;font-weight:700">SHORT</span>` : '';
+
         return `
         <div class="video-card-full">
-          <div class="video-thumb-wrap" onclick="openVideo('${ytId}','${safeTitle}')">
-            <img src="https://img.youtube.com/vi/${ytId}/mqdefault.jpg" alt="${v.title}" onerror="this.style.background='#111827';this.style.display='none'">
+          <div class="video-thumb-wrap ${thumbClass}" onclick="openVideo('${ytId}','${safeTitle}','${short}')">
+            <img src="${thumbUrl}" alt="${v.title}" onerror="this.style.background='#111827';this.style.display='none'" style="width:100%;height:100%;object-fit:cover;opacity:0.85;transition:all 0.3s">
             <div class="play-btn-wrap">
               <div class="play-circle">▶</div>
             </div>
+            ${shortBadge}
             <span class="video-duration">${v.duration || ''}</span>
           </div>
           <div class="video-info">
@@ -466,16 +515,28 @@
             <h3>${v.title}</h3>
             <p>${v.description || ''}</p>
             <div class="video-meta">
-              <span>${v.views || '0'} views • ${v.duration || ''}</span>
-              <button class="watch-btn" onclick="openVideo('${ytId}','${safeTitle}')">Watch →</button>
+              <span>${v.views || '0'} views${v.duration ? ' • ' + v.duration : ''}</span>
+              <button class="watch-btn" onclick="openVideo('${ytId}','${safeTitle}','${short}')">Watch →</button>
             </div>
           </div>
         </div>`;
       }).join('');
     }
 
-    function openVideo(youtubeId, title) {
-      document.getElementById('video-iframe').src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1`;
+    function openVideo(youtubeId, title, isShortStr) {
+      const short = isShortStr === 'true';
+      const iframe = document.getElementById('video-iframe');
+      // Shorts need /shorts/ embed path for correct display
+      iframe.src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1`;
+      // Adjust modal size for shorts
+      const inner = document.querySelector('.video-modal-inner');
+      if (short) {
+        inner.style.maxWidth = '400px';
+        iframe.style.aspectRatio = '9/16';
+      } else {
+        inner.style.maxWidth = '920px';
+        iframe.style.aspectRatio = '16/9';
+      }
       document.getElementById('modal-video-title').textContent = title;
       document.getElementById('video-modal').classList.add('open');
       document.body.style.overflow = 'hidden';
@@ -483,6 +544,9 @@
 
     function closeVideo() {
       document.getElementById('video-iframe').src = '';
+      // Reset modal size
+      const inner = document.querySelector('.video-modal-inner');
+      if (inner) { inner.style.maxWidth = '920px'; }
       document.getElementById('video-modal').classList.remove('open');
       document.body.style.overflow = '';
     }

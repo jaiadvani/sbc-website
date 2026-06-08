@@ -396,21 +396,43 @@ async function addArticle() {
 }
 
 async function addVideo() {
-  const title     = document.getElementById('new-video-title').value.trim();
-  const youtubeId = document.getElementById('new-video-id').value.trim();
-  const duration  = document.getElementById('new-video-duration').value.trim();
-  if (!title || !youtubeId) { alert('Please fill in the title and YouTube ID.'); return; }
+  const title    = document.getElementById('new-video-title').value.trim();
+  const rawId    = document.getElementById('new-video-id').value.trim();
+  const duration = document.getElementById('new-video-duration').value.trim();
+  const type     = document.getElementById('new-video-type')?.value || 'regular';
+  if (!title || !rawId) { alert('Please fill in the title and YouTube ID.'); return; }
+
+  // Extract ID from any YouTube URL format
+  let youtubeId = rawId;
+  const watchMatch  = rawId.match(/[?&]v=([^&]+)/);
+  const shortsMatch = rawId.match(/shorts\/([^?&\s]+)/);
+  const beMatch     = rawId.match(/youtu\.be\/([^?&\s]+)/);
+  if (watchMatch)  youtubeId = watchMatch[1];
+  else if (shortsMatch) youtubeId = shortsMatch[1];
+  else if (beMatch) youtubeId = beMatch[1];
+  youtubeId = youtubeId.trim();
+
+  // Auto-detect Short if URL contained /shorts/
+  const isShort = type === 'short' || !!shortsMatch;
 
   const btn = document.querySelector('#panel-add-video .btn-primary');
   if (btn) { btn.disabled = true; btn.querySelector('span').textContent = '⏳ Saving...'; }
   try {
-    await saveVideoToAPI({ title, youtube_id: youtubeId, duration, category: 'Learn SBC', status: 'draft' });
+    await saveVideoToAPI({
+      title,
+      youtube_id: youtubeId,
+      duration,
+      category: 'Learn SBC',
+      description: isShort ? '#shorts' : '',
+      video_type: isShort ? 'short' : 'regular',
+      status: 'draft'
+    });
     document.getElementById('new-video-title').value = '';
     document.getElementById('new-video-id').value = '';
     document.getElementById('new-video-duration').value = '';
     renderAdminVideos(); renderAdminDashboard();
     switchAdminSection('videos');
-    showToast('✅ Video saved as draft! Click Publish to make it live.');
+    showToast(`✅ ${isShort ? 'Short' : 'Video'} saved as draft! Click Publish to make it live.`);
   } catch(e) {
     showToast('❌ Error saving video: ' + e.message);
   } finally {
