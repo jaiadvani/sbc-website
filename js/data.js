@@ -3,7 +3,7 @@
 //  Fetches from live API with robust fallback
 // ============================================================
 
-const API_URL = 'http://y2hewqyikxpxfrml3rsk5i28.72.62.228.4.sslip.io';
+const API_URL = 'https://api.sarvatobhadrachakra.org';
 
 // ── Category icon helper ──
 function categoryIcon(category) {
